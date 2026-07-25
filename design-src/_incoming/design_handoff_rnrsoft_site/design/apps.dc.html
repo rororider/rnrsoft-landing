@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>앱 — rnrsoft</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin:0; background:#0b0c0e; color:#eceef1; font-family:'Pretendard',sans-serif; -webkit-font-smoothing:antialiased; letter-spacing:-0.011em; }
+  a { color:#d8b489; text-decoration:none; }
+  a:hover { color:#e7c9a6; }
+  ::selection { background:rgba(198,154,107,0.28); }
+  @keyframes rnr-drift { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-18px,14px)} }
+  @keyframes rnr-rise { 0%{opacity:0;transform:translateY(20px)} 100%{opacity:1;transform:translateY(0)} }
+</style>
+</helmet>
+
+<div style="position:relative; overflow-x:hidden; min-height:100vh; display:flex; flex-direction:column;">
+
+  <header style="position:sticky; top:0; z-index:50; background:rgba(11,12,14,0.78); backdrop-filter:blur(14px); border-bottom:1px solid rgba(255,255,255,0.08);">
+    <div style="max-width:1120px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:20px 32px;">
+      <a href="index.dc.html" style="display:flex; align-items:center; gap:12px; font-size:17px; font-weight:600; color:#eceef1; letter-spacing:-0.02em;">
+        <svg viewBox="0 0 34 34" width="27" height="27"><rect x="1" y="1" width="32" height="32" rx="10" fill="none" stroke="#c69a6b" stroke-width="1.4"/><g fill="#d8b489"><rect x="9.5" y="13" width="3" height="8" rx="1.5"/><rect x="15.5" y="9" width="3" height="16" rx="1.5"/><rect x="21.5" y="11.5" width="3" height="11" rx="1.5"/></g></svg>
+        rnrsoft
+      </a>
+      <nav style="display:flex; align-items:center; gap:4px;">
+        <a href="apps.dc.html" style="padding:8px 14px; color:#e7ceb0; font-size:14.5px; font-weight:600;" data-en="Apps">앱</a>
+        <a href="about.dc.html" style="padding:8px 14px; color:#9498a1; font-size:14.5px;" data-en="About">소개</a>
+        <a href="contact.dc.html" style="padding:8px 14px; color:#9498a1; font-size:14.5px;" data-en="Contact">문의</a>
+        <button onClick="{{ toggleLang }}" style="margin-left:10px; padding:7px 13px; border-radius:8px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); color:#c8ccd3; font-family:'JetBrains Mono',monospace; font-size:12px; cursor:pointer;">{{ langLabel }}</button>
+      </nav>
+    </div>
+  </header>
+
+  <section style="position:relative; overflow:hidden; flex:1;">
+    <div style="position:absolute; top:-16%; left:50%; transform:translateX(-50%); width:660px; height:440px; background:radial-gradient(circle,rgba(198,154,107,0.1),transparent 64%); filter:blur(40px); animation:rnr-drift 18s ease-in-out infinite;"></div>
+    <div style="position:relative; max-width:1120px; margin:0 auto; padding:104px 32px 100px; width:100%;">
+      <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:44px; max-width:600px;">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.15em; text-transform:uppercase; color:#8a8e97; animation:rnr-rise .6s ease both;">Apps</div>
+        <h1 style="margin:0; font-size:clamp(30px,4.6vw,44px); font-weight:600; letter-spacing:-0.04em; color:#f3f4f6; animation:rnr-rise .7s ease .08s both;"><span data-en="What we ship">지금 만드는 것</span></h1>
+        <p style="margin:0; font-size:16px; line-height:1.72; color:#9498a1; animation:rnr-rise .7s ease .16s both;" data-en="One app in service, more in progress. Each is meant to earn a place on your home screen.">한 개는 서비스 중, 나머지는 준비 중입니다. 하나하나 홈 화면에 남을 만한 앱을 목표로 합니다.</p>
+      </div>
+
+      <a href="https://note.rnrsoft.vip" style="display:flex; gap:30px; padding:32px; border-radius:18px; background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.08); color:inherit; flex-wrap:wrap; transition:border-color .3s, background .3s;" style-hover="border-color:rgba(216,180,137,0.4); background:rgba(216,180,137,0.05);">
+        <div style="width:70px; height:70px; border-radius:18px; background:linear-gradient(155deg,#d8b489,#b98a55); display:flex; align-items:center; justify-content:center; box-shadow:0 16px 34px -14px rgba(185,138,85,0.6); flex:0 0 auto;">
+          <svg viewBox="0 0 34 34" width="38" height="38"><g fill="#221a10"><rect x="9.5" y="13" width="3" height="8" rx="1.5"/><rect x="15.5" y="9" width="3" height="16" rx="1.5"/><rect x="21.5" y="11.5" width="3" height="11" rx="1.5"/></g></svg>
+        </div>
+        <div style="flex:1; min-width:240px;">
+          <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+            <h3 style="margin:0; font-size:20px; font-weight:600; color:#f3f4f6;">받아쓰기 노트</h3>
+            <span style="display:inline-flex; align-items:center; gap:6px; font-size:11.5px; padding:4px 10px; border-radius:6px; background:rgba(127,184,154,0.14); color:#8fc7ab;"><span style="width:5px;height:5px;border-radius:50%;background:#7fb89a;"></span><span data-en="In service">서비스 중</span></span>
+          </div>
+          <p style="margin:12px 0 0; font-size:14.5px; line-height:1.72; color:#a1a5ae; max-width:560px;" data-en="Speak, and it writes for you — a voice memo and study note that transcribes automatically. AI tidies it up, asks questions, and turns it into study cards. Four languages.">말하면 자동으로 받아적히는 음성 메모·학습 노트. AI가 내용을 정리하고 질문을 만들며 학습카드로 바꿔줍니다. 4개 언어 지원.</p>
+          <div style="display:flex; gap:7px; flex-wrap:wrap; margin-top:18px;">
+            <span style="font-size:12px; padding:5px 11px; border-radius:6px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); color:#b3b7bf;" data-en="Voice">음성 받아쓰기</span>
+            <span style="font-size:12px; padding:5px 11px; border-radius:6px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); color:#b3b7bf;" data-en="AI summary">AI 정리</span>
+            <span style="font-size:12px; padding:5px 11px; border-radius:6px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); color:#b3b7bf;" data-en="Study cards">학습카드</span>
+            <span style="font-size:12px; padding:5px 11px; border-radius:6px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); color:#b3b7bf;" data-en="4 languages">4개 언어</span>
+          </div>
+          <div style="display:inline-flex; align-items:center; gap:6px; margin-top:20px; font-size:14px; font-weight:600; color:#d8b489;">note.rnrsoft.vip <span>↗</span></div>
+        </div>
+        <div style="flex:0 0 176px; min-height:170px; border-radius:14px; background:rgba(255,255,255,0.02); border:1px dashed rgba(255,255,255,0.14); display:flex; align-items:center; justify-content:center; text-align:center; color:#5f636c; font-size:12px; line-height:1.6;" data-en="Screenshot<br>(to be added)">스크린샷 자리<br>(추후 삽입)</div>
+      </a>
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:18px; margin-top:18px;">
+        <div style="display:flex; align-items:center; gap:18px; padding:24px; border-radius:16px; background:rgba(255,255,255,0.015); border:1px dashed rgba(255,255,255,0.13);">
+          <div style="width:52px; height:52px; border-radius:14px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); display:flex; align-items:center; justify-content:center; color:#5f636c; font-size:24px; flex:0 0 auto;">+</div>
+          <div><div style="font-size:15px; font-weight:600; color:#b3b7bf;" data-en="New app">새 앱</div><div style="font-size:13px; color:#7d818a; margin-top:3px;" data-en="In preparation">준비 중</div></div>
+        </div>
+        <div style="display:flex; align-items:center; gap:18px; padding:24px; border-radius:16px; background:rgba(255,255,255,0.015); border:1px dashed rgba(255,255,255,0.13);">
+          <div style="width:52px; height:52px; border-radius:14px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); display:flex; align-items:center; justify-content:center; color:#5f636c; font-size:24px; flex:0 0 auto;">+</div>
+          <div><div style="font-size:15px; font-weight:600; color:#b3b7bf;" data-en="New app">새 앱</div><div style="font-size:13px; color:#7d818a; margin-top:3px;" data-en="In preparation">준비 중</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer style="margin-top:auto; border-top:1px solid rgba(255,255,255,0.07); background:#08090b;">
+    <div style="max-width:1120px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:24px; padding:32px; flex-wrap:wrap;">
+      <div style="display:flex; align-items:center; gap:11px; font-size:15px; font-weight:600; color:#b3b7bf;">
+        <svg viewBox="0 0 34 34" width="22" height="22"><rect x="1" y="1" width="32" height="32" rx="10" fill="none" stroke="#c69a6b" stroke-width="1.4"/><g fill="#d8b489"><rect x="9.5" y="13" width="3" height="8" rx="1.5"/><rect x="15.5" y="9" width="3" height="16" rx="1.5"/><rect x="21.5" y="11.5" width="3" height="11" rx="1.5"/></g></svg>
+        rnrsoft
+      </div>
+      <div style="display:flex; gap:24px; font-size:13.5px; color:#7d818a; flex-wrap:wrap;">
+        <a href="index.dc.html" style="color:#7d818a;" data-en="Home">홈</a>
+        <a href="about.dc.html" style="color:#7d818a;" data-en="About">소개</a>
+        <a href="contact.dc.html" style="color:#7d818a;" data-en="Contact">문의</a>
+        <a href="privacy.dc.html" style="color:#7d818a;" data-en="Privacy">개인정보처리방침</a>
+        <a href="terms.dc.html" style="color:#7d818a;" data-en="Terms">이용약관</a>
+      </div>
+      <div style="font-size:12.5px; color:#565a63; font-family:'JetBrains Mono',monospace;">© {{ year }} rnrsoft</div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { lang: 'ko' };
+  componentDidMount() { try { if (localStorage.getItem('rnr-lang') === 'en') { this.applyLang('en'); this.setState({ lang: 'en' }); } } catch(e){} }
+  applyLang(lang) { document.querySelectorAll('[data-en]').forEach(el => { if (!el.dataset.ko) el.dataset.ko = el.innerHTML; el.innerHTML = lang === 'en' ? el.dataset.en : el.dataset.ko; }); document.documentElement.lang = lang; }
+  toggleLang = () => { const next = this.state.lang === 'ko' ? 'en' : 'ko'; this.applyLang(next); try { localStorage.setItem('rnr-lang', next); } catch(e){} this.setState({ lang: next }); };
+  renderVals() { return { toggleLang: this.toggleLang, langLabel: this.state.lang === 'ko' ? 'EN' : '한국어', year: new Date().getFullYear() }; }
+}
+</script>
+</body>
+</html>

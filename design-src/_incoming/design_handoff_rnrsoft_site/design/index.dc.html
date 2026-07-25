@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>rnrsoft — App Studio</title>
+<meta name="description" content="생각을 정리하는 도구를 만드는 앱 스튜디오. 웹·모바일 생산성·학습 앱.">
+<meta property="og:title" content="rnrsoft — App Studio">
+<meta property="og:description" content="생각을 정리하는 도구를 만드는 앱 스튜디오.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://rnrsoft.vip">
+<meta property="og:image" content="assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="assets/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  * { box-sizing: border-box; }
+  body { margin:0; background:#0b0c0e; color:#eceef1; font-family:'Pretendard',sans-serif; -webkit-font-smoothing:antialiased; letter-spacing:-0.011em; overflow:hidden; }
+  a { color:#d8b489; text-decoration:none; }
+  a:hover { color:#e7c9a6; }
+  ::selection { background:rgba(198,154,107,0.28); }
+  @keyframes rnr-float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+  @keyframes rnr-drift { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-18px,14px)} }
+  @keyframes rnr-rise { 0%{opacity:0;transform:translateY(20px)} 100%{opacity:1;transform:translateY(0)} }
+  @keyframes rnr-ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+  .rnr-ticker-track { display:inline-flex; white-space:nowrap; animation:rnr-ticker 34s linear infinite; }
+  .rnr-ticker-wrap:hover .rnr-ticker-track { animation-play-state:paused; }
+  @media (max-height:760px){ .rnr-dock{ display:none !important; } }
+</style>
+</helmet>
+
+<div style="position:relative; height:100vh; display:flex; flex-direction:column; overflow:hidden;">
+
+  <!-- HEADER -->
+  <header style="position:relative; z-index:50; flex:0 0 auto;">
+    <div style="max-width:1120px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:22px 32px;">
+      <a href="index.dc.html" style="display:flex; align-items:center; gap:12px; font-size:17px; font-weight:600; color:#eceef1; letter-spacing:-0.02em;">
+        <svg viewBox="0 0 34 34" width="27" height="27"><rect x="1" y="1" width="32" height="32" rx="10" fill="none" stroke="#c69a6b" stroke-width="1.4"/><g fill="#d8b489"><rect x="9.5" y="13" width="3" height="8" rx="1.5"/><rect x="15.5" y="9" width="3" height="16" rx="1.5"/><rect x="21.5" y="11.5" width="3" height="11" rx="1.5"/></g></svg>
+        rnrsoft
+      </a>
+      <nav style="display:flex; align-items:center; gap:4px;">
+        <a href="apps.dc.html" style="padding:8px 14px; color:#9498a1; font-size:14.5px;" data-en="Apps">앱</a>
+        <a href="about.dc.html" style="padding:8px 14px; color:#9498a1; font-size:14.5px;" data-en="About">소개</a>
+        <a href="contact.dc.html" style="padding:8px 14px; color:#9498a1; font-size:14.5px;" data-en="Contact">문의</a>
+        <button onClick="{{ toggleLang }}" style="margin-left:10px; padding:7px 13px; border-radius:8px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); color:#c8ccd3; font-family:'JetBrains Mono',monospace; font-size:12px; cursor:pointer;">{{ langLabel }}</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO (fills remaining screen) -->
+  <main style="position:relative; flex:1; display:flex; flex-direction:column; overflow:hidden; min-height:0;">
+    <div style="position:absolute; top:2%; left:6%; width:420px; height:420px; border-radius:50%; background:radial-gradient(circle,rgba(198,154,107,0.1),transparent 70%); filter:blur(30px); animation:rnr-drift 16s ease-in-out infinite;"></div>
+    <div style="position:absolute; bottom:0; right:6%; width:380px; height:380px; border-radius:50%; background:radial-gradient(circle,rgba(120,132,158,0.1),transparent 70%); filter:blur(30px); animation:rnr-drift 20s ease-in-out infinite reverse;"></div>
+    <div style="position:absolute; bottom:0; left:0; right:0; height:280px; background-image:linear-gradient(rgba(255,255,255,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.04) 1px,transparent 1px); background-size:64px 64px; transform:perspective(760px) rotateX(62deg); transform-origin:bottom; -webkit-mask-image:linear-gradient(to top,#000,transparent); mask-image:linear-gradient(to top,#000,transparent); opacity:0.5;"></div>
+
+    <div style="position:relative; flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:24px; min-height:0;">
+      <div style="display:inline-flex; align-items:center; gap:9px; font-family:'JetBrains Mono',monospace; font-size:12.5px; letter-spacing:0.14em; text-transform:uppercase; color:#a5a9b2; animation:rnr-rise .6s ease both;"><span style="width:5px;height:5px;border-radius:50%;background:#c69a6b;"></span>App Studio · rnrsoft.vip</div>
+      <h1 style="margin:22px 0 0; font-size:clamp(34px,5.6vw,60px); line-height:1.07; font-weight:600; color:#f3f4f6; letter-spacing:-0.04em; animation:rnr-rise .7s ease .08s both;"><span data-en="Software for">생각을 정리하는</span><br><span style="font-family:'Instrument Serif',serif; font-weight:400; font-style:italic; letter-spacing:-0.01em;" data-en="thinking &amp; learning.">도구를 만듭니다</span></h1>
+      <p style="margin:22px auto 0; font-size:clamp(15px,2vw,17px); line-height:1.7; color:#9498a1; max-width:440px; animation:rnr-rise .7s ease .16s both;" data-en="A studio building small, focused apps for the web and mobile. One is in service now — the next is on the way.">웹과 모바일에서 쓰는 작고 분명한 앱을 만드는 스튜디오. 지금 한 개를 운영하고, 다음을 준비하는 중입니다.</p>
+      <div style="display:flex; gap:12px; margin-top:30px; flex-wrap:wrap; justify-content:center; animation:rnr-rise .7s ease .24s both;">
+        <a href="apps.dc.html" style="display:inline-flex; align-items:center; gap:8px; padding:14px 26px; border-radius:10px; background:#e7ceb0; color:#1c150c; font-weight:600; font-size:15px; white-space:nowrap; flex:0 0 auto;" data-en="View apps">앱 보기</a>
+        <a href="about.dc.html" style="display:inline-flex; align-items:center; padding:14px 26px; border-radius:10px; background:none; border:1px solid rgba(255,255,255,0.14); color:#dfe1e6; font-size:15px; white-space:nowrap; flex:0 0 auto;" data-en="About">스튜디오</a>
+      </div>
+
+      <!-- compact dock -->
+      <div class="rnr-dock" style="margin-top:36px; transform:perspective(1500px) rotateX(12deg); transform-style:preserve-3d; animation:rnr-rise .7s ease .32s both;">
+        <div style="display:flex; align-items:flex-end; gap:16px; padding:16px 22px; border-radius:22px; background:rgba(255,255,255,0.045); border:1px solid rgba(255,255,255,0.09); backdrop-filter:blur(16px); box-shadow:0 40px 90px -34px rgba(0,0,0,0.8);">
+          <a href="https://note.rnrsoft.vip" style="display:flex; flex-direction:column; align-items:center; gap:10px; transform:translateY(-10px); color:inherit;">
+            <div style="width:78px; height:78px; border-radius:20px; background:linear-gradient(155deg,#d8b489,#b98a55); display:flex; align-items:center; justify-content:center; box-shadow:0 18px 40px -16px rgba(185,138,85,0.7); animation:rnr-float 5s ease-in-out infinite;">
+              <svg viewBox="0 0 34 34" width="40" height="40"><g fill="#221a10"><rect data-eqbar x="9.5" y="13" width="3" height="8" rx="1.5" style="transform-box:fill-box; transform-origin:center bottom; transition:transform .06s linear;"/><rect data-eqbar x="15.5" y="9" width="3" height="16" rx="1.5" style="transform-box:fill-box; transform-origin:center bottom; transition:transform .06s linear;"/><rect data-eqbar x="21.5" y="11.5" width="3" height="11" rx="1.5" style="transform-box:fill-box; transform-origin:center bottom; transition:transform .06s linear;"/></g></svg>
+            </div>
+            <div style="font-size:12px; color:#c8ccd3;">받아쓰기 노트</div>
+          </a>
+          <div style="display:flex; flex-direction:column; align-items:center; gap:10px;">
+            <div style="width:66px; height:66px; border-radius:17px; background:rgba(255,255,255,0.035); border:1px dashed rgba(255,255,255,0.16); display:flex; align-items:center; justify-content:center; color:#5f636c; font-size:22px;">+</div>
+            <div style="font-size:12px; color:#7d818a;" data-en="Next">준비 중</div>
+          </div>
+          <div style="display:flex; flex-direction:column; align-items:center; gap:10px;">
+            <div style="width:66px; height:66px; border-radius:17px; background:rgba(255,255,255,0.035); border:1px dashed rgba(255,255,255,0.16); display:flex; align-items:center; justify-content:center; color:#5f636c; font-size:22px;">+</div>
+            <div style="font-size:12px; color:#7d818a;" data-en="Next">준비 중</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- NOTICE TICKER (right → left) -->
+  <div class="rnr-ticker-wrap" style="position:relative; z-index:40; flex:0 0 auto; display:flex; align-items:stretch; height:52px; border-top:1px solid rgba(255,255,255,0.08); background:#08090b; overflow:hidden;">
+    <div style="display:flex; align-items:center; gap:8px; padding:0 18px; background:rgba(198,154,107,0.1); border-right:1px solid rgba(198,154,107,0.24); flex:0 0 auto;">
+      <span style="width:6px; height:6px; border-radius:50%; background:#c69a6b; box-shadow:0 0 8px #c69a6b;"></span>
+      <span style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:#d8b489;" data-en="Notice">공지</span>
+    </div>
+    <div style="position:relative; flex:1; overflow:hidden; display:flex; align-items:center;">
+      <div class="rnr-ticker-track" ref="{{ tickerRef }}"></div>
+    </div>
+    <button onClick="{{ toggleSound }}" title="rnrsoft sound" style="flex:0 0 auto; display:flex; align-items:center; gap:8px; padding:0 18px; border:none; border-left:1px solid rgba(255,255,255,0.08); background:none; color:{{ soundColor }}; font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.04em; cursor:pointer;">{{ soundLabel }}</button>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { lang: 'ko', sound: false };
+
+  notices = {
+    ko: [
+      { d: '2026.07', t: '받아쓰기 노트 — 4개 언어 지원 업데이트' },
+      { d: '2026.07', t: '새 앱 준비 중 — 곧 공개합니다' },
+      { d: '2026.06', t: 'AI 정리·학습카드 기능 개선' },
+      { d: '2026.06', t: 'Google Play 개발자 페이지 등록' },
+      { d: '2026.05', t: '개인정보처리방침·이용약관 업데이트' },
+    ],
+    en: [
+      { d: '2026.07', t: 'Dictation Note — now supports 4 languages' },
+      { d: '2026.07', t: 'A new app is on the way — coming soon' },
+      { d: '2026.06', t: 'Improved AI summary & study cards' },
+      { d: '2026.06', t: 'Listed on the Google Play developer page' },
+      { d: '2026.05', t: 'Updated Privacy Policy & Terms' },
+    ],
+  };
+
+  buildTicker() {
+    const el = this.tickerEl; if (!el) return;
+    const items = this.notices[this.state.lang];
+    const one = items.map(n =>
+      `<span style="display:inline-flex; align-items:center; gap:12px; padding:0 30px; font-size:13.5px; color:#b3b7bf;">`
+      + `<span style="font-family:'JetBrains Mono',monospace; font-size:11.5px; color:#7d818a;">${n.d}</span>`
+      + `<span>${n.t}</span>`
+      + `<span style="color:#3f434c;">/</span></span>`
+    ).join('');
+    // duplicate for seamless -50% loop
+    el.innerHTML = `<div style="display:inline-flex; align-items:center;">${one}</div><div style="display:inline-flex; align-items:center;">${one}</div>`;
+  }
+
+  componentDidMount() {
+    try { if (localStorage.getItem('rnr-lang') === 'en') this.state.lang = 'en'; } catch(e){}
+    this.buildTicker();
+    if (this.state.lang === 'en') this.applyLang('en');
+  }
+
+  applyLang(lang) {
+    document.querySelectorAll('[data-en]').forEach(el => { if (!el.dataset.ko) el.dataset.ko = el.innerHTML; el.innerHTML = lang === 'en' ? el.dataset.en : el.dataset.ko; });
+    document.documentElement.lang = lang;
+  }
+  toggleLang = () => {
+    const next = this.state.lang === 'ko' ? 'en' : 'ko';
+    this.applyLang(next);
+    try { localStorage.setItem('rnr-lang', next); } catch(e){}
+    this.setState({ lang: next }, () => this.buildTicker());
+  };
+
+  // ---- interactive sound toy (Web Audio) ----
+  startAudio() {
+    const AC = window.AudioContext || window.webkitAudioContext; if (!AC) return;
+    this.ac = new AC();
+    this.master = this.ac.createGain(); this.master.gain.value = 0; this.master.connect(this.ac.destination);
+    this.analyser = this.ac.createAnalyser(); this.analyser.fftSize = 64; this.master.connect(this.analyser);
+    this.lp = this.ac.createBiquadFilter(); this.lp.type = 'lowpass'; this.lp.frequency.value = 950; this.lp.Q.value = 0.7; this.lp.connect(this.master);
+    this.pad = [];
+    [110, 164.81, 220].forEach((f) => {
+      const o = this.ac.createOscillator(); o.type = 'sine'; o.frequency.value = f;
+      const g = this.ac.createGain(); g.gain.value = 0.12; o.connect(g); g.connect(this.lp); o.start(); this.pad.push(o, g);
+    });
+    this.master.gain.setTargetAtTime(0.55, this.ac.currentTime, 0.7);
+    const notes = [440, 523.25, 587.33, 659.25, 783.99, 880];
+    this.arp = setInterval(() => {
+      if (!this.ac) return;
+      const f = notes[Math.floor(Math.random() * notes.length)];
+      const o = this.ac.createOscillator(); o.type = 'triangle'; o.frequency.value = f;
+      const g = this.ac.createGain(); const t = this.ac.currentTime;
+      g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(0.16, t + 0.02); g.gain.exponentialRampToValueAtTime(0.001, t + 0.95);
+      o.connect(g); g.connect(this.lp); o.start(t); o.stop(t + 1);
+    }, 540);
+    this.animateBars();
+  }
+  animateBars() {
+    const bars = Array.from(document.querySelectorAll('[data-eqbar]'));
+    const data = new Uint8Array(this.analyser.frequencyBinCount);
+    const loop = () => {
+      if (!this.state.sound || !this.analyser) return;
+      this.analyser.getByteFrequencyData(data);
+      bars.forEach((b, i) => { const v = data[3 + i * 4] / 255; b.style.transform = 'scaleY(' + (0.35 + v * 1.25) + ')'; });
+      this.raf = requestAnimationFrame(loop);
+    };
+    loop();
+  }
+  stopAudio() {
+    cancelAnimationFrame(this.raf); clearInterval(this.arp);
+    if (this.ac) { const ac = this.ac; try { this.master.gain.setTargetAtTime(0, ac.currentTime, 0.25); } catch(e){} setTimeout(() => { try { ac.close(); } catch(e){} }, 600); this.ac = null; this.analyser = null; }
+    document.querySelectorAll('[data-eqbar]').forEach(b => { b.style.transform = ''; });
+  }
+  toggleSound = () => {
+    const next = !this.state.sound;
+    this.setState({ sound: next }, () => { if (next) this.startAudio(); else this.stopAudio(); });
+  };
+  componentWillUnmount() { this.stopAudio(); }
+
+  renderVals() {
+    const on = this.state.sound;
+    return {
+      tickerRef: (el) => { this.tickerEl = el; if (el) this.buildTicker(); },
+      toggleLang: this.toggleLang,
+      langLabel: this.state.lang === 'ko' ? 'EN' : '한국어',
+      toggleSound: this.toggleSound,
+      soundLabel: on ? (this.state.lang === 'ko' ? '♫ 사운드 끄기' : '♫ Sound off') : (this.state.lang === 'ko' ? '♪ 사운드' : '♪ Sound'),
+      soundColor: on ? '#d8b489' : '#8a8e97',
+      year: new Date().getFullYear(),
+    };
+  }
+}
+</script>
+</body>
+</html>
