@@ -66,11 +66,22 @@ nav a:hover { color: var(--text); }
 .rnr-logo { display: flex; align-items: center; gap: 10px; }
 .rnr-logo img { display: block; height: 30px; width: auto; }
 
-/* 애니메이션 */
+/* 애니메이션 — 디자인팀 Turn 8 "8a 은은한 기울기(안전)" 기준.
+   시안은 핑크/퍼플이었으나 확정 블루 브랜드에 맞춰 색만 치환. 모션 값은 시안 그대로. */
 @keyframes rnr-float  { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
-@keyframes rnr-drift  { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-18px,14px)} }
-@keyframes rnr-rise   { 0%{opacity:0;transform:translateY(20px)} 100%{opacity:1;transform:translateY(0)} }
+@keyframes rnr-drift  { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-24px,18px)} }
+@keyframes rnr-rise   { 0%{opacity:0;transform:translateY(26px) scale(0.94)} 100%{opacity:1;transform:translateY(0) scale(1)} }
 @keyframes rnr-ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+/* 라이브 앱 아이콘 — 광원 맥동 + 퍼지는 링 (시안 8a) */
+@keyframes rnr-glow {
+  0%,100% { box-shadow:0 20px 44px -12px rgba(31,124,203,0.55), inset 0 1px 0 rgba(255,255,255,0.35); }
+  50%     { box-shadow:0 26px 60px -10px rgba(47,211,230,0.9),  inset 0 1px 0 rgba(255,255,255,0.5); }
+}
+@keyframes rnr-ring {
+  0%   { transform: scale(0.6); opacity:0.7; }
+  100% { transform: scale(1.9); opacity:0; }
+}
 
 .rnr-ticker-track { display: inline-flex; white-space: nowrap; animation: rnr-ticker 34s linear infinite; }
 .rnr-ticker-wrap:hover .rnr-ticker-track { animation-play-state: paused; }
