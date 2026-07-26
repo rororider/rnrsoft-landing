@@ -43,32 +43,46 @@ npx wrangler pages deploy public --project-name=rnrsoft-landing --branch=main --
 - Pages 프로젝트명: **rnrsoft-landing** (계정 madrex1090@gmail.com, account id c39e6cf45019de85f5264d41fcbe27cc)
 - 커스텀 도메인 rnrsoft.vip 연결됨 (루트 CNAME → rnrsoft-landing.pages.dev)
 
-## 디자인 토큰 (2026-07-27 블루 리브랜드 — 현행)
+## 디자인 토큰 (2026-07-27 현행 — 디자인팀 최종 시안 기준)
 
 브랜드명 **RnR soft** · 태그라인 "Connecting Ideas, Delivering Future"
 
-- 배경 `#0d1524` / surface `#0f1828` / footer `#0a1120`
-- 악센트 `#1f5be0`(주) · `#2b86f5`(밝은) · `#38c8f0`(하이라이트) / 링크 `#6fb4ff`
-- 로고 그라디언트 `#173a86 → #1f7ccb → #2fd3e6` (logo-vec.svg stop과 동일)
-- 라이브 배지 `#6fe0b4` / 점 `#4fd39c`
-- 폰트: Pretendard(본문) + JetBrains Mono(라벨). **Instrument Serif 폐기**
-  (한글에 이탤릭 세리프가 적용되지 않아 헤드라인 2번째 줄은 블루 그라디언트 텍스트로 대체)
-- 로고: 파란 리본형 RnR 마크. **옛 앰버 이퀄라이저 3바 SVG 폐기**
-- 전 페이지 공통 토큰은 `public/brand.css`의 CSS 변수로 관리 — 색 변경은 여기 한 곳만
+- 배경 `#0b1220` / surface `#141f33` / footer `#070e1a`
+- 악센트 `#2b86f5`(주) · `#1f56dc`(딥) · `#38c8f0`(하이라이트) / 링크 `#5aa9ff` → hover `#7fc4ff`
+- 그라디언트(헤드라인·버튼·CTA) `linear-gradient(96deg,#1f56dc,#2b86f5 55%,#38c8f0)`
+- 폰트: **Poppins**(워드마크·라벨·숫자) + Pretendard(본문) + JetBrains Mono(모노 뱃지)
+- 애니메이션 `rs-*` 6종: rise / drift / dash(빔) / tick(티커) / scan(스캔라인) / flick
+- 매트릭스 레인은 `index.html` 인라인 `startRain()` (canvas, opacity 0.3)
+- 전 페이지 공통 토큰은 `public/brand.css` — 색 변경은 여기 한 곳만
 
-> ⚠️ `design-src/_incoming/design_handoff_rnrsoft_site/README.md`는 **옛 앰버 시안** 기준 문서다.
-> 색·로고·폰트는 위 블루 토큰이 최신이며, 그 README의 레이아웃·카피·인터랙션 스펙만 유효하다.
+### 파비콘 (2026-07-27 재제작)
+
+디자인팀 원본 아이콘 2종(흰 타일 `icon-*`, 네이비 타일 `fav-*`) **모두 탭 16px에서
+RnR 판독 불가**였음 — 마크가 타일의 55%로 작고, 파란 마크 x 네이비 배경 대비 부족.
+
+배포본은 `mark.png`(원본 마크)를 재조합해 생성:
+
+- 마크를 타일의 **90%**까지 확대 + **흰색 실루엣**으로 반전 (대비 확보)
+- 배경 그라디언트 `#14284d → #1f56dc` (딥네이비→브랜드블루)
+- 16 / 32 / 48 / 180 / 192 / 512 생성, `rx`는 크기의 약 20%
+- 로고 **형태는 원본 그대로** — 크기·색만 조정 (브랜드 가이드 형태 변경 금지 준수)
+
+원본 아이콘 세트는 `design-src/2026-07-27_brand-rnr-blue/assets/`에 보존.
+
+> ⚠️ **디자인팀 ZIP은 폴더마다 세대가 다르다.** ZIP 루트 `*.dc.html`이 최종본이고,
+> `design_handoff_rnrsoft_site/design/`은 구버전(앰버 시대)이다. 새 ZIP을 받으면
+> `diff`로 루트 vs 하위폴더를 먼저 비교할 것. `rnrsoft Hero Directions.dc.html`은
+> 탐색 기록(Turn 3~8, "골라주세요"로 끝남)이지 배포 대상이 아니다.
 
 ## 진행 상태 / 다음 할 일
 
 - ✅ 홈페이지 6페이지 라이브 (rnrsoft.vip)
 - ✅ 구글 플레이 개발자 계정 신원확인 통과 (2026-07-15)
-- ✅ **브랜드 자산 수령 + 블루 리브랜드 전면 적용 (2026-07-27)**
-  전 6페이지 색·로고·파비콘·OG 교체, 에셋 4MB → 164KB 최적화
-- ⏳ 앱 스크린샷 삽입 (apps.html 플레이스홀더 자리)
-- ⏳ Play Console에 새 브랜드 아이콘 업로드 (icon-512 원본은 design-src에 보관)
-- ⏳ 히어로 방향안 선택 — `design-src/2026-07-27_brand-rnr-blue/rnrsoft Hero Directions.dc.html`
-  (디자인팀이 "골라주세요"로 남긴 미결 사항: 은은한 기울기 vs 뚜렷한 아이소)
+- ✅ **디자인팀 최종 시안 6페이지 전면 반영 (2026-07-27)**
+  매트릭스 레인 · 스캔라인 · flow-line 빔 · 티커 · Poppins 락업까지 시안과 대조 검증 완료
+- ✅ 파비콘 재제작 (탭 16px 판독성 확보, 딥네이비 배경 + 흰 마크)
+- ⏳ 앱 스크린샷 삽입 (apps.html `.rs-shot` 플레이스홀더 자리)
+- ⏳ Play Console에 새 브랜드 아이콘 업로드 (`fav-512.png` 또는 원본 `icon-512.png`)
 - ⏳ P-079 받아쓰기 노트 TWA 패키징 (별도 세션, JDK+Android Studio 필요)
 
 ## 관련
