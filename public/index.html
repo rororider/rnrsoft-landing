@@ -3,35 +3,27 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>rnrsoft — App Studio</title>
+<title>RnR soft — App Studio</title>
 <meta name="description" content="생각을 정리하는 도구를 만드는 앱 스튜디오. 웹·모바일 생산성·학습 앱.">
-<meta property="og:title" content="rnrsoft — App Studio">
-<meta property="og:description" content="생각을 정리하는 도구를 만드는 앱 스튜디오.">
+<meta property="og:title" content="RnR soft — App Studio">
+<meta property="og:description" content="Connecting Ideas, Delivering Future — 생각을 정리하는 도구를 만드는 앱 스튜디오.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://rnrsoft.vip">
 <meta property="og:image" content="https://rnrsoft.vip/assets/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://rnrsoft.vip/assets/og-image.png">
-<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#0d1524">
+<link rel="icon" href="/assets/icon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/assets/icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="/assets/fav-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="/brand.css">
 <style>
-  * { box-sizing: border-box; }
-  body { margin:0; background:#0b0c0e; color:#eceef1; font-family:'Pretendard',sans-serif; -webkit-font-smoothing:antialiased; letter-spacing:-0.011em; overflow:hidden; }
-  a { color:#d8b489; text-decoration:none; }
-  a:hover { color:#e7c9a6; }
-  ::selection { background:rgba(198,154,107,0.28); }
-  @keyframes rnr-float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
-  @keyframes rnr-drift { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-18px,14px)} }
-  @keyframes rnr-rise { 0%{opacity:0;transform:translateY(20px)} 100%{opacity:1;transform:translateY(0)} }
-  @keyframes rnr-ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
-  .rnr-ticker-track { display:inline-flex; white-space:nowrap; animation:rnr-ticker 34s linear infinite; }
-  .rnr-ticker-wrap:hover .rnr-ticker-track { animation-play-state:paused; }
+  body { overflow: hidden; }
   @media (max-height:760px){ .rnr-dock{ display:none !important; } }
-  nav a { color:#9498a1; }
-  nav a:hover { color:#eceef1; }
 </style>
 </head>
 <body>
@@ -40,50 +32,50 @@
   <!-- HEADER -->
   <header style="position:relative; z-index:50; flex:0 0 auto;">
     <div style="max-width:1120px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:22px 32px;">
-      <a href="/" style="display:flex; align-items:center; gap:12px; font-size:17px; font-weight:600; color:#eceef1; letter-spacing:-0.02em;">
-        <svg viewBox="0 0 34 34" width="27" height="27"><rect x="1" y="1" width="32" height="32" rx="10" fill="none" stroke="#c69a6b" stroke-width="1.4"/><g fill="#d8b489"><rect x="9.5" y="13" width="3" height="8" rx="1.5"/><rect x="15.5" y="9" width="3" height="16" rx="1.5"/><rect x="21.5" y="11.5" width="3" height="11" rx="1.5"/></g></svg>
-        rnrsoft
+      <a href="/" class="rnr-logo" style="font-size:18px; font-weight:600; color:var(--text); letter-spacing:-0.02em;">
+        <img src="/assets/mark-72.png" alt="RnR soft" width="62" height="30">
+        RnR soft
       </a>
       <nav style="display:flex; align-items:center; gap:4px;">
         <a href="/apps.html" style="padding:8px 14px; font-size:14.5px;" data-en="Apps">앱</a>
         <a href="/about.html" style="padding:8px 14px; font-size:14.5px;" data-en="About">소개</a>
         <a href="/contact.html" style="padding:8px 14px; font-size:14.5px;" data-en="Contact">문의</a>
-        <button onclick="rnrToggleLang()" data-langlabel style="margin-left:10px; padding:7px 13px; border-radius:8px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); color:#c8ccd3; font-family:'JetBrains Mono',monospace; font-size:12px; cursor:pointer;">EN</button>
+        <button onclick="rnrToggleLang()" data-langlabel style="margin-left:10px; padding:7px 13px; border-radius:8px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.11); color:var(--text-menu); font-family:'JetBrains Mono',monospace; font-size:12px; cursor:pointer;">EN</button>
       </nav>
     </div>
   </header>
 
   <!-- HERO -->
   <main style="position:relative; flex:1; display:flex; flex-direction:column; overflow:hidden; min-height:0;">
-    <div style="position:absolute; top:2%; left:6%; width:420px; height:420px; border-radius:50%; background:radial-gradient(circle,rgba(198,154,107,0.1),transparent 70%); filter:blur(30px); animation:rnr-drift 16s ease-in-out infinite;"></div>
-    <div style="position:absolute; bottom:0; right:6%; width:380px; height:380px; border-radius:50%; background:radial-gradient(circle,rgba(120,132,158,0.1),transparent 70%); filter:blur(30px); animation:rnr-drift 20s ease-in-out infinite reverse;"></div>
-    <div style="position:absolute; bottom:0; left:0; right:0; height:280px; background-image:linear-gradient(rgba(255,255,255,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.04) 1px,transparent 1px); background-size:64px 64px; transform:perspective(760px) rotateX(62deg); transform-origin:bottom; -webkit-mask-image:linear-gradient(to top,#000,transparent); mask-image:linear-gradient(to top,#000,transparent); opacity:0.5;"></div>
+    <div style="position:absolute; top:2%; left:6%; width:420px; height:420px; border-radius:50%; background:radial-gradient(circle,rgba(31,124,203,0.16),transparent 70%); filter:blur(30px); animation:rnr-drift 16s ease-in-out infinite;"></div>
+    <div style="position:absolute; bottom:0; right:6%; width:380px; height:380px; border-radius:50%; background:radial-gradient(circle,rgba(47,211,230,0.1),transparent 70%); filter:blur(30px); animation:rnr-drift 20s ease-in-out infinite reverse;"></div>
+    <div style="position:absolute; bottom:0; left:0; right:0; height:280px; background-image:linear-gradient(rgba(120,170,255,0.07) 1px,transparent 1px),linear-gradient(90deg,rgba(120,170,255,0.055) 1px,transparent 1px); background-size:64px 64px; transform:perspective(760px) rotateX(62deg); transform-origin:bottom; -webkit-mask-image:linear-gradient(to top,#000,transparent); mask-image:linear-gradient(to top,#000,transparent); opacity:0.55;"></div>
 
     <div style="position:relative; flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:24px; min-height:0;">
-      <div style="display:inline-flex; align-items:center; gap:9px; font-family:'JetBrains Mono',monospace; font-size:12.5px; letter-spacing:0.14em; text-transform:uppercase; color:#a5a9b2; animation:rnr-rise .6s ease both;"><span style="width:5px;height:5px;border-radius:50%;background:#c69a6b;"></span>App Studio · rnrsoft</div>
-      <h1 style="margin:22px 0 0; font-size:clamp(34px,5.6vw,60px); line-height:1.07; font-weight:600; color:#f3f4f6; letter-spacing:-0.04em; animation:rnr-rise .7s ease .08s both;"><span data-en="Software for">생각을 정리하는</span><br><span style="font-family:'Instrument Serif',serif; font-weight:400; font-style:italic; letter-spacing:-0.01em;" data-en="thinking &amp; learning.">도구를 만듭니다</span></h1>
-      <p style="margin:22px auto 0; font-size:clamp(15px,2vw,17px); line-height:1.7; color:#9498a1; max-width:440px; animation:rnr-rise .7s ease .16s both;" data-en="A studio building small, focused apps for the web and mobile. One is in service now — the next is on the way.">웹과 모바일에서 쓰는 작고 분명한 앱을 만드는 스튜디오. 지금 한 개를 운영하고, 다음을 준비하는 중입니다.</p>
+      <div style="display:inline-flex; align-items:center; gap:9px; font-family:'JetBrains Mono',monospace; font-size:12.5px; letter-spacing:0.14em; text-transform:uppercase; color:var(--text-2); animation:rnr-rise .6s ease both;"><span style="width:5px;height:5px;border-radius:50%;background:var(--accent-lt);"></span>App Studio · rnrsoft.vip</div>
+      <h1 style="margin:22px 0 0; font-size:clamp(34px,5.6vw,60px); line-height:1.12; font-weight:700; color:var(--text-h); letter-spacing:-0.035em; animation:rnr-rise .7s ease .08s both;"><span data-en="Software for">생각을 정리하는</span><br><span style="background:linear-gradient(100deg,#6fb4ff,#2fd3e6); -webkit-background-clip:text; background-clip:text; color:transparent;" data-en="thinking &amp; learning.">도구를 만듭니다</span></h1>
+      <p style="margin:22px auto 0; font-size:clamp(15px,2vw,17px); line-height:1.7; color:var(--text-body); max-width:470px; text-wrap:balance; animation:rnr-rise .7s ease .16s both;" data-en="A studio building small, focused apps for the web and mobile. One is in service now — the next is on the way.">웹과 모바일에서 쓰는 작고 분명한 앱을 만드는 스튜디오. 지금 한 개를 운영하고, 다음을 준비하는 중입니다.</p>
       <div style="display:flex; gap:12px; margin-top:30px; flex-wrap:wrap; justify-content:center; animation:rnr-rise .7s ease .24s both;">
-        <a href="/apps.html" style="display:inline-flex; align-items:center; gap:8px; padding:14px 26px; border-radius:10px; background:#e7ceb0; color:#1c150c; font-weight:600; font-size:15px; white-space:nowrap; flex:0 0 auto;" data-en="View apps">앱 보기</a>
-        <a href="/about.html" style="display:inline-flex; align-items:center; padding:14px 26px; border-radius:10px; background:none; border:1px solid rgba(255,255,255,0.14); color:#dfe1e6; font-size:15px; white-space:nowrap; flex:0 0 auto;" data-en="About">스튜디오</a>
+        <a href="/apps.html" style="display:inline-flex; align-items:center; gap:8px; padding:14px 26px; border-radius:10px; background:var(--btn-bg); color:var(--btn-fg); font-weight:600; font-size:15px; white-space:nowrap; flex:0 0 auto; transition:background .25s;" onmouseover="this.style.background='var(--btn-hover)'" onmouseout="this.style.background='var(--btn-bg)'" data-en="View apps">앱 보기</a>
+        <a href="/about.html" style="display:inline-flex; align-items:center; padding:14px 26px; border-radius:10px; background:none; border:1px solid rgba(255,255,255,0.16); color:var(--text); font-size:15px; white-space:nowrap; flex:0 0 auto;" data-en="About">스튜디오</a>
       </div>
 
       <!-- compact dock -->
       <div class="rnr-dock" style="margin-top:36px; transform:perspective(1500px) rotateX(12deg); transform-style:preserve-3d; animation:rnr-rise .7s ease .32s both;">
-        <div style="display:flex; align-items:center; gap:16px; padding:16px 22px; border-radius:22px; background:rgba(255,255,255,0.045); border:1px solid rgba(255,255,255,0.09); backdrop-filter:blur(16px); box-shadow:0 40px 90px -34px rgba(0,0,0,0.8);">
+        <div style="display:flex; align-items:center; gap:16px; padding:16px 22px; border-radius:22px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); backdrop-filter:blur(16px); box-shadow:0 40px 90px -34px rgba(0,0,0,0.85);">
           <a href="https://note.rnrsoft.vip" style="display:flex; flex-direction:column; align-items:center; gap:10px; color:inherit;">
-            <div style="width:66px; height:66px; border-radius:17px; background:linear-gradient(155deg,#d8b489,#b98a55); display:flex; align-items:center; justify-content:center; box-shadow:0 18px 40px -16px rgba(185,138,85,0.7); animation:rnr-float 5s ease-in-out infinite;">
-              <svg viewBox="0 0 34 34" width="34" height="34"><g fill="#221a10"><rect data-eqbar x="9.5" y="13" width="3" height="8" rx="1.5" style="transform-box:fill-box; transform-origin:center bottom; transition:transform .06s linear;"/><rect data-eqbar x="15.5" y="9" width="3" height="16" rx="1.5" style="transform-box:fill-box; transform-origin:center bottom; transition:transform .06s linear;"/><rect data-eqbar x="21.5" y="11.5" width="3" height="11" rx="1.5" style="transform-box:fill-box; transform-origin:center bottom; transition:transform .06s linear;"/></g></svg>
+            <div style="width:66px; height:66px; border-radius:17px; overflow:hidden; box-shadow:0 18px 40px -16px rgba(31,124,203,0.75); animation:rnr-float 5s ease-in-out infinite;">
+              <img src="/assets/tile-navy-160.png" alt="" width="66" height="66" style="display:block; width:100%; height:100%;">
             </div>
-            <div style="font-size:12px; color:#c8ccd3;">받아쓰기 노트</div>
+            <div style="font-size:12px; color:var(--text-menu);">받아쓰기 노트</div>
           </a>
           <div style="display:flex; flex-direction:column; align-items:center; gap:10px;">
-            <div style="width:66px; height:66px; border-radius:17px; background:rgba(255,255,255,0.035); border:1px dashed rgba(255,255,255,0.16); display:flex; align-items:center; justify-content:center; color:#5f636c; font-size:22px;">+</div>
-            <div style="font-size:12px; color:#7d818a;" data-en="Next">준비 중</div>
+            <div style="width:66px; height:66px; border-radius:17px; background:rgba(255,255,255,0.035); border:1px dashed rgba(255,255,255,0.17); display:flex; align-items:center; justify-content:center; color:var(--text-dimmer); font-size:22px;">+</div>
+            <div style="font-size:12px; color:var(--text-dim);" data-en="Next">준비 중</div>
           </div>
           <div style="display:flex; flex-direction:column; align-items:center; gap:10px;">
-            <div style="width:66px; height:66px; border-radius:17px; background:rgba(255,255,255,0.035); border:1px dashed rgba(255,255,255,0.16); display:flex; align-items:center; justify-content:center; color:#5f636c; font-size:22px;">+</div>
-            <div style="font-size:12px; color:#7d818a;" data-en="Next">준비 중</div>
+            <div style="width:66px; height:66px; border-radius:17px; background:rgba(255,255,255,0.035); border:1px dashed rgba(255,255,255,0.17); display:flex; align-items:center; justify-content:center; color:var(--text-dimmer); font-size:22px;">+</div>
+            <div style="font-size:12px; color:var(--text-dim);" data-en="Next">준비 중</div>
           </div>
         </div>
       </div>
@@ -91,15 +83,15 @@
   </main>
 
   <!-- NOTICE TICKER -->
-  <div class="rnr-ticker-wrap" style="position:relative; z-index:40; flex:0 0 auto; display:flex; align-items:stretch; height:52px; border-top:1px solid rgba(255,255,255,0.08); background:#08090b; overflow:hidden;">
-    <div style="display:flex; align-items:center; gap:8px; padding:0 18px; background:rgba(198,154,107,0.1); border-right:1px solid rgba(198,154,107,0.24); flex:0 0 auto;">
-      <span style="width:6px; height:6px; border-radius:50%; background:#c69a6b; box-shadow:0 0 8px #c69a6b;"></span>
-      <span style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:#d8b489;" data-en="Notice">공지</span>
+  <div class="rnr-ticker-wrap" style="position:relative; z-index:40; flex:0 0 auto; display:flex; align-items:stretch; height:52px; border-top:1px solid var(--border); background:var(--surface-2); overflow:hidden;">
+    <div style="display:flex; align-items:center; gap:8px; padding:0 18px; background:rgba(31,91,224,0.16); border-right:1px solid rgba(43,134,245,0.3); flex:0 0 auto;">
+      <span style="width:6px; height:6px; border-radius:50%; background:var(--accent-lt); box-shadow:0 0 8px var(--accent-lt);"></span>
+      <span style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:var(--link);" data-en="Notice">공지</span>
     </div>
     <div style="position:relative; flex:1; overflow:hidden; display:flex; align-items:center;">
       <div class="rnr-ticker-track" id="ticker"></div>
     </div>
-    <button onclick="rnrToggleSound()" id="soundBtn" title="rnrsoft sound" style="flex:0 0 auto; display:flex; align-items:center; gap:8px; padding:0 18px; border:none; border-left:1px solid rgba(255,255,255,0.08); background:none; color:#8a8e97; font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.04em; cursor:pointer;">♪ 사운드</button>
+    <button onclick="rnrToggleSound()" id="soundBtn" title="RnR soft sound" style="flex:0 0 auto; display:flex; align-items:center; gap:8px; padding:0 18px; border:none; border-left:1px solid var(--border); background:none; color:var(--text-dim); font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.04em; cursor:pointer;">♪ 사운드</button>
   </div>
 
 </div>
@@ -127,10 +119,10 @@ function buildTicker(lang) {
   var el = document.getElementById('ticker'); if (!el) return;
   var items = NOTICES[lang || window.__rnrLang || 'ko'];
   var one = items.map(function (n) {
-    return '<span style="display:inline-flex; align-items:center; gap:12px; padding:0 30px; font-size:13.5px; color:#b3b7bf;">'
-      + '<span style="font-family:\'JetBrains Mono\',monospace; font-size:11.5px; color:#7d818a;">' + n.d + '</span>'
+    return '<span style="display:inline-flex; align-items:center; gap:12px; padding:0 30px; font-size:13.5px; color:#b6c0ce;">'
+      + '<span style="font-family:\'JetBrains Mono\',monospace; font-size:11.5px; color:#7d8899;">' + n.d + '</span>'
       + '<span>' + n.t + '</span>'
-      + '<span style="color:#3f434c;">/</span></span>';
+      + '<span style="color:#3f4756;">/</span></span>';
   }).join('');
   el.innerHTML = '<div style="display:inline-flex; align-items:center;">' + one + '</div><div style="display:inline-flex; align-items:center;">' + one + '</div>';
 }
@@ -147,8 +139,8 @@ function rnrToggleSound() {
   SND.on = !SND.on;
   var lang = window.__rnrLang || 'ko';
   var btn = document.getElementById('soundBtn');
-  if (SND.on) { startAudio(); btn.style.color = '#d8b489'; btn.textContent = lang === 'ko' ? '♫ 사운드 끄기' : '♫ Sound off'; }
-  else { stopAudio(); btn.style.color = '#8a8e97'; btn.textContent = lang === 'ko' ? '♪ 사운드' : '♪ Sound'; }
+  if (SND.on) { startAudio(); btn.style.color = 'var(--link)'; btn.textContent = lang === 'ko' ? '♫ 사운드 끄기' : '♫ Sound off'; }
+  else { stopAudio(); btn.style.color = 'var(--text-dim)'; btn.textContent = lang === 'ko' ? '♪ 사운드' : '♪ Sound'; }
 }
 function startAudio() {
   var AC = window.AudioContext || window.webkitAudioContext; if (!AC) return;
@@ -174,12 +166,15 @@ function startAudio() {
   animateBars();
 }
 function animateBars() {
-  var bars = Array.prototype.slice.call(document.querySelectorAll('[data-eqbar]'));
+  var tile = document.querySelector('.rnr-dock img[src*="tile-navy"]');
+  if (!tile || !SND.analyser) return;
   var data = new Uint8Array(SND.analyser.frequencyBinCount);
   var loop = function () {
     if (!SND.on || !SND.analyser) return;
     SND.analyser.getByteFrequencyData(data);
-    bars.forEach(function (b, i) { var v = data[3 + i * 4] / 255; b.style.transform = 'scaleY(' + (0.35 + v * 1.25) + ')'; });
+    var v = data[5] / 255;
+    tile.style.transform = 'scale(' + (1 + v * 0.06).toFixed(4) + ')';
+    tile.style.filter = 'brightness(' + (1 + v * 0.35).toFixed(3) + ')';
     SND.raf = requestAnimationFrame(loop);
   };
   loop();
@@ -187,7 +182,8 @@ function animateBars() {
 function stopAudio() {
   cancelAnimationFrame(SND.raf); clearInterval(SND.arp);
   if (SND.ac) { var ac = SND.ac; try { SND.master.gain.setTargetAtTime(0, ac.currentTime, 0.25); } catch (e) {} setTimeout(function () { try { ac.close(); } catch (e) {} }, 600); SND.ac = null; SND.analyser = null; }
-  document.querySelectorAll('[data-eqbar]').forEach(function (b) { b.style.transform = ''; });
+  var tile = document.querySelector('.rnr-dock img[src*="tile-navy"]');
+  if (tile) { tile.style.transform = ''; tile.style.filter = ''; }
 }
 </script>
 </body>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Logo & Assets — RnR soft</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  * { box-sizing:border-box; }
+  html, body { background:#eef0f4; }
+  body { margin:0; background:#eef0f4; color:#12151b; font-family:'Pretendard',sans-serif; -webkit-font-smoothing:antialiased; letter-spacing:-0.011em; }
+  a { color:#1f5be0; text-decoration:none; }
+  a:hover { color:#2b86f5; }
+  ::selection { background:rgba(43,134,245,0.2); }
+</style>
+</helmet>
+
+<section style="max-width:1120px; margin:0 auto; padding:56px 36px 90px; display:flex; flex-direction:column; gap:26px;">
+
+  <div style="display:flex; flex-direction:column; gap:8px; max-width:700px;">
+    <div style="font-family:'JetBrains Mono',monospace; font-size:11.5px; letter-spacing:0.2em; text-transform:uppercase; color:#8b93a1;">Brand · Assets</div>
+    <h1 style="margin:0; font-size:29px; font-weight:600; letter-spacing:-0.035em; color:#12151b;">RnR soft 로고 자산</h1>
+    <p style="margin:0; font-size:14.5px; line-height:1.75; color:#5b6472;">확정 로고를 사이트·인쇄에서 바로 쓸 수 있게 부위별로 분리했습니다. 심볼·워드마크·태그라인이 각각 독립 파일이라 조합을 자유롭게 바꿀 수 있습니다.</p>
+  </div>
+
+  <!-- symbol / wordmark / tagline -->
+  <div style="display:grid; grid-template-columns:0.85fr 1.15fr; gap:20px;">
+    <div style="background:#fbfbfc; border-radius:6px; padding:44px 36px; display:flex; flex-direction:column; align-items:center; gap:18px; box-shadow:0 1px 3px rgba(18,21,27,0.08);">
+      <img src="assets/mark.png" style="width:100%; max-width:250px; height:auto; display:block;">
+      <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#9aa2ae;">mark.png · 심볼</div>
+    </div>
+    <div style="background:#fbfbfc; border-radius:6px; padding:44px 36px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:26px; box-shadow:0 1px 3px rgba(18,21,27,0.08);">
+      <img src="assets/wordmark.png" style="width:100%; max-width:330px; height:auto; display:block;">
+      <img src="assets/tagline.png" style="width:100%; max-width:330px; height:auto; display:block;">
+      <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#9aa2ae;">wordmark.png · tagline.png</div>
+    </div>
+  </div>
+
+  <!-- horizontal lockup (site header) -->
+  <div style="background:#fbfbfc; border-radius:6px; padding:48px 40px; display:flex; flex-direction:column; align-items:center; gap:20px; box-shadow:0 1px 3px rgba(18,21,27,0.08);">
+    <img src="assets/lockup-horizontal.png" style="width:100%; max-width:520px; height:auto; display:block;">
+    <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#9aa2ae;">lockup-horizontal.png · 사이트 헤더·명함 (투명 배경)</div>
+  </div>
+
+  <!-- vertical + dark -->
+  <div style="display:grid; grid-template-columns:1fr 1.35fr; gap:20px;">
+    <div style="background:#fbfbfc; border-radius:6px; padding:40px 32px; display:flex; flex-direction:column; align-items:center; gap:18px; box-shadow:0 1px 3px rgba(18,21,27,0.08);">
+      <img src="assets/lockup-vertical.png" style="width:100%; max-width:250px; height:auto; display:block;">
+      <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#9aa2ae;">lockup-vertical.png</div>
+    </div>
+    <div style="border-radius:6px; overflow:hidden; display:flex; flex-direction:column;">
+      <img src="assets/lockup-dark.png" style="width:100%; height:auto; display:block;">
+      <div style="background:#0d1524; padding:12px 20px; font-family:'JetBrains Mono',monospace; font-size:11px; color:#7d8899;">lockup-dark.png · 네이비 배경용</div>
+    </div>
+  </div>
+
+  <!-- mark on dark -->
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+    <div style="background:#0d1524; border-radius:6px; padding:44px 36px; display:flex; flex-direction:column; align-items:center; gap:16px;">
+      <img src="assets/mark.png" style="width:100%; max-width:280px; height:auto; display:block;">
+      <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#7d8899;">다크 배경 (심볼 그대로 사용 가능)</div>
+    </div>
+    <div style="background:#f2f3f6; border-radius:6px; padding:36px 28px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:20px;">
+      <div style="display:flex; gap:18px; align-items:center;">
+        <img src="assets/tile-light.png" style="width:96px; height:96px; border-radius:22px; display:block; box-shadow:0 10px 26px -12px rgba(18,21,27,0.3);">
+        <img src="assets/tile-navy.png" style="width:96px; height:96px; border-radius:22px; display:block; box-shadow:0 10px 26px -12px rgba(18,21,27,0.3);">
+      </div>
+      <div style="display:flex; align-items:flex-end; gap:16px;">
+        <img src="assets/icon-48.png" style="width:48px; height:48px; border-radius:11px;">
+        <img src="assets/icon-32.png" style="width:32px; height:32px; border-radius:7px;">
+        <img src="assets/icon-16.png" style="width:16px; height:16px; border-radius:4px;">
+      </div>
+      <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#9aa2ae;">tile-light / tile-navy · icon-16~512</div>
+    </div>
+  </div>
+
+  <!-- files -->
+  <div style="display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1px; background:rgba(18,21,27,0.1); border:1px solid rgba(18,21,27,0.1); border-radius:6px; overflow:hidden;">
+    <div style="padding:20px 22px; background:#fbfbfc;"><div style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#1f5be0; margin-bottom:6px;">mark.png</div><div style="font-size:13px; line-height:1.7; color:#5b6472;">심볼만 (투명) — 헤더·파비콘 원본·워터마크</div></div>
+    <div style="padding:20px 22px; background:#fbfbfc;"><div style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#1f5be0; margin-bottom:6px;">wordmark.png · tagline.png</div><div style="font-size:13px; line-height:1.7; color:#5b6472;">글자 부분만 (투명) — 자유 조합용</div></div>
+    <div style="padding:20px 22px; background:#fbfbfc;"><div style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#1f5be0; margin-bottom:6px;">lockup-horizontal.png</div><div style="font-size:13px; line-height:1.7; color:#5b6472;">가로 락업 (투명) — 사이트 헤더·명함·문서</div></div>
+    <div style="padding:20px 22px; background:#fbfbfc;"><div style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#1f5be0; margin-bottom:6px;">lockup-vertical.png</div><div style="font-size:13px; line-height:1.7; color:#5b6472;">세로 락업 (투명) — 포스터·소개자료 표지</div></div>
+    <div style="padding:20px 22px; background:#fbfbfc;"><div style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#1f5be0; margin-bottom:6px;">lockup-dark.png</div><div style="font-size:13px; line-height:1.7; color:#5b6472;">네이비 가로 락업 — 어두운 배경 배너</div></div>
+    <div style="padding:20px 22px; background:#fbfbfc;"><div style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#1f5be0; margin-bottom:6px;">tile-light / tile-navy · icon-16~512.png</div><div style="font-size:13px; line-height:1.7; color:#5b6472;">앱 아이콘 타일 2종 + 파비콘 전 사이즈</div></div>
+  </div>
+
+  <!-- rules -->
+  <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:1px; background:rgba(18,21,27,0.1); border:1px solid rgba(18,21,27,0.1); border-radius:6px; overflow:hidden;">
+    <div style="padding:22px 24px; background:#fbfbfc;"><div style="font-family:'JetBrains Mono',monospace; font-size:11.5px; color:#1f5be0; margin-bottom:10px;">01</div><div style="font-size:14px; font-weight:600; margin-bottom:6px;">최소 여백</div><div style="font-size:13px; line-height:1.7; color:#5b6472;">심볼 높이의 40% 이상 사방 확보</div></div>
+    <div style="padding:22px 24px; background:#fbfbfc;"><div style="font-family:'JetBrains Mono',monospace; font-size:11.5px; color:#1f5be0; margin-bottom:10px;">02</div><div style="font-size:14px; font-weight:600; margin-bottom:6px;">최소 크기</div><div style="font-size:13px; line-height:1.7; color:#5b6472;">웹 심볼 높이 24px · 인쇄 폭 18mm 이상</div></div>
+    <div style="padding:22px 24px; background:#fbfbfc;"><div style="font-family:'JetBrains Mono',monospace; font-size:11.5px; color:#1f5be0; margin-bottom:10px;">03</div><div style="font-size:14px; font-weight:600; margin-bottom:6px;">배경</div><div style="font-size:13px; line-height:1.7; color:#5b6472;">밝은 배경·네이비 모두 가능. 사진 위 금지</div></div>
+    <div style="padding:22px 24px; background:#fbfbfc;"><div style="font-family:'JetBrains Mono',monospace; font-size:11.5px; color:#1f5be0; margin-bottom:10px;">04</div><div style="font-size:14px; font-weight:600; margin-bottom:6px;">금지</div><div style="font-size:13px; line-height:1.7; color:#5b6472;">비율 왜곡, 색 변경, 그림자 추가, 회전</div></div>
+  </div>
+</section>
+</x-dc>
+</body>
+</html>

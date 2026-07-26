@@ -1,0 +1,87 @@
+/* rnrsoft — RnR soft brand tokens (2026-07-27 blue rebrand)
+   확정 로고: 파란 리본형 RnR 마크 + "Connecting Ideas, Delivering Future" */
+
+:root {
+  /* surfaces — 네이비 다크 */
+  --bg:        #0d1524;
+  --surface:   #0f1828;
+  --surface-2: #0a1120;
+  --card:      rgba(255,255,255,0.028);
+  --card-dash: rgba(255,255,255,0.016);
+  --border:    rgba(255,255,255,0.08);
+  --hairline:  rgba(255,255,255,0.07);
+
+  /* accent — 브랜드 블루 (logo-vec 그라디언트 기준) */
+  --accent:     #1f5be0;
+  --accent-lt:  #2b86f5;
+  --accent-hi:  #38c8f0;
+  --accent-deep:#1b2bb4;
+  --link:       #6fb4ff;
+  --link-hover: #9bcdff;
+
+  /* 주 버튼 */
+  --btn-bg:   #1f5be0;
+  --btn-fg:   #ffffff;
+  --btn-hover:#2b86f5;
+
+  /* 로고 그라디언트 (logo-vec.svg stop 색과 동일) */
+  --logo-1: #173a86;
+  --logo-2: #1f7ccb;
+  --logo-3: #2fd3e6;
+
+  /* 상태 */
+  --live-fg: #6fe0b4;
+  --live-dot:#4fd39c;
+  --live-bg: rgba(79,211,156,0.14);
+
+  /* 텍스트 */
+  --text-h:    #f2f5fa;
+  --text:      #e8ecf3;
+  --text-body: #93a0b4;
+  --text-2:    #a3aebf;
+  --text-dim:  #7d8899;
+  --text-dimmer:#5b6472;
+  --text-menu: #c3ccd9;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: -0.011em;
+}
+
+a { color: var(--link); text-decoration: none; }
+a:hover { color: var(--link-hover); }
+::selection { background: rgba(43,134,245,0.3); }
+
+nav a { color: var(--text-body); }
+nav a:hover { color: var(--text); }
+
+/* 로고 락업 (헤더) — 최소 심볼 높이 24px 규정 준수 */
+.rnr-logo { display: flex; align-items: center; gap: 10px; }
+.rnr-logo img { display: block; height: 30px; width: auto; }
+
+/* 애니메이션 */
+@keyframes rnr-float  { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+@keyframes rnr-drift  { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-18px,14px)} }
+@keyframes rnr-rise   { 0%{opacity:0;transform:translateY(20px)} 100%{opacity:1;transform:translateY(0)} }
+@keyframes rnr-ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+.rnr-ticker-track { display: inline-flex; white-space: nowrap; animation: rnr-ticker 34s linear infinite; }
+.rnr-ticker-wrap:hover .rnr-ticker-track { animation-play-state: paused; }
+
+/* 저사양·모션 민감 사용자 배려 */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+
+/* 모바일 */
+@media (max-width: 560px) {
+  .rnr-logo img { height: 26px; }
+  nav a { padding: 8px 10px !important; font-size: 14px !important; }
+}

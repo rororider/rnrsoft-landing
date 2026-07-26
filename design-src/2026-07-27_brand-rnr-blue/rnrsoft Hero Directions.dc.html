@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; }
+  @keyframes rnr-blink { 0%,49% { opacity: 1; } 50%,100% { opacity: 0; } }
+  @keyframes rnr-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+  @keyframes rnr-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @keyframes rnr-pulse { 0%,100% { opacity: 0.4; } 50% { opacity: 1; } }
+  @keyframes rnr-spin { to { transform: rotate(360deg); } }
+  @keyframes rnr-drift { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-24px,18px); } }
+  @keyframes rnr-scan { 0% { transform: translateY(-100%); } 100% { transform: translateY(600%); } }
+  @keyframes rnr-rise { 0% { opacity:0; transform: translateY(26px) scale(0.94); } 100% { opacity:1; transform: translateY(0) scale(1); } }
+  @keyframes rnr-glow { 0%,100% { box-shadow:0 20px 44px -12px rgba(255,45,106,0.55), inset 0 1px 0 rgba(255,255,255,0.35); } 50% { box-shadow:0 26px 60px -10px rgba(255,45,106,0.95), inset 0 1px 0 rgba(255,255,255,0.5); } }
+  @keyframes rnr-shimmer { 0% { transform: translateX(-120%) skewX(-18deg); } 100% { transform: translateX(320%) skewX(-18deg); } }
+  @keyframes rnr-floatB { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-18px); } }
+  @keyframes rnr-floatC { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+  @keyframes rnr-ring { 0% { transform: scale(0.6); opacity:0.7; } 100% { transform: scale(1.9); opacity:0; } }
+  @keyframes rnr-spin-rev { to { transform: rotate(-360deg); } }
+  @keyframes rnr-bob { 0%,100% { transform: translate(-50%,0); } 50% { transform: translate(-50%,-12px); } }
+  @keyframes rnr-hoverlift { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-22px); } }
+  @keyframes rnr-dash2 { to { background-position: 200px 0; } }
+  a { color: inherit; text-decoration: none; }
+</style>
+</helmet>
+
+<section style="display:flex; flex-direction:column; gap:36px; padding:64px; background:#0a0b0e; min-height:100vh; font-family:'Pretendard',sans-serif;">
+  <div style="display:flex; flex-direction:column; gap:10px; max-width:1060px;">
+    <div style="font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:0.18em; text-transform:uppercase; color:#ff5c7c;">Turn 8 · A + B Merge — Refined Dock on an Iso Floor</div>
+    <div style="display:flex; align-items:center; gap:16px;">
+      <svg viewBox="0 0 34 34" width="40" height="40"><rect x="1" y="1" width="32" height="32" rx="9.5" fill="#ff5c7c"/><g fill="#0a0b0e"><rect x="9.5" y="13" width="3" height="8" rx="1.5"/><rect x="15.5" y="9" width="3" height="16" rx="1.5"/><rect x="21.5" y="11.5" width="3" height="11" rx="1.5"/></g></svg>
+      <h1 style="margin:0; font-size:32px; font-weight:700; color:#f4f6fb; letter-spacing:-0.02em;">7a + 7b 결합 — 정제된 도크 + 아이소 바닥</h1>
+    </div>
+    <p style="margin:0; font-size:16px; line-height:1.6; color:#9aa4b2;">
+      7a의 또렷한 히어로 골격에 7b의 깊이(그리드 바닥·빌보드 라벨·기울어진 선반)를 얹었습니다. 앱은 여전히 "진열대"로 명확히 읽힙니다. 정도만 다른 두 안: <a href="#8a" style="color:#ff5c7c;">8a</a> 은은한 기울기(안전) · <a href="#8b" style="color:#ff5c7c;">8b</a> 더 뚜렷한 아이소(강조). 골라주세요.
+    </p>
+  </div>
+
+  <div style="display:flex; flex-wrap:wrap; gap:44px; align-items:flex-start;">
+
+    <!-- ===== 8a — subtle merge ===== -->
+    <div id="8a" style="flex:0 0 auto; width:1280px; display:flex; flex-direction:column; gap:16px;">
+      <div style="display:flex; align-items:baseline; gap:14px;">
+        <span style="display:inline-flex; align-items:center; justify-content:center; min-width:44px; height:28px; padding:0 10px; border-radius:7px; background:#2a0f18; border:1px solid #6e2338; color:#ff5c7c; font-family:'JetBrains Mono',monospace; font-size:14px; font-weight:700;">8a</span>
+        <div style="font-size:20px; font-weight:600; color:#e8ecf3;">은은한 기울기 (안전)</div>
+        <div style="font-size:14px; color:#8b95a3;">읽기 쉬움 우선, 도크에 살짝 원근</div>
+      </div>
+      <div style="position:relative; width:100%; height:720px; border-radius:16px; overflow:hidden; background:radial-gradient(120% 90% at 50% -10%, #201336 0%, #0d0912 55%, #08060b 100%); border:1px solid #241a30;">
+        <div style="position:absolute; top:14%; left:10%; width:360px; height:360px; border-radius:50%; background:radial-gradient(circle,rgba(255,92,124,0.2),transparent 68%); filter:blur(16px); animation:rnr-drift 12s ease-in-out infinite;"></div>
+        <div style="position:absolute; bottom:0; right:12%; width:320px; height:320px; border-radius:50%; background:radial-gradient(circle,rgba(124,92,255,0.24),transparent 68%); filter:blur(16px); animation:rnr-drift 14s ease-in-out infinite reverse;"></div>
+        <!-- perspective grid floor -->
+        <div style="position:absolute; bottom:0; left:0; right:0; height:300px; background-image:linear-gradient(rgba(255,92,124,0.14) 1px,transparent 1px),linear-gradient(90deg,rgba(255,92,124,0.1) 1px,transparent 1px); background-size:60px 60px; transform:perspective(700px) rotateX(60deg); transform-origin:bottom; -webkit-mask-image:linear-gradient(to top,#000,transparent); mask-image:linear-gradient(to top,#000,transparent); opacity:0.6;"></div>
+
+        <div style="position:relative; display:flex; align-items:center; justify-content:space-between; padding:28px 46px;">
+          <div style="display:flex; align-items:center; gap:11px; font-size:20px; font-weight:600; color:#f4f6fb;"><svg viewBox="0 0 34 34" width="30" height="30"><rect x="1" y="1" width="32" height="32" rx="9.5" fill="#ff5c7c"/><g fill="#0a0b0e"><rect x="9.5" y="13" width="3" height="8" rx="1.5"/><rect x="15.5" y="9" width="3" height="16" rx="1.5"/><rect x="21.5" y="11.5" width="3" height="11" rx="1.5"/></g></svg>RnRsoft</div>
+          <div style="display:flex; gap:32px; font-size:15px; color:#b9bcc6;"><span>앱</span><span>소개</span><span>문의</span></div>
+          <div style="padding:10px 18px; border-radius:999px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); color:#f4f6fb; font-size:14px;">앱 둘러보기</div>
+        </div>
+
+        <div style="position:relative; text-align:center; padding:44px 40px 0;">
+          <div style="display:inline-flex; align-items:center; gap:8px; padding:7px 15px; border-radius:999px; background:rgba(255,92,124,0.1); border:1px solid rgba(255,92,124,0.3); font-size:13px; color:#ff9fb2; animation:rnr-rise 0.6s ease both;"><span style="width:6px;height:6px;border-radius:50%;background:#ff5c7c;box-shadow:0 0 8px #ff5c7c;"></span>productivity & learning apps</div>
+          <h2 style="margin:20px 0 0; font-size:64px; line-height:1.02; font-weight:800; color:#f8f9fc; letter-spacing:-0.04em; animation:rnr-rise 0.7s ease 0.08s both;">생산성·학습 앱을<br>만듭니다</h2>
+          <p style="margin:20px auto 0; font-size:17px; line-height:1.7; color:#9aa4b2; max-width:440px; animation:rnr-rise 0.7s ease 0.16s both;">RnRsoft가 만든 앱을 선반에서 바로 둘러보세요. 하나는 서비스 중, 둘은 준비 중.</p>
+        </div>
+
+        <!-- dock with subtle iso tilt -->
+        <div style="position:absolute; bottom:70px; left:50%; transform:translateX(-50%) perspective(1400px) rotateX(14deg); transform-style:preserve-3d;">
+          <div style="position:relative; display:flex; align-items:flex-end; gap:22px; padding:22px 30px; border-radius:30px; background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.14); backdrop-filter:blur(18px); box-shadow:0 50px 100px -28px rgba(0,0,0,0.85);">
+            <div style="position:relative; display:flex; flex-direction:column; align-items:center; gap:11px; transform:translateY(-14px);">
+              <div style="position:absolute; top:-40px; left:50%; transform:translateX(-50%); white-space:nowrap; padding:6px 12px; border-radius:8px; background:#141019; border:1px solid rgba(255,255,255,0.14); font-size:12px; color:#f4f6fb;">App 01 · 서비스 중</div>
+              <div style="position:relative; width:108px; height:108px; border-radius:27px; background:linear-gradient(150deg,#ff5c7c,#ff2d6a); display:flex; align-items:center; justify-content:center; animation:rnr-glow 2.6s ease-in-out infinite;">
+                <span style="position:absolute; inset:0; border-radius:27px; border:2px solid #ff5c7c; animation:rnr-ring 2.6s ease-out infinite;"></span>
+                <svg viewBox="0 0 34 34" width="54" height="54"><g fill="#fff"><rect x="9.5" y="13" width="3" height="8" rx="1.5"/><rect x="15.5" y="9" width="3" height="16" rx="1.5"/><rect x="21.5" y="11.5" width="3" height="11" rx="1.5"/></g></svg>
+              </div>
+              <div style="font-size:13px; color:#f4f6fb; font-weight:600;">App 01</div>
+            </div>
+            <div style="display:flex; flex-direction:column; align-items:center; gap:11px;">
+              <div style="width:90px; height:90px; border-radius:23px; background:rgba(255,255,255,0.05); border:1.5px dashed rgba(255,255,255,0.22); display:flex; align-items:center; justify-content:center; color:#6b7080; font-size:30px;">+</div>
+              <div style="font-size:12.5px; color:#c7cfdb; font-weight:600;">App 02</div>
+            </div>
+            <div style="display:flex; flex-direction:column; align-items:center; gap:11px;">
+              <div style="width:90px; height:90px; border-radius:23px; background:rgba(255,255,255,0.05); border:1.5px dashed rgba(255,255,255,0.22); display:flex; align-items:center; justify-content:center; color:#6b7080; font-size:30px;">+</div>
+              <div style="font-size:12.5px; color:#c7cfdb; font-weight:600;">App 03</div>
+            </div>
+            <div style="width:1px; height:90px; background:rgba(255,255,255,0.14); margin:0 4px;"></div>
+            <div style="display:flex; flex-direction:column; align-items:center; gap:11px;">
+              <div style="width:90px; height:90px; border-radius:23px; background:linear-gradient(150deg,#7c5cff,#a855f7); display:flex; align-items:center; justify-content:center; color:#fff; font-size:28px; font-weight:700; box-shadow:0 14px 30px -10px rgba(124,92,255,0.7);">→</div>
+              <div style="font-size:12.5px; color:#f4f6fb; font-weight:600;">둘러보기</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 8b — stronger iso ===== -->
+    <div id="8b" style="flex:0 0 auto; width:1280px; display:flex; flex-direction:column; gap:16px;">
+      <div style="display:flex; align-items:baseline; gap:14px;">
+        <span style="display:inline-flex; align-items:center; justify-content:center; min-width:44px; height:28px; padding:0 10px; border-radius:7px; background:#2a0f18; border:1px solid #6e2338; color:#ff5c7c; font-family:'JetBrains Mono',monospace; font-size:14px; font-weight:700;">8b</span>
+        <div style="font-size:20px; font-weight:600; color:#e8ecf3;">더 뚜렷한 아이소 (강조)</div>
+        <div style="font-size:14px; color:#8b95a3;">좌 카피 · 우 기울어진 선반 + 빌보드</div>
+      </div>
+      <div style="position:relative; width:100%; height:720px; border-radius:16px; overflow:hidden; background:radial-gradient(120% 100% at 72% 10%, #241539 0%, #0e0916 58%, #08060b 100%); border:1px solid #241a30;">
+        <div style="position:absolute; top:12%; right:16%; width:360px; height:360px; border-radius:50%; background:radial-gradient(circle,rgba(255,92,124,0.22),transparent 68%); filter:blur(18px); animation:rnr-drift 13s ease-in-out infinite;"></div>
+
+        <div style="position:relative; display:flex; align-items:center; justify-content:space-between; padding:28px 46px;">
+          <div style="display:flex; align-items:center; gap:11px; font-size:20px; font-weight:600; color:#f4f6fb;"><svg viewBox="0 0 34 34" width="30" height="30"><rect x="1" y="1" width="32" height="32" rx="9.5" fill="#ff5c7c"/><g fill="#0a0b0e"><rect x="9.5" y="13" width="3" height="8" rx="1.5"/><rect x="15.5" y="9" width="3" height="16" rx="1.5"/><rect x="21.5" y="11.5" width="3" height="11" rx="1.5"/></g></svg>RnRsoft</div>
+          <div style="display:flex; gap:32px; font-size:15px; color:#b9bcc6;"><span>앱</span><span>소개</span><span>문의</span></div>
+          <div style="padding:10px 18px; border-radius:999px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); color:#f4f6fb; font-size:14px;">앱 둘러보기</div>
+        </div>
+
+        <div style="position:absolute; top:150px; left:54px; z-index:5; max-width:400px;">
+          <div style="display:inline-flex; align-items:center; gap:8px; padding:7px 15px; border-radius:999px; background:rgba(255,92,124,0.1); border:1px solid rgba(255,92,124,0.3); font-size:13px; color:#ff9fb2; animation:rnr-rise 0.6s ease both;"><span style="width:6px;height:6px;border-radius:50%;background:#ff5c7c;box-shadow:0 0 8px #ff5c7c;"></span>productivity & learning apps</div>
+          <h2 style="margin:20px 0 0; font-size:58px; line-height:1.03; font-weight:800; color:#f8f9fc; letter-spacing:-0.04em; animation:rnr-rise 0.7s ease 0.08s both;">생산성·학습<br>앱을 만듭니다</h2>
+          <p style="margin:20px 0 0; font-size:17px; line-height:1.7; color:#9aa4b2; max-width:330px; animation:rnr-rise 0.7s ease 0.16s both;">RnRsoft가 만드는 웹·모바일 앱. 하나는 서비스 중, 둘은 준비 중.</p>
+          <div style="display:inline-flex; align-items:center; gap:8px; margin-top:28px; padding:14px 26px; border-radius:12px; background:linear-gradient(135deg,#ff5c7c,#ff2d6a); color:#fff; font-weight:700; font-size:15.5px; box-shadow:0 16px 40px -14px rgba(255,45,106,0.7); animation:rnr-rise 0.7s ease 0.24s both;">앱 둘러보기 →</div>
+        </div>
+
+        <!-- billboard label -->
+        <div style="position:absolute; right:330px; top:196px; z-index:6; animation:rnr-bob 5s ease-in-out infinite;">
+          <div style="padding:8px 14px; border-radius:10px; background:#ff5c7c; color:#2a0710; font-size:13px; font-weight:700; box-shadow:0 12px 26px -8px rgba(255,92,124,0.6);">App 01 · 서비스 중</div>
+          <div style="width:1px; height:40px; margin:0 auto; background:linear-gradient(#ff5c7c,transparent);"></div>
+        </div>
+
+        <!-- iso shelf -->
+        <div style="position:absolute; right:-10px; bottom:20px; width:660px; height:520px; transform:rotateX(52deg) rotateZ(-40deg); transform-style:preserve-3d;">
+          <div style="position:absolute; inset:0; background-image:linear-gradient(rgba(255,92,124,0.14) 1px,transparent 1px),linear-gradient(90deg,rgba(255,92,124,0.12) 1px,transparent 1px); background-size:80px 80px; opacity:0.5; -webkit-mask-image:radial-gradient(circle at 50% 45%,#000,transparent 72%); mask-image:radial-gradient(circle at 50% 45%,#000,transparent 72%);"></div>
+          <div style="position:absolute; top:170px; left:250px; width:150px; height:150px; border-radius:26px; background:linear-gradient(135deg,#ff5c7c,#ff2d6a); box-shadow:0 60px 0 -2px rgba(42,7,16,0.6), 0 30px 60px rgba(0,0,0,0.5); display:flex; align-items:center; justify-content:center; animation:rnr-float 6s ease-in-out infinite;"><svg viewBox="0 0 34 34" width="66" height="66"><g fill="#fff"><rect x="9.5" y="13" width="3" height="8" rx="1.5"/><rect x="15.5" y="9" width="3" height="16" rx="1.5"/><rect x="21.5" y="11.5" width="3" height="11" rx="1.5"/></g></svg></div>
+          <div style="position:absolute; top:340px; left:120px; width:128px; height:128px; border-radius:22px; background:rgba(255,255,255,0.06); border:1.5px dashed rgba(255,255,255,0.24); box-shadow:0 44px 0 -2px rgba(20,10,16,0.5); display:flex; align-items:center; justify-content:center; color:#8b8090; font-size:32px; animation:rnr-floatB 7s ease-in-out infinite 0.4s;">+</div>
+          <div style="position:absolute; top:360px; left:410px; width:128px; height:128px; border-radius:22px; background:rgba(255,255,255,0.06); border:1.5px dashed rgba(255,255,255,0.24); box-shadow:0 44px 0 -2px rgba(20,10,16,0.5); display:flex; align-items:center; justify-content:center; color:#8b8090; font-size:32px; animation:rnr-floatC 8s ease-in-out infinite 0.8s;">+</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section style="display:flex; flex-direction:column; gap:36px; padding:64px; background:#0a0b0e; min-height:100vh; font-family:'Pretendard',sans-serif;">
+  <div style="display:flex; flex-direction:column; gap:10px; max-width:1060px;">
+    <div style="font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:0.18em; text-transform:uppercase; color:#22d3ee;">Turn 7 · Dock × Iso · Deep Dive + New Hybrids</div>
+    <div style="display:flex; align-items:center; gap:16px;">
+      <svg viewBox="0 0 34 34" width="40" height="40"><rect x="1" y="1" width="32" height="32" rx="9.5" fill="#22d3ee"/><g fill="#0a0b0e"><rect x="9.5" y="13" width="3" height="8" rx="1.5"/><rect x="15.5" y="9" width="3" height="16" rx="1.5"/><rect x="21.5" y="11.5" width="3" height="11" rx="1.5"/></g></svg>
+      <h1 style="margin:0; font-size:32px; font-weight:700; color:#f4f6fb; letter-spacing:-0.02em;">도크 × 아이소메트릭 — 디테일 & 하이브리드</h1>
+    </div>
+    <p style="margin:0; font-size:16px; line-height:1.6; color:#9aa4b2;">
+      <a href="#7a" style="color:#22d3ee;">7a</a> 도크(정제·리플렉션·툴팁) · <a href="#7b" style="color:#22d3ee;">7b</a> 아이소메트릭(빌보드 라벨·경로) · <a href="#7c" style="color:#22d3ee;">7c</a> 오빗(앱이 워드마크를 공전, 새 유형) · <a href="#7d" style="color:#22d3ee;">7d</a> 플로팅 아일랜드(도크+아이소 결합, 새 유형). 한글 기준. 마음에 드는 걸 골라주세요.
+    </p>
+  </div>
+
+  <div style="display:flex; flex-wrap:wrap; gap:44px; align-items:flex-start;">
+
+    <!-- ===== 7a — Dock refined ===== -->
+    <div id="7a" style="flex:0 0 auto; width:1280px; display:flex; flex-direction:column; gap:16px;">
+      <div style="display:flex; align-items:baseline; gap:14px;">
+        <span style="display:inline-flex; align-items:center; justify-content:center; min-width:44px; height:28px; padding:0 10px; border-radius:7px; background:#2a0f18; border:1px solid #6e2338; color:#ff5c7c; font-family:'JetBrains Mono',monospace; font-size:14px; font-weight:700;">7a</span>
+        <div style="font-size:20px; font-weight:600; color:#e8ecf3;">앱 도크 · 정제형</div>
+        <div style="font-size:14px; color:#8b95a3;">호버 리프트 · 리플렉션 · 라이브 툴팁</div>
+      </div>
+      <div style="position:relative; width:100%; height:720px; border-radius:16px; overflow:hidden; background:radial-gradient(120% 90% at 50% -10%, #201336 0%, #0d0912 55%, #08060b 100%); border:1px solid #241a30;">
+        <div style="position:absolute; top:14%; left:10%; width:360px; height:360px; border-radius:50%; background:radial-gradient(circle,rgba(255,92,124,0.22),transparent 68%); filter:blur(16px); animation:rnr-drift 12s ease-in-out infinite;"></div>
+        <div style="position:absolute; bottom:2%; right:12%; width:320px; height:320px; border-radius:50%; background:radial-gradient(circle,rgba(124,92,255,0.26),transparent 68%); filter:blur(16px); animation:rnr-drift 14s ease-in-out infinite reverse;"></div>
+        <div style="position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px); background-size:100% 46px;"></div>
+
+        <div style="position:relative; display:flex; align-items:center; justify-content:space-between; padding:28px 46px;">
+          <div style="display:flex; align-items:center; gap:11px; font-size:20px; font-weight:600; color:#f4f6fb;"><svg viewBox="0 0 34 34" width="30" height="30"><rect x="1" y="1" width="32" height="32" rx="9.5" fill="#ff5c7c"/><g fill="#0a0b0e"><rect x="9.5" y="13" width="3" height="8" rx="1.5"/><rect x="15.5" y="9" width="3" height="16" rx="1.5"/><rect x="21.5" y="11.5" width="3" height="11" rx="1.5"/></g></svg>RnRsoft</div>
+          <div style="display:flex; gap:32px; font-size:15px; color:#b9bcc6;"><span>앱</span><span>소개</span><span>문의</span></div>
+          <div style="padding:10px 18px; border-radius:999px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); color:#f4f6fb; font-size:14px;">앱 둘러보기</div>
+        </div>
+
+        <div style="position:relative; text-align:center; padding:46px 40px 0;">
+          <div style="display:inline-flex; align-items:center; gap:8px; padding:7px 15px; border-radius:999px; background:rgba(255,92,124,0.1); border:1px solid rgba(255,92,124,0.3); font-size:13px; color:#ff9fb2; animation:rnr-rise 0.6s ease both;"><span style="width:6px;height:6px;border-radius:50%;background:#ff5c7c;box-shadow:0 0 8px #ff5c7c;"></span>productivity & learning apps</div>
+          <h2 style="margin:22px 0 0; font-size:66px; line-height:1.02; font-weight:800; color:#f8f9fc; letter-spacing:-0.04em; animation:rnr-rise 0.7s ease 0.08s both;">생산성·학습 앱을<br>만듭니다</h2>
+          <p style="margin:22px auto 0; font-size:17px; line-height:1.7; color:#9aa4b2; max-width:440px; animation:rnr-rise 0.7s ease 0.16s both;">RnRsoft가 만든 앱을 도크에서 바로 둘러보세요. 하나는 서비스 중, 둘은 준비 중.</p>
+        </div>
+
+        <!-- dock + reflection -->
+        <div style="position:absolute; bottom:56px; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center;">
+          <div style="position:relative; display:flex; align-items:flex-end; gap:22px; padding:22px 30px; border-radius:30px; background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.14); backdrop-filter:blur(18px); box-shadow:0 44px 100px -30px rgba(0,0,0,0.85);">
+            <!-- live tile with tooltip + hover lift -->
+            <div style="position:relative; display:flex; flex-direction:column; align-items:center; gap:11px; animation:rnr-hoverlift 3.2s ease-in-out infinite;">
+              <div style="position:absolute; top:-44px; left:50%; transform:translateX(-50%); white-space:nowrap; padding:6px 12px; border-radius:8px; background:#141019; border:1px solid rgba(255,255,255,0.14); font-size:12px; color:#f4f6fb; box-shadow:0 8px 20px rgba(0,0,0,0.5);">App 01 · 열기</div>
+              <div style="position:relative; width:112px; height:112px; border-radius:28px; background:linear-gradient(150deg,#ff5c7c,#ff2d6a); display:flex; align-items:center; justify-content:center; animation:rnr-glow 2.6s ease-in-out infinite;">
+                <span style="position:absolute; inset:0; border-radius:28px; border:2px solid #ff5c7c; animation:rnr-ring 2.6s ease-out infinite;"></span>
+                <svg viewBox="0 0 34 34" width="56" height="56"><g fill="#fff"><rect x="9.5" y="13" width="3" height="8" rx="1.5"/><rect x="15.5" y="9" width="3" height="16" rx="1.5"/><rect x="21.5" y="11.5" width="3" height="11" rx="1.5"/></g></svg>
+              </div>
+              <div style="font-size:13px; color:#f4f6fb; font-weight:600;">App 01</div><div style="font-size:11px; color:#6ee7b7;">● 서비스 중</div>
+            </div>
+            <div style="display:flex; flex-direction:column; align-items:center; gap:11px;">
+              <div style="width:92px; height:92px; border-radius:23px; background:rgba(255,255,255,0.05); border:1.5px dashed rgba(255,255,255,0.22); display:flex; align-items:center; justify-content:center; color:#6b7080; font-size:32px;">+</div>
+              <div style="font-size:13px; color:#c7cfdb; font-weight:600;">App 02</div><div style="font-size:11px; color:#8b8f9c;">준비 중</div>
+            </div>
+            <div style="display:flex; flex-direction:column; align-items:center; gap:11px;">
+              <div style="width:92px; height:92px; border-radius:23px; background:rgba(255,255,255,0.05); border:1.5px dashed rgba(255,255,255,0.22); display:flex; align-items:center; justify-content:center; color:#6b7080; font-size:32px;">+</div>
+              <div style="font-size:13px; color:#c7cfdb; font-weight:600;">App 03</div><div style="font-size:11px; color:#8b8f9c;">준비 중</div>
+            </div>
+            <div style="width:1px; height:92px; background:rgba(255,255,255,0.14); margin:0 4px;"></div>
+            <div style="display:flex; flex-direction:column; align-items:center; gap:11px;">
+              <div style="width:92px; height:92px; border-radius:23px; background:linear-gradient(150deg,#7c5cff,#a855f7); display:flex; align-items:center; justify-content:center; color:#fff; font-size:28px; font-weight:700; box-shadow:0 14px 30px -10px rgba(124,92,255,0.7);">→</div>
+              <div style="font-size:13px; color:#f4f6fb; font-weight:600;">둘러보기</div><div style="font-size:11px; color:#8b8f9c;">전체 앱</div>
+            </div>
+          </div>
+          <!-- reflection -->
+          <div style="margin-top:8px; height:60px; width:88%; border-radius:30px; background:linear-gradient(180deg,rgba(255,92,124,0.14),transparent 70%); filter:blur(10px); opacity:0.5;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 7b — Isometric refined ===== -->
+    <div id="7b" style="flex:0 0 auto; width:1280px; display:flex; flex-direction:column; gap:16px;">
+      <div style="display:flex; align-items:baseline; gap:14px;">
+        <span style="display:inline-flex; align-items:center; justify-content:center; min-width:44px; height:28px; padding:0 10px; border-radius:7px; background:#06201f; border:1px solid #0f5450; color:#2dd4bf; font-family:'JetBrains Mono',monospace; font-size:14px; font-weight:700;">7b</span>
+        <div style="font-size:20px; font-weight:600; color:#e8ecf3;">아이소메트릭 · 정제형</div>
+        <div style="font-size:14px; color:#8b95a3;">빌보드 라벨 · 연결 경로 · 깊이</div>
+      </div>
+      <div style="position:relative; width:100%; height:720px; border-radius:16px; overflow:hidden; background:radial-gradient(120% 100% at 72% 15%, #0b2b28 0%, #08130f 60%, #050908 100%); border:1px solid #123330;">
+        <div style="position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,rgba(45,212,191,0.6),transparent);"></div>
+        <div style="position:relative; display:flex; align-items:center; justify-content:space-between; padding:28px 46px;">
+          <div style="display:flex; align-items:center; gap:11px; font-size:20px; font-weight:600; color:#f4f6fb;"><svg viewBox="0 0 34 34" width="30" height="30"><rect x="1" y="1" width="32" height="32" rx="9.5" fill="#2dd4bf"/><g fill="#08130f"><rect x="9.5" y="13" width="3" height="8" rx="1.5"/><rect x="15.5" y="9" width="3" height="16" rx="1.5"/><rect x="21.5" y="11.5" width="3" height="11" rx="1.5"/></g></svg>RnRsoft</div>
+          <div style="display:flex; gap:32px; font-size:15px; color:#a8b0bd;"><span>앱</span><span>소개</span><span>문의</span></div>
+          <div style="padding:10px 18px; border-radius:999px; background:rgba(45,212,191,0.12); border:1px solid rgba(45,212,191,0.3); color:#6ee7d8; font-size:14px;">앱 둘러보기</div>
+        </div>
+        <div style="position:absolute; top:132px; left:54px; z-index:4; max-width:400px;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:0.18em; text-transform:uppercase; color:#2dd4bf; margin-bottom:20px; animation:rnr-rise 0.6s ease both;">productivity & learning apps</div>
+          <h2 style="margin:0; font-size:58px; line-height:1.04; font-weight:800; color:#f8f9fc; letter-spacing:-0.04em; animation:rnr-rise 0.7s ease 0.08s both;">앱을 짓는<br>작은 스튜디오</h2>
+          <p style="margin:22px 0 0; font-size:17px; line-height:1.7; color:#9aa4b2; max-width:320px; animation:rnr-rise 0.7s ease 0.16s both;">RnRsoft가 만드는 웹·모바일 앱. 하나씩 늘어나는 세계.</p>
+          <div style="display:inline-flex; align-items:center; gap:8px; margin-top:28px; padding:14px 26px; border-radius:12px; background:#2dd4bf; color:#04211e; font-weight:700; font-size:15.5px; animation:rnr-rise 0.7s ease 0.24s both;">앱 둘러보기 →</div>
+        </div>
+
+        <!-- billboard labels (upright) -->
+        <div style="position:absolute; right:270px; top:210px; z-index:5; animation:rnr-bob 5s ease-in-out infinite;">
+          <div style="padding:8px 14px; border-radius:10px; background:#2dd4bf; color:#04211e; font-size:13px; font-weight:700; box-shadow:0 12px 26px -8px rgba(45,212,191,0.6);">App 01 · 서비스 중</div>
+          <div style="width:1px; height:44px; margin:0 auto; background:linear-gradient(#2dd4bf,transparent);"></div>
+        </div>
+        <div style="position:absolute; right:470px; top:330px; z-index:5;">
+          <div style="padding:7px 13px; border-radius:9px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.16); color:#c7cfdb; font-size:12.5px; font-weight:600; backdrop-filter:blur(8px);">App 02 · 준비 중</div>
+          <div style="width:1px; height:38px; margin:0 auto; background:linear-gradient(rgba(255,255,255,0.4),transparent);"></div>
+        </div>
+        <div style="position:absolute; right:150px; top:360px; z-index:5;">
+          <div style="padding:7px 13px; border-radius:9px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.16); color:#c7cfdb; font-size:12.5px; font-weight:600; backdrop-filter:blur(8px);">App 03 · 준비 중</div>
+          <div style="width:1px; height:38px; margin:0 auto; background:linear-gradient(rgba(255,255,255,0.4),transparent);"></div>
+        </div>
+
+        <div style="position:absolute; right:-30px; bottom:-40px; width:740px; height:640px; transform:rotateX(56deg) rotateZ(-42deg); transform-style:preserve-3d;">
+          <!-- connecting path -->
+          <svg viewBox="0 0 740 640" style="position:absolute; inset:0; width:100%; height:100%;"><path d="M180 480 L320 300 L470 430 L560 260" fill="none" stroke="rgba(45,212,191,0.45)" stroke-width="3" stroke-dasharray="8 10" style="animation:rnr-dash2 6s linear infinite;"/></svg>
+          <div style="position:absolute; top:200px; left:280px; width:150px; height:150px; border-radius:24px; background:linear-gradient(135deg,#2dd4bf,#22d3ee); box-shadow:0 64px 0 -2px rgba(4,33,30,0.6), 0 30px 60px rgba(0,0,0,0.5); display:flex; align-items:center; justify-content:center; animation:rnr-float 6s ease-in-out infinite;"><svg viewBox="0 0 34 34" width="66" height="66"><g fill="#04211e"><rect x="9.5" y="13" width="3" height="8" rx="1.5"/><rect x="15.5" y="9" width="3" height="16" rx="1.5"/><rect x="21.5" y="11.5" width="3" height="11" rx="1.5"/></g></svg></div>
+          <div style="position:absolute; top:390px; left:130px; width:130px; height:130px; border-radius:22px; background:rgba(255,255,255,0.06); border:1.5px dashed rgba(255,255,255,0.24); box-shadow:0 44px 0 -2px rgba(4,20,18,0.5); animation:rnr-floatB 7s ease-in-out infinite 0.4s;"></div>
+          <div style="position:absolute; top:410px; left:420px; width:130px; height:130px; border-radius:22px; background:rgba(255,255,255,0.06); border:1.5px dashed rgba(255,255,255,0.24); box-shadow:0 44px 0 -2px rgba(4,20,18,0.5); animation:rnr-floatC 8s ease-in-out infinite 0.8s;"></div>
+          <div style="position:absolute; top:120px; left:520px; width:110px; height:110px; border-radius:20px; background:rgba(45,212,191,0.12); border:1px solid rgba(45,212,191,0.3); animation:rnr-floatC 9s ease-in-out infinite 1.2s;"></div>
+          <div style="position:absolute; inset:0; background-image:linear-gradient(rgba(45,212,191,0.12) 1px,transparent 1px),linear-gradient(90deg,rgba(45,212,191,0.12) 1px,transparent 1px); background-size:80px 80px; opacity:0.45;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 7c — Orbit (NEW) ===== -->
+    <div id="7c" style="flex:0 0 auto; width:1280px; display:flex; flex-direction:column; gap:16px;">
+      <div style="display:flex; align-items:baseline; gap:14px;">
+        <span style="display:inline-flex; align-items:center; justify-content:center; min-width:44px; height:28px; padding:0 10px; border-radius:7px; background:#0f1330; border:1px solid #2b3170; color:#818cf8; font-family:'JetBrains Mono',monospace; font-size:14px; font-weight:700;">7c</span>
+        <div style="font-size:20px; font-weight:600; color:#e8ecf3;">오빗 — 앱이 공전 (새 유형)</div>
+        <div style="font-size:14px; color:#8b95a3;">워드마크 중심으로 앱이 궤도를 돈다</div>
+      </div>
+      <div style="position:relative; width:100%; height:720px; border-radius:16px; overflow:hidden; background:radial-gradient(circle at 50% 50%, #141634 0%, #0a0b1a 55%, #06060f 100%); border:1px solid #1c1f40;">
+        <div style="position:relative; z-index:6; display:flex; align-items:center; justify-content:space-between; padding:28px 46px;">
+          <div style="display:flex; align-items:center; gap:11px; font-size:20px; font-weight:600; color:#f4f6fb;"><svg viewBox="0 0 34 34" width="30" height="30"><rect x="1" y="1" width="32" height="32" rx="9.5" fill="#818cf8"/><g fill="#06060f"><rect x="9.5" y="13" width="3" height="8" rx="1.5"/><rect x="15.5" y="9" width="3" height="16" rx="1.5"/><rect x="21.5" y="11.5" width="3" height="11" rx="1.5"/></g></svg>RnRsoft</div>
+          <div style="display:flex; gap:32px; font-size:15px; color:#b6bad0;"><span>앱</span><span>소개</span><span>문의</span></div>
+        </div>
+
+        <!-- orbit system -->
+        <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:640px; height:640px;">
+          <!-- rings -->
+          <div style="position:absolute; inset:80px; border-radius:50%; border:1px solid rgba(129,140,248,0.22);"></div>
+          <div style="position:absolute; inset:180px; border-radius:50%; border:1px solid rgba(129,140,248,0.18);"></div>
+          <div style="position:absolute; inset:0; border-radius:50%; border:1px dashed rgba(129,140,248,0.14);"></div>
+
+          <!-- center wordmark -->
+          <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); text-align:center; z-index:4;">
+            <svg viewBox="0 0 34 34" width="66" height="66" style="filter:drop-shadow(0 0 24px rgba(129,140,248,0.7));"><rect x="1" y="1" width="32" height="32" rx="9.5" fill="url(#g7c)"/><defs><linearGradient id="g7c" x1="0" y1="0" x2="34" y2="34"><stop offset="0" stop-color="#818cf8"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs><g fill="#06060f"><rect x="9.5" y="13" width="3" height="8" rx="1.5"/><rect x="15.5" y="9" width="3" height="16" rx="1.5"/><rect x="21.5" y="11.5" width="3" height="11" rx="1.5"/></g></svg>
+            <div style="margin-top:14px; font-size:26px; font-weight:700; color:#f8f9fc; letter-spacing:-0.02em;">RnRsoft</div>
+            <div style="margin-top:4px; font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.14em; color:#818cf8;">APP STUDIO</div>
+          </div>
+
+          <!-- outer orbiting tile (live) -->
+          <div style="position:absolute; inset:0; animation:rnr-spin 26s linear infinite;">
+            <div style="position:absolute; top:-6px; left:50%; transform:translateX(-50%); animation:rnr-spin-rev 26s linear infinite;">
+              <div style="width:88px; height:88px; border-radius:22px; background:linear-gradient(135deg,#818cf8,#22d3ee); display:flex; align-items:center; justify-content:center; box-shadow:0 16px 40px -10px rgba(129,140,248,0.8);">
+                <svg viewBox="0 0 34 34" width="42" height="42"><g fill="#06060f"><rect x="9.5" y="13" width="3" height="8" rx="1.5"/><rect x="15.5" y="9" width="3" height="16" rx="1.5"/><rect x="21.5" y="11.5" width="3" height="11" rx="1.5"/></g></svg>
+              </div>
+              <div style="text-align:center; margin-top:8px; font-size:11px; color:#6ee7b7;">App 01 ●</div>
+            </div>
+          </div>
+          <!-- mid orbiting tiles (wip) -->
+          <div style="position:absolute; inset:100px; animation:rnr-spin 20s linear infinite reverse;">
+            <div style="position:absolute; top:-4px; left:50%; transform:translateX(-50%); animation:rnr-spin 20s linear infinite;">
+              <div style="width:64px; height:64px; border-radius:17px; background:rgba(255,255,255,0.06); border:1.5px dashed rgba(255,255,255,0.24); display:flex; align-items:center; justify-content:center; color:#8b8fb0; font-size:22px;">+</div>
+            </div>
+            <div style="position:absolute; bottom:-4px; left:50%; transform:translateX(-50%); animation:rnr-spin 20s linear infinite;">
+              <div style="width:64px; height:64px; border-radius:17px; background:rgba(255,255,255,0.06); border:1.5px dashed rgba(255,255,255,0.24); display:flex; align-items:center; justify-content:center; color:#8b8fb0; font-size:22px;">+</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- copy overlay -->
+        <div style="position:absolute; bottom:52px; left:50%; transform:translateX(-50%); text-align:center; z-index:6;">
+          <h2 style="margin:0; font-size:44px; line-height:1.08; font-weight:800; color:#f8f9fc; letter-spacing:-0.035em; animation:rnr-rise 0.7s ease both;">생산성·학습 앱을 만듭니다</h2>
+          <div style="display:inline-flex; align-items:center; gap:8px; margin-top:22px; padding:14px 28px; border-radius:999px; background:linear-gradient(135deg,#818cf8,#6366f1); color:#fff; font-weight:600; font-size:15.5px; box-shadow:0 16px 40px -14px rgba(99,102,241,0.7);">앱 둘러보기 →</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 7d — Floating island (NEW hybrid) ===== -->
+    <div id="7d" style="flex:0 0 auto; width:1280px; display:flex; flex-direction:column; gap:16px;">
+      <div style="display:flex; align-items:baseline; gap:14px;">
+        <span style="display:inline-flex; align-items:center; justify-content:center; min-width:44px; height:28px; padding:0 10px; border-radius:7px; background:#251206; border:1px solid #6e3e14; color:#fbbf24; font-family:'JetBrains Mono',monospace; font-size:14px; font-weight:700;">7d</span>
+        <div style="font-size:20px; font-weight:600; color:#e8ecf3;">플로팅 아일랜드 (도크+아이소, 새 유형)</div>
+        <div style="font-size:14px; color:#8b95a3;">떠 있는 3D 플랫폼 위 앱 도크</div>
+      </div>
+      <div style="position:relative; width:100%; height:720px; border-radius:16px; overflow:hidden; background:radial-gradient(120% 110% at 50% -20%, #2a1c33 0%, #120c1a 55%, #0a070e 100%); border:1px solid #2a1f36;">
+        <div style="position:absolute; top:10%; left:50%; transform:translateX(-50%); width:680px; height:420px; background:radial-gradient(ellipse at center,rgba(251,191,36,0.14),transparent 62%); filter:blur(20px);"></div>
+
+        <div style="position:relative; display:flex; align-items:center; justify-content:space-between; padding:28px 46px;">
+          <div style="display:flex; align-items:center; gap:11px; font-size:20px; font-weight:600; color:#f4f6fb;"><svg viewBox="0 0 34 34" width="30" height="30"><rect x="1" y="1" width="32" height="32" rx="9.5" fill="#fbbf24"/><g fill="#0a070e"><rect x="9.5" y="13" width="3" height="8" rx="1.5"/><rect x="15.5" y="9" width="3" height="16" rx="1.5"/><rect x="21.5" y="11.5" width="3" height="11" rx="1.5"/></g></svg>RnRsoft</div>
+          <div style="display:flex; gap:32px; font-size:15px; color:#c3bcc9;"><span>앱</span><span>소개</span><span>문의</span></div>
+        </div>
+
+        <div style="position:relative; text-align:center; padding:30px 40px 0;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:0.2em; text-transform:uppercase; color:#fbbf24; animation:rnr-rise 0.6s ease both;">productivity & learning apps</div>
+          <h2 style="margin:18px 0 0; font-size:58px; line-height:1.04; font-weight:800; color:#f8f9fc; letter-spacing:-0.04em; animation:rnr-rise 0.7s ease 0.08s both;">생산성·학습 앱을 만듭니다</h2>
+        </div>
+
+        <!-- floating island -->
+        <div style="position:absolute; bottom:48px; left:50%; transform:translateX(-50%); width:620px; animation:rnr-floatB 6s ease-in-out infinite;">
+          <div style="position:relative; z-index:2; display:flex; align-items:flex-end; justify-content:center; gap:22px; padding:24px 30px 30px;">
+            <div style="display:flex; flex-direction:column; align-items:center; gap:10px;">
+              <div style="position:relative; width:104px; height:104px; border-radius:26px; background:linear-gradient(150deg,#fbbf24,#f59e0b); display:flex; align-items:center; justify-content:center; box-shadow:0 18px 40px -10px rgba(251,191,36,0.7);">
+                <span style="position:absolute; inset:0; border-radius:26px; border:2px solid #fbbf24; animation:rnr-ring 2.8s ease-out infinite;"></span>
+                <svg viewBox="0 0 34 34" width="52" height="52"><g fill="#3a2606"><rect x="9.5" y="13" width="3" height="8" rx="1.5"/><rect x="15.5" y="9" width="3" height="16" rx="1.5"/><rect x="21.5" y="11.5" width="3" height="11" rx="1.5"/></g></svg>
+              </div>
+              <div style="font-size:12.5px; color:#f4f6fb; font-weight:600;">App 01</div><div style="font-size:11px; color:#6ee7b7;">● 서비스 중</div>
+            </div>
+            <div style="display:flex; flex-direction:column; align-items:center; gap:10px;">
+              <div style="width:84px; height:84px; border-radius:21px; background:rgba(255,255,255,0.06); border:1.5px dashed rgba(255,255,255,0.24); display:flex; align-items:center; justify-content:center; color:#8b8090; font-size:28px;">+</div>
+              <div style="font-size:12.5px; color:#c7cfdb; font-weight:600;">App 02</div><div style="font-size:11px; color:#8b8f9c;">준비 중</div>
+            </div>
+            <div style="display:flex; flex-direction:column; align-items:center; gap:10px;">
+              <div style="width:84px; height:84px; border-radius:21px; background:rgba(255,255,255,0.06); border:1.5px dashed rgba(255,255,255,0.24); display:flex; align-items:center; justify-content:center; color:#8b8090; font-size:28px;">+</div>
+              <div style="font-size:12.5px; color:#c7cfdb; font-weight:600;">App 03</div><div style="font-size:11px; color:#8b8f9c;">준비 중</div>
+            </div>
+          </div>
+          <!-- island slab (iso) -->
+          <div style="position:relative; height:120px; margin:0 40px;">
+            <div style="position:absolute; top:0; left:0; right:0; height:70px; border-radius:50%/40px; background:linear-gradient(180deg,rgba(255,255,255,0.1),rgba(255,255,255,0.03)); border:1px solid rgba(255,255,255,0.14); backdrop-filter:blur(10px);"></div>
+            <div style="position:absolute; top:34px; left:10%; right:10%; height:70px; border-radius:50%/40px; background:linear-gradient(180deg,rgba(251,191,36,0.22),rgba(251,191,36,0)); filter:blur(6px);"></div>
+          </div>
+          <div style="text-align:center; margin-top:8px;"><div style="display:inline-flex; align-items:center; gap:8px; padding:13px 26px; border-radius:999px; background:linear-gradient(135deg,#fbbf24,#f59e0b); color:#3a2606; font-weight:700; font-size:15px;">앱 둘러보기 →</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section style="display:flex; flex-direction:column; gap:36px; padding:64px; background:#0a0b0e; min-height:100vh; font-family:'Pretendard',sans-serif;">
+  <div style="display:flex; flex-direction:column; gap:10px; max-width:1060px;">
+    <div style="font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:0.18em; text-transform:uppercase; color:#34d399;">Turn 6 · Refined 3 · KO / EN · Animated</div>
+    <div style="display:flex; align-items:center; gap:16px;">
+      <svg viewBox="0 0 34 34" width="40" height="40"><rect x="1" y="1" width="32" height="32" rx="9.5" fill="#34d399"/><g fill="#0a0b0e"><rect x="9.5" y="13" width="3" height="8" rx="1.5"/><rect x="15.5" y="9" width="3" height="16" rx="1.5"/><rect x="21.5" y="11.5" width="3" height="11" rx="1.5"/></g></svg>
+      <h1 style="margin:0; font-size:32px; font-weight:700; color:#f4f6fb; letter-spacing:-0.02em;">3개 컨셉 · 한글/영문 · 애니메이션 강화</h1>
+    </div>
+    <p style="margin:0; font-size:16px; line-height:1.6; color:#9aa4b2;">
+      각 컨셉을 한글(KO)·영문(EN) 두 벌로. <a href="#6a" style="color:#34d399;">6a</a>/<a href="#6b" style="color:#34d399;">6b</a> 앱 도크 · <a href="#6c" style="color:#34d399;">6c</a>/<a href="#6d" style="color:#34d399;">6d</a> 아이소메트릭 · <a href="#6e" style="color:#34d399;">6e</a>/<a href="#6f" style="color:#34d399;">6f</a> 오로라 글래스. 도크 계단 등장·글로우 펄스, 타일 부유, 글래스 시머 등 모션 포함. 방향 고르시면 전체 랜딩으로.
+    </p>
+  </div>
+
+  <div style="display:flex; flex-wrap:wrap; gap:44px; align-items:flex-start;">
+
+    <!-- ===== 6a — Dock KO ===== -->
+    <div id="6a" style="flex:0 0 auto; width:1280px; display:flex; flex-direction:column; gap:16px;">
+      <div style="display:flex; align-items:baseline; gap:14px;">
+        <span style="display:inline-flex; align-items:center; justify-content:center; min-width:44px; height:28px; padding:0 10px; border-radius:7px; background:#2a0f18; border:1px solid #6e2338; color:#ff5c7c; font-family:'JetBrains Mono',monospace; font-size:14px; font-weight:700;">6a</span>
+        <div style="font-size:20px; font-weight:600; color:#e8ecf3;">앱 도크 · 한글</div>
+      </div>
+      <div style="position:relative; width:100%; height:700px; border-radius:16px; overflow:hidden; background:radial-gradient(120% 90% at 50% 0%, #1b1030 0%, #0c0910 55%, #08060b 100%); border:1px solid #241a30;">
+        <div style="position:absolute; top:16%; left:12%; width:340px; height:340px; border-radius:50%; background:radial-gradient(circle,rgba(255,92,124,0.22),transparent 68%); filter:blur(14px); animation:rnr-drift 12s ease-in-out infinite;"></div>
+        <div style="position:absolute; bottom:6%; right:14%; width:300px; height:300px; border-radius:50%; background:radial-gradient(circle,rgba(124,92,255,0.24),transparent 68%); filter:blur(14px); animation:rnr-drift 14s ease-in-out infinite reverse;"></div>
+        <div style="position:relative; display:flex; align-items:center; justify-content:space-between; padding:28px 44px;">
+          <div style="display:flex; align-items:center; gap:11px; font-size:20px; font-weight:600; color:#f4f6fb;"><svg viewBox="0 0 34 34" width="30" height="30"><rect x="1" y="1" width="32" height="32" rx="9.5" fill="#ff5c7c"/><g fill="#0a0b0e"><rect x="9.5" y="13" width="3" height="8" rx="1.5"/><rect x="15.5" y="9" width="3" height="16" rx="1.5"/><rect x="21.5" y="11.5" width="3" height="11" rx="1.5"/></g></svg>RnRsoft</div>
+          <div style="display:flex; gap:32px; font-size:15px; color:#b9bcc6;"><span>앱</span><span>소개</span><span>문의</span></div>
+        </div>
+        <div style="position:relative; text-align:center; padding:44px 40px 0;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:0.2em; text-transform:uppercase; color:#ff8fa6; animation:rnr-rise 0.6s ease both;">productivity & learning apps</div>
+          <h2 style="margin:20px 0 0; font-size:64px; line-height:1.04; font-weight:800; color:#f8f9fc; letter-spacing:-0.04em; animation:rnr-rise 0.7s ease 0.08s both;">생산성·학습 앱을<br>만듭니다</h2>
+        </div>
+        <div style="position:absolute; bottom:50px; left:50%; transform:translateX(-50%); display:flex; align-items:flex-end; gap:20px; padding:20px 26px; border-radius:26px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); backdrop-filter:blur(16px); box-shadow:0 40px 90px -30px rgba(0,0,0,0.8);">
+          <div style="display:flex; flex-direction:column; align-items:center; gap:10px; animation:rnr-rise 0.6s ease 0.25s both;">
+            <div style="position:relative; width:104px; height:104px; border-radius:26px; background:linear-gradient(150deg,#ff5c7c,#ff2d6a); display:flex; align-items:center; justify-content:center; animation:rnr-glow 2.6s ease-in-out infinite;">
+              <span style="position:absolute; inset:0; border-radius:26px; border:2px solid #ff5c7c; animation:rnr-ring 2.6s ease-out infinite;"></span>
+              <svg viewBox="0 0 34 34" width="52" height="52"><g fill="#fff"><rect x="9.5" y="13" width="3" height="8" rx="1.5"/><rect x="15.5" y="9" width="3" height="16" rx="1.5"/><rect x="21.5" y="11.5" width="3" height="11" rx="1.5"/></g></svg>
+            </div>
+            <div style="font-size:13px; color:#f4f6fb; font-weight:600;">App 01</div><div style="font-size:11px; color:#6ee7b7;">● 서비스 중</div>
+          </div>
+          <div style="display:flex; flex-direction:column; align-items:center; gap:10px; animation:rnr-rise 0.6s ease 0.38s both;">
+            <div style="width:88px; height:88px; border-radius:22px; background:rgba(255,255,255,0.05); border:1.5px dashed rgba(255,255,255,0.2); display:flex; align-items:center; justify-content:center; color:#6b7080; font-size:30px;">+</div>
+            <div style="font-size:13px; color:#c7cfdb; font-weight:600;">App 02</div><div style="font-size:11px; color:#8b8f9c;">준비 중</div>
+          </div>
+          <div style="display:flex; flex-direction:column; align-items:center; gap:10px; animation:rnr-rise 0.6s ease 0.5s both;">
+            <div style="width:88px; height:88px; border-radius:22px; background:rgba(255,255,255,0.05); border:1.5px dashed rgba(255,255,255,0.2); display:flex; align-items:center; justify-content:center; color:#6b7080; font-size:30px;">+</div>
+            <div style="font-size:13px; color:#c7cfdb; font-weight:600;">App 03</div><div style="font-size:11px; color:#8b8f9c;">준비 중</div>
+          </div>
+          <div style="width:1px; height:88px; background:rgba(255,255,255,0.12); margin:0 4px;"></div>
+          <div style="display:flex; flex-direction:column; align-items:center; gap:10px; animation:rnr-rise 0.6s ease 0.62s both;">
+            <div style="width:88px; height:88px; border-radius:22px; background:linear-gradient(150deg,#7c5cff,#a855f7); display:flex; align-items:center; justify-content:center; color:#fff; font-size:26px; font-weight:700;">→</div>
+            <div style="font-size:13px; color:#f4f6fb; font-weight:600;">둘러보기</div><div style="font-size:11px; color:#8b8f9c;">전체 앱</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 6b — Dock EN ===== -->
+    <div id="6b" style="flex:0 0 auto; width:1280px; display:flex; flex-direction:column; gap:16px;">
+      <div style="display:flex; align-items:baseline; gap:14px;">
+        <span style="display:inline-flex; align-items:center; justify-content:center; min-width:44px; height:28px; padding:0 10px; border-radius:7px; background:#2a0f18; border:1px solid #6e2338; color:#ff5c7c; font-family:'JetBrains Mono',monospace; font-size:14px; font-weight:700;">6b</span>
+        <div style="font-size:20px; font-weight:600; color:#e8ecf3;">App Dock · English</div>
+      </div>
+      <div style="position:relative; width:100%; height:700px; border-radius:16px; overflow:hidden; background:radial-gradient(120% 90% at 50% 0%, #1b1030 0%, #0c0910 55%, #08060b 100%); border:1px solid #241a30; font-family:'Space Grotesk','Pretendard',sans-serif;">
+        <div style="position:absolute; top:16%; left:12%; width:340px; height:340px; border-radius:50%; background:radial-gradient(circle,rgba(255,92,124,0.22),transparent 68%); filter:blur(14px); animation:rnr-drift 12s ease-in-out infinite;"></div>
+        <div style="position:absolute; bottom:6%; right:14%; width:300px; height:300px; border-radius:50%; background:radial-gradient(circle,rgba(124,92,255,0.24),transparent 68%); filter:blur(14px); animation:rnr-drift 14s ease-in-out infinite reverse;"></div>
+        <div style="position:relative; display:flex; align-items:center; justify-content:space-between; padding:28px 44px;">
+          <div style="display:flex; align-items:center; gap:11px; font-size:20px; font-weight:600; color:#f4f6fb;"><svg viewBox="0 0 34 34" width="30" height="30"><rect x="1" y="1" width="32" height="32" rx="9.5" fill="#ff5c7c"/><g fill="#0a0b0e"><rect x="9.5" y="13" width="3" height="8" rx="1.5"/><rect x="15.5" y="9" width="3" height="16" rx="1.5"/><rect x="21.5" y="11.5" width="3" height="11" rx="1.5"/></g></svg>RnRsoft</div>
+          <div style="display:flex; gap:32px; font-size:15px; color:#b9bcc6;"><span>Apps</span><span>About</span><span>Contact</span></div>
+        </div>
+        <div style="position:relative; text-align:center; padding:44px 40px 0;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:0.2em; text-transform:uppercase; color:#ff8fa6; animation:rnr-rise 0.6s ease both;">productivity & learning apps</div>
+          <h2 style="margin:20px 0 0; font-size:66px; line-height:1.02; font-weight:700; color:#f8f9fc; letter-spacing:-0.04em; animation:rnr-rise 0.7s ease 0.08s both;">Apps for focus<br>& learning</h2>
+        </div>
+        <div style="position:absolute; bottom:50px; left:50%; transform:translateX(-50%); display:flex; align-items:flex-end; gap:20px; padding:20px 26px; border-radius:26px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); backdrop-filter:blur(16px); box-shadow:0 40px 90px -30px rgba(0,0,0,0.8);">
+          <div style="display:flex; flex-direction:column; align-items:center; gap:10px; animation:rnr-rise 0.6s ease 0.25s both;">
+            <div style="position:relative; width:104px; height:104px; border-radius:26px; background:linear-gradient(150deg,#ff5c7c,#ff2d6a); display:flex; align-items:center; justify-content:center; animation:rnr-glow 2.6s ease-in-out infinite;">
+              <span style="position:absolute; inset:0; border-radius:26px; border:2px solid #ff5c7c; animation:rnr-ring 2.6s ease-out infinite;"></span>
+              <svg viewBox="0 0 34 34" width="52" height="52"><g fill="#fff"><rect x="9.5" y="13" width="3" height="8" rx="1.5"/><rect x="15.5" y="9" width="3" height="16" rx="1.5"/><rect x="21.5" y="11.5" width="3" height="11" rx="1.5"/></g></svg>
+            </div>
+            <div style="font-size:13px; color:#f4f6fb; font-weight:600;">App 01</div><div style="font-size:11px; color:#6ee7b7;">● Live</div>
+          </div>
+          <div style="display:flex; flex-direction:column; align-items:center; gap:10px; animation:rnr-rise 0.6s ease 0.38s both;">
+            <div style="width:88px; height:88px; border-radius:22px; background:rgba(255,255,255,0.05); border:1.5px dashed rgba(255,255,255,0.2); display:flex; align-items:center; justify-content:center; color:#6b7080; font-size:30px;">+</div>
+            <div style="font-size:13px; color:#c7cfdb; font-weight:600;">App 02</div><div style="font-size:11px; color:#8b8f9c;">Coming</div>
+          </div>
+          <div style="display:flex; flex-direction:column; align-items:center; gap:10px; animation:rnr-rise 0.6s ease 0.5s both;">
+            <div style="width:88px; height:88px; border-radius:22px; background:rgba(255,255,255,0.05); border:1.5px dashed rgba(255,255,255,0.2); display:flex; align-items:center; justify-content:center; color:#6b7080; font-size:30px;">+</div>
+            <div style="font-size:13px; color:#c7cfdb; font-weight:600;">App 03</div><div style="font-size:11px; color:#8b8f9c;">Coming</div>
+          </div>
+          <div style="width:1px; height:88px; background:rgba(255,255,255,0.12); margin:0 4px;"></div>
+          <div style="display:flex; flex-direction:column; align-items:center; gap:10px; animation:rnr-rise 0.6s ease 0.62s both;">
+            <div style="width:88px; height:88px; border-radius:22px; background:linear-gradient(150deg,#7c5cff,#a855f7); display:flex; align-items:center; justify-content:center; color:#fff; font-size:26px; font-weight:700;">→</div>
+            <div style="font-size:13px; color:#f4f6fb; font-weight:600;">Explore</div><div style="font-size:11px; color:#8b8f9c;">all apps</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 6c — Isometric KO ===== -->
+    <div id="6c" style="flex:0 0 auto; width:1280px; display:flex; flex-direction:column; gap:16px;">
+      <div style="display:flex; align-items:baseline; gap:14px;">
+        <span style="display:inline-flex; align-items:center; justify-content:center; min-width:44px; height:28px; padding:0 10px; border-radius:7px; background:#06201f; border:1px solid #0f5450; color:#2dd4bf; font-family:'JetBrains Mono',monospace; font-size:14px; font-weight:700;">6c</span>
+        <div style="font-size:20px; font-weight:600; color:#e8ecf3;">아이소메트릭 · 한글</div>
+      </div>
+      <div style="position:relative; width:100%; height:700px; border-radius:16px; overflow:hidden; background:radial-gradient(120% 100% at 70% 20%, #0a2422 0%, #08110f 60%, #060a09 100%); border:1px solid #123330;">
+        <div style="position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,rgba(45,212,191,0.6),transparent);"></div>
+        <div style="position:relative; display:flex; align-items:center; justify-content:space-between; padding:28px 44px;">
+          <div style="display:flex; align-items:center; gap:11px; font-size:20px; font-weight:600; color:#f4f6fb;"><svg viewBox="0 0 34 34" width="30" height="30"><rect x="1" y="1" width="32" height="32" rx="9.5" fill="#2dd4bf"/><g fill="#08110f"><rect x="9.5" y="13" width="3" height="8" rx="1.5"/><rect x="15.5" y="9" width="3" height="16" rx="1.5"/><rect x="21.5" y="11.5" width="3" height="11" rx="1.5"/></g></svg>RnRsoft</div>
+          <div style="display:flex; gap:32px; font-size:15px; color:#a8b0bd;"><span>앱</span><span>소개</span><span>문의</span></div>
+        </div>
+        <div style="position:absolute; top:120px; left:52px; z-index:3; max-width:420px;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:0.18em; text-transform:uppercase; color:#2dd4bf; margin-bottom:20px; animation:rnr-rise 0.6s ease both;">productivity & learning apps</div>
+          <h2 style="margin:0; font-size:58px; line-height:1.05; font-weight:800; color:#f8f9fc; letter-spacing:-0.04em; animation:rnr-rise 0.7s ease 0.08s both;">앱을 짓는<br>작은 스튜디오</h2>
+          <p style="margin:22px 0 0; font-size:17px; line-height:1.7; color:#9aa4b2; max-width:340px; animation:rnr-rise 0.7s ease 0.16s both;">RnRsoft가 만드는 웹·모바일 앱. 하나씩 늘어나는 세계.</p>
+          <div style="display:inline-flex; align-items:center; gap:8px; margin-top:30px; padding:14px 26px; border-radius:12px; background:#2dd4bf; color:#04211e; font-weight:700; font-size:15.5px; animation:rnr-rise 0.7s ease 0.24s both;">앱 둘러보기 →</div>
+        </div>
+        <div style="position:absolute; right:-40px; bottom:-30px; width:720px; height:620px; transform:rotateX(56deg) rotateZ(-42deg); transform-style:preserve-3d;">
+          <div style="position:absolute; top:150px; left:250px; width:150px; height:150px; border-radius:24px; background:linear-gradient(135deg,#2dd4bf,#22d3ee); box-shadow:0 60px 0 -2px rgba(4,33,30,0.6), 0 30px 60px rgba(0,0,0,0.5); display:flex; align-items:center; justify-content:center; animation:rnr-float 6s ease-in-out infinite;"><svg viewBox="0 0 34 34" width="66" height="66"><g fill="#04211e"><rect x="9.5" y="13" width="3" height="8" rx="1.5"/><rect x="15.5" y="9" width="3" height="16" rx="1.5"/><rect x="21.5" y="11.5" width="3" height="11" rx="1.5"/></g></svg></div>
+          <div style="position:absolute; top:330px; left:120px; width:130px; height:130px; border-radius:22px; background:rgba(255,255,255,0.05); border:1.5px dashed rgba(255,255,255,0.22); box-shadow:0 40px 0 -2px rgba(4,20,18,0.5); animation:rnr-floatB 7s ease-in-out infinite 0.4s;"></div>
+          <div style="position:absolute; top:360px; left:400px; width:130px; height:130px; border-radius:22px; background:rgba(255,255,255,0.05); border:1.5px dashed rgba(255,255,255,0.22); box-shadow:0 40px 0 -2px rgba(4,20,18,0.5); animation:rnr-floatC 8s ease-in-out infinite 0.8s;"></div>
+          <div style="position:absolute; top:60px; left:60px; width:110px; height:110px; border-radius:20px; background:rgba(45,212,191,0.1); border:1px solid rgba(45,212,191,0.3); animation:rnr-floatC 9s ease-in-out infinite 1.2s;"></div>
+          <div style="position:absolute; inset:0; background-image:linear-gradient(rgba(45,212,191,0.12) 1px,transparent 1px),linear-gradient(90deg,rgba(45,212,191,0.12) 1px,transparent 1px); background-size:80px 80px; opacity:0.5;"></div>
+        </div>
+        <div style="position:absolute; right:60px; bottom:40px; z-index:3; font-family:'JetBrains Mono',monospace; font-size:12.5px; color:#5b7a76;">1 서비스 중 · 2 준비 중 · 웹 · PWA · Google Play</div>
+      </div>
+    </div>
+
+    <!-- ===== 6d — Isometric EN ===== -->
+    <div id="6d" style="flex:0 0 auto; width:1280px; display:flex; flex-direction:column; gap:16px;">
+      <div style="display:flex; align-items:baseline; gap:14px;">
+        <span style="display:inline-flex; align-items:center; justify-content:center; min-width:44px; height:28px; padding:0 10px; border-radius:7px; background:#06201f; border:1px solid #0f5450; color:#2dd4bf; font-family:'JetBrains Mono',monospace; font-size:14px; font-weight:700;">6d</span>
+        <div style="font-size:20px; font-weight:600; color:#e8ecf3;">Isometric · English</div>
+      </div>
+      <div style="position:relative; width:100%; height:700px; border-radius:16px; overflow:hidden; background:radial-gradient(120% 100% at 70% 20%, #0a2422 0%, #08110f 60%, #060a09 100%); border:1px solid #123330; font-family:'Space Grotesk','Pretendard',sans-serif;">
+        <div style="position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,rgba(45,212,191,0.6),transparent);"></div>
+        <div style="position:relative; display:flex; align-items:center; justify-content:space-between; padding:28px 44px;">
+          <div style="display:flex; align-items:center; gap:11px; font-size:20px; font-weight:600; color:#f4f6fb;"><svg viewBox="0 0 34 34" width="30" height="30"><rect x="1" y="1" width="32" height="32" rx="9.5" fill="#2dd4bf"/><g fill="#08110f"><rect x="9.5" y="13" width="3" height="8" rx="1.5"/><rect x="15.5" y="9" width="3" height="16" rx="1.5"/><rect x="21.5" y="11.5" width="3" height="11" rx="1.5"/></g></svg>RnRsoft</div>
+          <div style="display:flex; gap:32px; font-size:15px; color:#a8b0bd;"><span>Apps</span><span>About</span><span>Contact</span></div>
+        </div>
+        <div style="position:absolute; top:120px; left:52px; z-index:3; max-width:440px;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:0.18em; text-transform:uppercase; color:#2dd4bf; margin-bottom:20px; animation:rnr-rise 0.6s ease both;">productivity & learning apps</div>
+          <h2 style="margin:0; font-size:56px; line-height:1.04; font-weight:700; color:#f8f9fc; letter-spacing:-0.04em; animation:rnr-rise 0.7s ease 0.08s both;">A small studio<br>building apps</h2>
+          <p style="margin:22px 0 0; font-size:17px; line-height:1.7; color:#9aa4b2; max-width:340px; animation:rnr-rise 0.7s ease 0.16s both;">Web & mobile apps by RnRsoft. A world that grows one app at a time.</p>
+          <div style="display:inline-flex; align-items:center; gap:8px; margin-top:30px; padding:14px 26px; border-radius:12px; background:#2dd4bf; color:#04211e; font-weight:700; font-size:15.5px; animation:rnr-rise 0.7s ease 0.24s both;">Explore apps →</div>
+        </div>
+        <div style="position:absolute; right:-40px; bottom:-30px; width:720px; height:620px; transform:rotateX(56deg) rotateZ(-42deg); transform-style:preserve-3d;">
+          <div style="position:absolute; top:150px; left:250px; width:150px; height:150px; border-radius:24px; background:linear-gradient(135deg,#2dd4bf,#22d3ee); box-shadow:0 60px 0 -2px rgba(4,33,30,0.6), 0 30px 60px rgba(0,0,0,0.5); display:flex; align-items:center; justify-content:center; animation:rnr-float 6s ease-in-out infinite;"><svg viewBox="0 0 34 34" width="66" height="66"><g fill="#04211e"><rect x="9.5" y="13" width="3" height="8" rx="1.5"/><rect x="15.5" y="9" width="3" height="16" rx="1.5"/><rect x="21.5" y="11.5" width="3" height="11" rx="1.5"/></g></svg></div>
+          <div style="position:absolute; top:330px; left:120px; width:130px; height:130px; border-radius:22px; background:rgba(255,255,255,0.05); border:1.5px dashed rgba(255,255,255,0.22); box-shadow:0 40px 0 -2px rgba(4,20,18,0.5); animation:rnr-floatB 7s ease-in-out infinite 0.4s;"></div>
+          <div style="position:absolute; top:360px; left:400px; width:130px; height:130px; border-radius:22px; background:rgba(255,255,255,0.05); border:1.5px dashed rgba(255,255,255,0.22); box-shadow:0 40px 0 -2px rgba(4,20,18,0.5); animation:rnr-floatC 8s ease-in-out infinite 0.8s;"></div>
+          <div style="position:absolute; top:60px; left:60px; width:110px; height:110px; border-radius:20px; background:rgba(45,212,191,0.1); border:1px solid rgba(45,212,191,0.3); animation:rnr-floatC 9s ease-in-out infinite 1.2s;"></div>
+          <div style="position:absolute; inset:0; background-image:linear-gradient(rgba(45,212,191,0.12) 1px,transparent 1px),linear-gradient(90deg,rgba(45,212,191,0.12) 1px,transparent 1px); background-size:80px 80px; opacity:0.5;"></div>
+        </div>
+        <div style="position:absolute; right:60px; bottom:40px; z-index:3; font-family:'JetBrains Mono',monospace; font-size:12.5px; color:#5b7a76;">1 live · 2 wip · web · pwa · google play</div>
+      </div>
+    </div>
+
+    <!-- ===== 6e — Aurora KO ===== -->
+    <div id="6e" style="flex:0 0 auto; width:1280px; display:flex; flex-direction:column; gap:16px;">
+      <div style="display:flex; align-items:baseline; gap:14px;">
+        <span style="display:inline-flex; align-items:center; justify-content:center; min-width:44px; height:28px; padding:0 10px; border-radius:7px; background:#101a2e; border:1px solid #24406e; color:#60a5fa; font-family:'JetBrains Mono',monospace; font-size:14px; font-weight:700;">6e</span>
+        <div style="font-size:20px; font-weight:600; color:#e8ecf3;">오로라 글래스 · 한글</div>
+      </div>
+      <div style="position:relative; width:100%; height:700px; border-radius:16px; overflow:hidden; background:#060810; border:1px solid #141a2e;">
+        <div style="position:absolute; top:-15%; left:-5%; width:620px; height:520px; border-radius:50%; background:radial-gradient(circle,rgba(96,165,250,0.4),transparent 65%); filter:blur(50px); animation:rnr-drift 16s ease-in-out infinite;"></div>
+        <div style="position:absolute; top:20%; right:-8%; width:560px; height:520px; border-radius:50%; background:radial-gradient(circle,rgba(167,139,250,0.38),transparent 65%); filter:blur(50px); animation:rnr-drift 18s ease-in-out infinite reverse;"></div>
+        <div style="position:absolute; bottom:-20%; left:30%; width:560px; height:460px; border-radius:50%; background:radial-gradient(circle,rgba(52,211,153,0.28),transparent 65%); filter:blur(56px); animation:rnr-drift 20s ease-in-out infinite;"></div>
+        <div style="position:relative; display:flex; align-items:center; justify-content:space-between; padding:28px 44px;">
+          <div style="display:flex; align-items:center; gap:11px; font-size:20px; font-weight:600; color:#f4f6fb;"><svg viewBox="0 0 34 34" width="30" height="30"><defs><linearGradient id="g6e" x1="0" y1="0" x2="34" y2="34"><stop offset="0" stop-color="#60a5fa"/><stop offset="1" stop-color="#a78bfa"/></linearGradient></defs><rect x="1" y="1" width="32" height="32" rx="9.5" fill="url(#g6e)"/><g fill="#060810"><rect x="9.5" y="13" width="3" height="8" rx="1.5"/><rect x="15.5" y="9" width="3" height="16" rx="1.5"/><rect x="21.5" y="11.5" width="3" height="11" rx="1.5"/></g></svg>RnRsoft</div>
+          <div style="display:flex; gap:32px; font-size:15px; color:#c3c9d6;"><span>앱</span><span>소개</span><span>문의</span></div>
+          <div style="padding:11px 20px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.16); border-radius:999px; color:#fff; font-size:14px; backdrop-filter:blur(10px);">앱 둘러보기</div>
+        </div>
+        <div style="position:relative; display:flex; flex-direction:column; align-items:center; text-align:center; padding:56px 40px 0;">
+          <h2 style="margin:0; font-size:66px; line-height:1.04; font-weight:700; color:#fff; letter-spacing:-0.04em; text-shadow:0 4px 40px rgba(0,0,0,0.3); animation:rnr-rise 0.7s ease both;">생산성·학습 앱을<br>만듭니다</h2>
+          <p style="margin:24px 0 0; font-size:18px; line-height:1.7; color:rgba(255,255,255,0.72); max-width:460px; animation:rnr-rise 0.7s ease 0.1s both;">RnRsoft — 웹·모바일 앱 스튜디오.</p>
+          <div style="position:relative; margin-top:52px; width:520px; height:220px; animation:rnr-rise 0.8s ease 0.2s both;">
+            <div style="position:absolute; top:24px; left:0; width:190px; height:170px; border-radius:22px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.14); backdrop-filter:blur(20px); transform:rotate(-8deg); box-shadow:0 30px 60px -20px rgba(0,0,0,0.6); animation:rnr-floatC 7s ease-in-out infinite 0.5s;"></div>
+            <div style="position:absolute; top:24px; right:0; width:190px; height:170px; border-radius:22px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.14); backdrop-filter:blur(20px); transform:rotate(8deg); box-shadow:0 30px 60px -20px rgba(0,0,0,0.6); animation:rnr-floatC 7.5s ease-in-out infinite 0.9s;"></div>
+            <div style="position:absolute; top:0; left:50%; transform:translateX(-50%); width:210px; height:200px; border-radius:24px; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.22); backdrop-filter:blur(24px); box-shadow:0 40px 80px -20px rgba(0,0,0,0.7); overflow:hidden; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; animation:rnr-floatB 6s ease-in-out infinite;">
+              <span style="position:absolute; top:0; left:0; width:40%; height:100%; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.22),transparent); animation:rnr-shimmer 3.4s ease-in-out infinite;"></span>
+              <div style="width:64px; height:64px; border-radius:18px; background:linear-gradient(135deg,#60a5fa,#a78bfa); box-shadow:0 12px 30px -8px rgba(96,165,250,0.7);"></div>
+              <div style="font-size:15px; font-weight:600; color:#fff;">App 01</div><div style="font-size:12px; color:#6ee7b7;">● 서비스 중</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 6f — Aurora EN ===== -->
+    <div id="6f" style="flex:0 0 auto; width:1280px; display:flex; flex-direction:column; gap:16px;">
+      <div style="display:flex; align-items:baseline; gap:14px;">
+        <span style="display:inline-flex; align-items:center; justify-content:center; min-width:44px; height:28px; padding:0 10px; border-radius:7px; background:#101a2e; border:1px solid #24406e; color:#60a5fa; font-family:'JetBrains Mono',monospace; font-size:14px; font-weight:700;">6f</span>
+        <div style="font-size:20px; font-weight:600; color:#e8ecf3;">Aurora Glass · English</div>
+      </div>
+      <div style="position:relative; width:100%; height:700px; border-radius:16px; overflow:hidden; background:#060810; border:1px solid #141a2e; font-family:'Space Grotesk','Pretendard',sans-serif;">
+        <div style="position:absolute; top:-15%; left:-5%; width:620px; height:520px; border-radius:50%; background:radial-gradient(circle,rgba(96,165,250,0.4),transparent 65%); filter:blur(50px); animation:rnr-drift 16s ease-in-out infinite;"></div>
+        <div style="position:absolute; top:20%; right:-8%; width:560px; height:520px; border-radius:50%; background:radial-gradient(circle,rgba(167,139,250,0.38),transparent 65%); filter:blur(50px); animation:rnr-drift 18s ease-in-out infinite reverse;"></div>
+        <div style="position:absolute; bottom:-20%; left:30%; width:560px; height:460px; border-radius:50%; background:radial-gradient(circle,rgba(52,211,153,0.28),transparent 65%); filter:blur(56px); animation:rnr-drift 20s ease-in-out infinite;"></div>
+        <div style="position:relative; display:flex; align-items:center; justify-content:space-between; padding:28px 44px;">
+          <div style="display:flex; align-items:center; gap:11px; font-size:20px; font-weight:600; color:#f4f6fb;"><svg viewBox="0 0 34 34" width="30" height="30"><defs><linearGradient id="g6f" x1="0" y1="0" x2="34" y2="34"><stop offset="0" stop-color="#60a5fa"/><stop offset="1" stop-color="#a78bfa"/></linearGradient></defs><rect x="1" y="1" width="32" height="32" rx="9.5" fill="url(#g6f)"/><g fill="#060810"><rect x="9.5" y="13" width="3" height="8" rx="1.5"/><rect x="15.5" y="9" width="3" height="16" rx="1.5"/><rect x="21.5" y="11.5" width="3" height="11" rx="1.5"/></g></svg>RnRsoft</div>
+          <div style="display:flex; gap:32px; font-size:15px; color:#c3c9d6;"><span>Apps</span><span>About</span><span>Contact</span></div>
+          <div style="padding:11px 20px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.16); border-radius:999px; color:#fff; font-size:14px; backdrop-filter:blur(10px);">Explore apps</div>
+        </div>
+        <div style="position:relative; display:flex; flex-direction:column; align-items:center; text-align:center; padding:56px 40px 0;">
+          <h2 style="margin:0; font-size:72px; line-height:1.02; font-weight:700; color:#fff; letter-spacing:-0.04em; text-shadow:0 4px 40px rgba(0,0,0,0.3); animation:rnr-rise 0.7s ease both;">Apps for focus<br>& learning</h2>
+          <p style="margin:24px 0 0; font-size:18px; line-height:1.7; color:rgba(255,255,255,0.72); max-width:460px; animation:rnr-rise 0.7s ease 0.1s both;">RnRsoft — a web & mobile app studio.</p>
+          <div style="position:relative; margin-top:52px; width:520px; height:220px; animation:rnr-rise 0.8s ease 0.2s both;">
+            <div style="position:absolute; top:24px; left:0; width:190px; height:170px; border-radius:22px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.14); backdrop-filter:blur(20px); transform:rotate(-8deg); box-shadow:0 30px 60px -20px rgba(0,0,0,0.6); animation:rnr-floatC 7s ease-in-out infinite 0.5s;"></div>
+            <div style="position:absolute; top:24px; right:0; width:190px; height:170px; border-radius:22px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.14); backdrop-filter:blur(20px); transform:rotate(8deg); box-shadow:0 30px 60px -20px rgba(0,0,0,0.6); animation:rnr-floatC 7.5s ease-in-out infinite 0.9s;"></div>
+            <div style="position:absolute; top:0; left:50%; transform:translateX(-50%); width:210px; height:200px; border-radius:24px; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.22); backdrop-filter:blur(24px); box-shadow:0 40px 80px -20px rgba(0,0,0,0.7); overflow:hidden; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; animation:rnr-floatB 6s ease-in-out infinite;">
+              <span style="position:absolute; top:0; left:0; width:40%; height:100%; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.22),transparent); animation:rnr-shimmer 3.4s ease-in-out infinite;"></span>
+              <div style="width:64px; height:64px; border-radius:18px; background:linear-gradient(135deg,#60a5fa,#a78bfa); box-shadow:0 12px 30px -8px rgba(96,165,250,0.7);"></div>
+              <div style="font-size:15px; font-weight:600; color:#fff;">App 01</div><div style="font-size:12px; color:#6ee7b7;">● Live</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section style="display:flex; flex-direction:column; gap:36px; padding:64px; background:#0a0b0e; min-height:100vh; font-family:'Pretendard',sans-serif;">
+  <div style="display:flex; flex-direction:column; gap:10px; max-width:1020px;">
+    <div style="font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:0.18em; text-transform:uppercase; color:#ff5c7c;">Turn 5 · Bolder / Weirder</div>
+    <div style="display:flex; align-items:center; gap:16px;">
+      <svg viewBox="0 0 34 34" width="40" height="40"><rect x="1" y="1" width="32" height="32" rx="9.5" fill="#ff5c7c"/><g fill="#0a0b0e"><rect x="9.5" y="13" width="3" height="8" rx="1.5"/><rect x="15.5" y="9" width="3" height="16" rx="1.5"/><rect x="21.5" y="11.5" width="3" height="11" rx="1.5"/></g></svg>
+      <h1 style="margin:0; font-size:32px; font-weight:700; color:#f4f6fb; letter-spacing:-0.02em;">완전히 다른 4가지 컨셉</h1>
+    </div>
+    <p style="margin:0; font-size:16px; line-height:1.6; color:#9aa4b2;">
+      틀을 깬 방향들입니다. <a href="#5a" style="color:#ff5c7c;">5a</a> 앱 도크 놀이터 · <a href="#5b" style="color:#ff5c7c;">5b</a> 브루탈리스트 인덱스 · <a href="#5c" style="color:#ff5c7c;">5c</a> 아이소메트릭 앱 세계 · <a href="#5d" style="color:#ff5c7c;">5d</a> 오로라 글래스. 담백한 카피, 다크 유지. 마음에 드는 걸 골라주세요.
+    </p>
+  </div>
+
+  <div style="display:flex; flex-wrap:wrap; gap:44px; align-items:flex-start;">
+
+    <!-- ===================== 5a — App dock playground ===================== -->
+    <div id="5a" style="flex:0 0 auto; width:1280px; display:flex; flex-direction:column; gap:16px;">
+      <div style="display:flex; align-items:baseline; gap:14px;">
+        <span style="display:inline-flex; align-items:center; justify-content:center; min-width:44px; height:28px; padding:0 10px; border-radius:7px; background:#2a0f18; border:1px solid #6e2338; color:#ff5c7c; font-family:'JetBrains Mono',monospace; font-size:14px; font-weight:700;">5a</span>
+        <div style="font-size:20px; font-weight:600; color:#e8ecf3;">앱 도크 놀이터</div>
+        <div style="font-size:14px; color:#8b95a3;">앱 아이콘이 곧 히어로, 촉각적·플레이풀</div>
+      </div>
+      <div style="position:relative; width:100%; height:720px; border-radius:16px; overflow:hidden; background:radial-gradient(120% 90% at 50% 0%, #1b1030 0%, #0c0910 55%, #08060b 100%); border:1px solid #241a30;">
+        <div style="position:absolute; top:16%; left:12%; width:340px; height:340px; border-radius:50%; background:radial-gradient(circle,rgba(255,92,124,0.22),transparent 68%); filter:blur(14px); animation:rnr-drift 12s ease-in-out infinite;"></div>
+        <div style="position:absolute; bottom:6%; right:14%; width:300px; height:300px; border-radius:50%; background:radial-gradient(circle,rgba(124,92,255,0.24),transparent 68%); filter:blur(14px); animation:rnr-drift 14s ease-in-out infinite reverse;"></div>
+
+        <div style="position:relative; display:flex; align-items:center; justify-content:space-between; padding:28px 44px;">
+          <div style="display:flex; align-items:center; gap:11px; font-size:20px; font-weight:600; color:#f4f6fb;">
+            <svg viewBox="0 0 34 34" width="30" height="30"><rect x="1" y="1" width="32" height="32" rx="9.5" fill="#ff5c7c"/><g fill="#0a0b0e"><rect x="9.5" y="13" width="3" height="8" rx="1.5"/><rect x="15.5" y="9" width="3" height="16" rx="1.5"/><rect x="21.5" y="11.5" width="3" height="11" rx="1.5"/></g></svg>
+            RnRsoft
+          </div>
+          <div style="display:flex; gap:32px; font-size:15px; color:#b9bcc6;"><span>앱</span><span>소개</span><span>문의</span></div>
+        </div>
+
+        <div style="position:relative; text-align:center; padding:44px 40px 0;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:0.2em; text-transform:uppercase; color:#ff8fa6;">productivity & learning apps</div>
+          <h2 style="margin:20px 0 0; font-size:66px; line-height:1.04; font-weight:800; color:#f8f9fc; letter-spacing:-0.04em;">생산성·학습 앱을<br>만듭니다</h2>
+        </div>
+
+        <!-- floating dock -->
+        <div style="position:absolute; bottom:52px; left:50%; transform:translateX(-50%); display:flex; align-items:flex-end; gap:20px; padding:20px 26px; border-radius:26px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); backdrop-filter:blur(16px); box-shadow:0 40px 90px -30px rgba(0,0,0,0.8);">
+          <div style="display:flex; flex-direction:column; align-items:center; gap:10px;">
+            <div style="width:104px; height:104px; border-radius:26px; background:linear-gradient(150deg,#ff5c7c,#ff2d6a); box-shadow:0 20px 44px -12px rgba(255,45,106,0.7), inset 0 1px 0 rgba(255,255,255,0.35); display:flex; align-items:center; justify-content:center; animation:rnr-float 5s ease-in-out infinite;">
+              <svg viewBox="0 0 34 34" width="52" height="52"><g fill="#fff"><rect x="9.5" y="13" width="3" height="8" rx="1.5"/><rect x="15.5" y="9" width="3" height="16" rx="1.5"/><rect x="21.5" y="11.5" width="3" height="11" rx="1.5"/></g></svg>
+            </div>
+            <div style="font-size:13px; color:#f4f6fb; font-weight:600;">App 01</div>
+            <div style="font-size:11px; color:#6ee7b7;">● 서비스 중</div>
+          </div>
+          <div style="display:flex; flex-direction:column; align-items:center; gap:10px;">
+            <div style="width:88px; height:88px; border-radius:22px; background:rgba(255,255,255,0.05); border:1.5px dashed rgba(255,255,255,0.2); display:flex; align-items:center; justify-content:center; color:#6b7080; font-size:30px;">+</div>
+            <div style="font-size:13px; color:#c7cfdb; font-weight:600;">App 02</div>
+            <div style="font-size:11px; color:#8b8f9c;">준비 중</div>
+          </div>
+          <div style="display:flex; flex-direction:column; align-items:center; gap:10px;">
+            <div style="width:88px; height:88px; border-radius:22px; background:rgba(255,255,255,0.05); border:1.5px dashed rgba(255,255,255,0.2); display:flex; align-items:center; justify-content:center; color:#6b7080; font-size:30px;">+</div>
+            <div style="font-size:13px; color:#c7cfdb; font-weight:600;">App 03</div>
+            <div style="font-size:11px; color:#8b8f9c;">준비 중</div>
+          </div>
+          <div style="width:1px; height:88px; background:rgba(255,255,255,0.12); margin:0 4px;"></div>
+          <div style="display:flex; flex-direction:column; align-items:center; gap:10px;">
+            <div style="width:88px; height:88px; border-radius:22px; background:linear-gradient(150deg,#7c5cff,#a855f7); display:flex; align-items:center; justify-content:center; color:#fff; font-size:26px; font-weight:700;">→</div>
+            <div style="font-size:13px; color:#f4f6fb; font-weight:600;">둘러보기</div>
+            <div style="font-size:11px; color:#8b8f9c;">전체 앱</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== 5b — Brutalist index ===================== -->
+    <div id="5b" style="flex:0 0 auto; width:1280px; display:flex; flex-direction:column; gap:16px;">
+      <div style="display:flex; align-items:baseline; gap:14px;">
+        <span style="display:inline-flex; align-items:center; justify-content:center; min-width:44px; height:28px; padding:0 10px; border-radius:7px; background:#1c1c1c; border:1px solid #3a3a3a; color:#f5f5f5; font-family:'JetBrains Mono',monospace; font-size:14px; font-weight:700;">5b</span>
+        <div style="font-size:20px; font-weight:600; color:#e8ecf3;">브루탈리스트 인덱스</div>
+        <div style="font-size:14px; color:#8b95a3;">스위스 그리드 · 헤어라인 · 큰 숫자 인덱스</div>
+      </div>
+      <div style="position:relative; width:100%; height:720px; border-radius:16px; overflow:hidden; background:#0d0d0d; border:1px solid #262626; font-family:'Space Grotesk','Pretendard',sans-serif; color:#f5f5f5;">
+        <!-- top meta bar -->
+        <div style="display:flex; align-items:center; justify-content:space-between; padding:20px 40px; border-bottom:1px solid #262626; font-family:'JetBrains Mono',monospace; font-size:12.5px; letter-spacing:0.12em; text-transform:uppercase; color:#8b8b8b;">
+          <span>RnRsoft™</span><span>Est. 2025</span><span>App Studio</span><span>Seoul / Web</span><span>rnrsoft.vip</span>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1.3fr 1fr; height:calc(100% - 61px);">
+          <!-- left: giant headline -->
+          <div style="display:flex; flex-direction:column; justify-content:center; padding:44px; border-right:1px solid #262626;">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:0.16em; text-transform:uppercase; color:#8b8b8b; margin-bottom:24px;">productivity / learning</div>
+            <h2 style="margin:0; font-size:104px; line-height:0.86; font-weight:700; letter-spacing:-0.05em; text-transform:uppercase;">Apps<br>Made<br>Well</h2>
+            <p style="margin:32px 0 0; font-family:'Pretendard',sans-serif; font-size:17px; line-height:1.65; color:#9a9a9a; max-width:360px;">생산성·학습 앱을 만드는 스튜디오. RnRsoft.</p>
+            <div style="display:flex; align-items:center; gap:0; margin-top:36px; width:fit-content; border:1px solid #f5f5f5;">
+              <span style="padding:14px 26px; background:#f5f5f5; color:#0d0d0d; font-weight:700; font-size:15px;">앱 둘러보기</span>
+              <span style="padding:14px 20px; font-weight:700; font-size:15px;">↗</span>
+            </div>
+          </div>
+
+          <!-- right: numbered index -->
+          <div style="display:flex; flex-direction:column;">
+            <div style="flex:1; display:flex; align-items:center; gap:24px; padding:0 40px; border-bottom:1px solid #262626;">
+              <span style="font-size:64px; font-weight:700; letter-spacing:-0.04em; color:#f5f5f5;">01</span>
+              <div style="flex:1;"><div style="font-size:22px; font-weight:600;">App 01</div><div style="font-family:'JetBrains Mono',monospace; font-size:13px; color:#8b8b8b; margin-top:4px;">생산성 · 학습</div></div>
+              <span style="font-family:'JetBrains Mono',monospace; font-size:12px; padding:6px 12px; background:#f5f5f5; color:#0d0d0d; font-weight:700;">LIVE</span>
+            </div>
+            <div style="flex:1; display:flex; align-items:center; gap:24px; padding:0 40px; border-bottom:1px solid #262626; color:#5a5a5a;">
+              <span style="font-size:64px; font-weight:700; letter-spacing:-0.04em;">02</span>
+              <div style="flex:1;"><div style="font-size:22px; font-weight:600;">App 02</div><div style="font-family:'JetBrains Mono',monospace; font-size:13px; margin-top:4px;">준비 중</div></div>
+              <span style="font-family:'JetBrains Mono',monospace; font-size:12px; padding:6px 12px; border:1px solid #3a3a3a;">WIP</span>
+            </div>
+            <div style="flex:1; display:flex; align-items:center; gap:24px; padding:0 40px; border-bottom:1px solid #262626; color:#5a5a5a;">
+              <span style="font-size:64px; font-weight:700; letter-spacing:-0.04em;">03</span>
+              <div style="flex:1;"><div style="font-size:22px; font-weight:600;">App 03</div><div style="font-family:'JetBrains Mono',monospace; font-size:13px; margin-top:4px;">준비 중</div></div>
+              <span style="font-family:'JetBrains Mono',monospace; font-size:12px; padding:6px 12px; border:1px solid #3a3a3a;">WIP</span>
+            </div>
+            <div style="flex:1; display:flex; align-items:center; gap:24px; padding:0 40px; color:#3a3a3a;">
+              <span style="font-size:64px; font-weight:700; letter-spacing:-0.04em;">+</span>
+              <div style="flex:1; font-family:'JetBrains Mono',monospace; font-size:13px;">// 다음 앱</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== 5c — Isometric app world ===================== -->
+    <div id="5c" style="flex:0 0 auto; width:1280px; display:flex; flex-direction:column; gap:16px;">
+      <div style="display:flex; align-items:baseline; gap:14px;">
+        <span style="display:inline-flex; align-items:center; justify-content:center; min-width:44px; height:28px; padding:0 10px; border-radius:7px; background:#06201f; border:1px solid #0f5450; color:#2dd4bf; font-family:'JetBrains Mono',monospace; font-size:14px; font-weight:700;">5c</span>
+        <div style="font-size:20px; font-weight:600; color:#e8ecf3;">아이소메트릭 앱 세계</div>
+        <div style="font-size:14px; color:#8b95a3;">기울어진 3D 평면 위에 앱들이 하나의 세계처럼</div>
+      </div>
+      <div style="position:relative; width:100%; height:720px; border-radius:16px; overflow:hidden; background:radial-gradient(120% 100% at 70% 20%, #0a2422 0%, #08110f 60%, #060a09 100%); border:1px solid #123330;">
+        <div style="position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,rgba(45,212,191,0.6),transparent);"></div>
+        <div style="position:relative; display:flex; align-items:center; justify-content:space-between; padding:28px 44px;">
+          <div style="display:flex; align-items:center; gap:11px; font-size:20px; font-weight:600; color:#f4f6fb;">
+            <svg viewBox="0 0 34 34" width="30" height="30"><rect x="1" y="1" width="32" height="32" rx="9.5" fill="#2dd4bf"/><g fill="#08110f"><rect x="9.5" y="13" width="3" height="8" rx="1.5"/><rect x="15.5" y="9" width="3" height="16" rx="1.5"/><rect x="21.5" y="11.5" width="3" height="11" rx="1.5"/></g></svg>
+            RnRsoft
+          </div>
+          <div style="display:flex; gap:32px; font-size:15px; color:#a8b0bd;"><span>앱</span><span>소개</span><span>문의</span></div>
+        </div>
+
+        <div style="position:absolute; top:120px; left:52px; z-index:3; max-width:420px;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:0.18em; text-transform:uppercase; color:#2dd4bf; margin-bottom:20px;">productivity & learning apps</div>
+          <h2 style="margin:0; font-size:58px; line-height:1.05; font-weight:800; color:#f8f9fc; letter-spacing:-0.04em;">앱을 짓는<br>작은 스튜디오</h2>
+          <p style="margin:22px 0 0; font-size:17px; line-height:1.7; color:#9aa4b2; max-width:340px;">RnRsoft가 만드는 웹·모바일 앱. 하나씩 늘어나는 세계.</p>
+          <div style="display:inline-flex; align-items:center; gap:8px; margin-top:30px; padding:14px 26px; border-radius:12px; background:#2dd4bf; color:#04211e; font-weight:700; font-size:15.5px;">앱 둘러보기 →</div>
+        </div>
+
+        <!-- isometric plane -->
+        <div style="position:absolute; right:-40px; bottom:-30px; width:720px; height:620px; transform:rotateX(56deg) rotateZ(-42deg); transform-style:preserve-3d;">
+          <!-- app 01 tile (raised) -->
+          <div style="position:absolute; top:150px; left:250px; width:150px; height:150px; border-radius:24px; background:linear-gradient(135deg,#2dd4bf,#22d3ee); box-shadow:0 60px 0 -2px rgba(4,33,30,0.6), 0 30px 60px rgba(0,0,0,0.5); display:flex; align-items:center; justify-content:center; animation:rnr-float 6s ease-in-out infinite;">
+            <svg viewBox="0 0 34 34" width="66" height="66"><g fill="#04211e"><rect x="9.5" y="13" width="3" height="8" rx="1.5"/><rect x="15.5" y="9" width="3" height="16" rx="1.5"/><rect x="21.5" y="11.5" width="3" height="11" rx="1.5"/></g></svg>
+          </div>
+          <!-- ghost tiles -->
+          <div style="position:absolute; top:330px; left:120px; width:130px; height:130px; border-radius:22px; background:rgba(255,255,255,0.05); border:1.5px dashed rgba(255,255,255,0.22); box-shadow:0 40px 0 -2px rgba(4,20,18,0.5);"></div>
+          <div style="position:absolute; top:360px; left:400px; width:130px; height:130px; border-radius:22px; background:rgba(255,255,255,0.05); border:1.5px dashed rgba(255,255,255,0.22); box-shadow:0 40px 0 -2px rgba(4,20,18,0.5);"></div>
+          <div style="position:absolute; top:60px; left:60px; width:110px; height:110px; border-radius:20px; background:rgba(45,212,191,0.1); border:1px solid rgba(45,212,191,0.3);"></div>
+          <!-- grid floor lines -->
+          <div style="position:absolute; inset:0; background-image:linear-gradient(rgba(45,212,191,0.12) 1px,transparent 1px),linear-gradient(90deg,rgba(45,212,191,0.12) 1px,transparent 1px); background-size:80px 80px; opacity:0.5;"></div>
+        </div>
+        <div style="position:absolute; right:60px; bottom:40px; z-index:3; font-family:'JetBrains Mono',monospace; font-size:12.5px; color:#5b7a76;">1 live · 2 wip · web · pwa · google play</div>
+      </div>
+    </div>
+
+    <!-- ===================== 5d — Aurora glass depth ===================== -->
+    <div id="5d" style="flex:0 0 auto; width:1280px; display:flex; flex-direction:column; gap:16px;">
+      <div style="display:flex; align-items:baseline; gap:14px;">
+        <span style="display:inline-flex; align-items:center; justify-content:center; min-width:44px; height:28px; padding:0 10px; border-radius:7px; background:#101a2e; border:1px solid #24406e; color:#60a5fa; font-family:'JetBrains Mono',monospace; font-size:14px; font-weight:700;">5d</span>
+        <div style="font-size:20px; font-weight:600; color:#e8ecf3;">오로라 글래스</div>
+        <div style="font-size:14px; color:#8b95a3;">겹겹의 유리 패널 + 오로라, 깊이감</div>
+      </div>
+      <div style="position:relative; width:100%; height:720px; border-radius:16px; overflow:hidden; background:#060810; border:1px solid #141a2e;">
+        <!-- aurora blobs -->
+        <div style="position:absolute; top:-15%; left:-5%; width:620px; height:520px; border-radius:50%; background:radial-gradient(circle,rgba(96,165,250,0.4),transparent 65%); filter:blur(50px); animation:rnr-drift 16s ease-in-out infinite;"></div>
+        <div style="position:absolute; top:20%; right:-8%; width:560px; height:520px; border-radius:50%; background:radial-gradient(circle,rgba(167,139,250,0.38),transparent 65%); filter:blur(50px); animation:rnr-drift 18s ease-in-out infinite reverse;"></div>
+        <div style="position:absolute; bottom:-20%; left:30%; width:560px; height:460px; border-radius:50%; background:radial-gradient(circle,rgba(52,211,153,0.28),transparent 65%); filter:blur(56px); animation:rnr-drift 20s ease-in-out infinite;"></div>
+
+        <div style="position:relative; display:flex; align-items:center; justify-content:space-between; padding:28px 44px;">
+          <div style="display:flex; align-items:center; gap:11px; font-size:20px; font-weight:600; color:#f4f6fb;">
+            <svg viewBox="0 0 34 34" width="30" height="30"><defs><linearGradient id="g5d" x1="0" y1="0" x2="34" y2="34"><stop offset="0" stop-color="#60a5fa"/><stop offset="1" stop-color="#a78bfa"/></linearGradient></defs><rect x="1" y="1" width="32" height="32" rx="9.5" fill="url(#g5d)"/><g fill="#060810"><rect x="9.5" y="13" width="3" height="8" rx="1.5"/><rect x="15.5" y="9" width="3" height="16" rx="1.5"/><rect x="21.5" y="11.5" width="3" height="11" rx="1.5"/></g></svg>
+            RnRsoft
+          </div>
+          <div style="display:flex; gap:32px; font-size:15px; color:#c3c9d6;"><span>앱</span><span>소개</span><span>문의</span></div>
+          <div style="padding:11px 20px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.16); border-radius:999px; color:#fff; font-size:14px; backdrop-filter:blur(10px);">앱 둘러보기</div>
+        </div>
+
+        <div style="position:relative; display:flex; flex-direction:column; align-items:center; text-align:center; padding:60px 40px 0;">
+          <h2 style="margin:0; font-size:70px; line-height:1.04; font-weight:700; color:#fff; letter-spacing:-0.04em; text-shadow:0 4px 40px rgba(0,0,0,0.3);">생산성·학습 앱을<br>만듭니다</h2>
+          <p style="margin:24px 0 0; font-size:18px; line-height:1.7; color:rgba(255,255,255,0.72); max-width:460px;">RnRsoft — 웹·모바일 앱 스튜디오.</p>
+
+          <!-- stacked glass app cards -->
+          <div style="position:relative; margin-top:56px; width:520px; height:220px;">
+            <div style="position:absolute; top:24px; left:0; width:190px; height:170px; border-radius:22px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.14); backdrop-filter:blur(20px); transform:rotate(-8deg); box-shadow:0 30px 60px -20px rgba(0,0,0,0.6);"></div>
+            <div style="position:absolute; top:24px; right:0; width:190px; height:170px; border-radius:22px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.14); backdrop-filter:blur(20px); transform:rotate(8deg); box-shadow:0 30px 60px -20px rgba(0,0,0,0.6);"></div>
+            <div style="position:absolute; top:0; left:50%; transform:translateX(-50%); width:210px; height:200px; border-radius:24px; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.22); backdrop-filter:blur(24px); box-shadow:0 40px 80px -20px rgba(0,0,0,0.7); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px;">
+              <div style="width:64px; height:64px; border-radius:18px; background:linear-gradient(135deg,#60a5fa,#a78bfa); box-shadow:0 12px 30px -8px rgba(96,165,250,0.7);"></div>
+              <div style="font-size:15px; font-weight:600; color:#fff;">App 01</div>
+              <div style="font-size:12px; color:#6ee7b7;">● 서비스 중</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section style="display:flex; flex-direction:column; gap:36px; padding:64px; background:#12151c; min-height:100vh; font-family:'Pretendard',sans-serif;">
+  <div style="display:flex; flex-direction:column; gap:10px; max-width:1000px;">
+    <div style="font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:0.18em; text-transform:uppercase; color:#a78bfa;">Turn 4 · More Directions</div>
+    <div style="display:flex; align-items:center; gap:16px;">
+      <svg viewBox="0 0 34 34" width="40" height="40"><rect x="1" y="1" width="32" height="32" rx="9.5" fill="#a78bfa"/><g fill="#0b0e12"><rect x="9.5" y="13" width="3" height="8" rx="1.5"/><rect x="15.5" y="9" width="3" height="16" rx="1.5"/><rect x="21.5" y="11.5" width="3" height="11" rx="1.5"/></g></svg>
+      <h1 style="margin:0; font-size:32px; font-weight:700; color:#f4f6fb; letter-spacing:-0.02em;">더 다양한 히어로 시안</h1>
+    </div>
+    <p style="margin:0; font-size:16px; line-height:1.6; color:#9aa4b2;">
+      프리미엄 계열을 발전시킨 안 + 완전히 새로운 컨셉을 섞었습니다. <a href="#4a" style="color:#a78bfa;">4a</a> 정제형 · <a href="#4b" style="color:#a78bfa;">4b</a> 윈도우 쇼케이스 · <a href="#4c" style="color:#a78bfa;">4c</a> 벤토(앱 OS) · <a href="#4d" style="color:#a78bfa;">4d</a> 모노크롬 미니멀. 마음에 드는 걸 골라주세요. (아래는 이전 <a href="#3b" style="color:#7dd3fc;">3b</a> 계열)
+    </p>
+  </div>
+
+  <div style="display:flex; flex-wrap:wrap; gap:44px; align-items:flex-start;">
+
+    <!-- ===================== 4a — Premium refined, centered ===================== -->
+    <div id="4a" style="flex:0 0 auto; width:1280px; display:flex; flex-direction:column; gap:16px;">
+      <div style="display:flex; align-items:baseline; gap:14px;">
+        <span style="display:inline-flex; align-items:center; justify-content:center; min-width:44px; height:28px; padding:0 10px; border-radius:7px; background:#12101f; border:1px solid #34305a; color:#a78bfa; font-family:'JetBrains Mono',monospace; font-size:14px; font-weight:700;">4a</span>
+        <div style="font-size:20px; font-weight:600; color:#e8ecf3;">프리미엄 · 정제형</div>
+        <div style="font-size:14px; color:#8b95a3;">중앙 정렬, 하단 앱 셸프 스트립</div>
+      </div>
+      <div style="position:relative; width:100%; height:720px; border-radius:16px; overflow:hidden; background:#0b0c11; border:1px solid #1a1c26;">
+        <div style="position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,rgba(167,139,250,0.6),transparent);"></div>
+        <div style="position:absolute; top:-14%; left:50%; transform:translateX(-50%); width:760px; height:560px; background:radial-gradient(ellipse at center, rgba(124,92,255,0.16), transparent 62%);"></div>
+        <div style="position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,0.014) 1px,transparent 1px); background-size:100% 42px;"></div>
+
+        <div style="position:relative; display:flex; align-items:center; justify-content:space-between; padding:26px 48px;">
+          <div style="display:flex; align-items:center; gap:11px; font-size:20px; font-weight:600; color:#f4f6fb;">
+            <svg viewBox="0 0 34 34" width="30" height="30"><defs><linearGradient id="g4a" x1="0" y1="0" x2="34" y2="34"><stop offset="0" stop-color="#8b6dff"/><stop offset="1" stop-color="#67e8f9"/></linearGradient></defs><rect x="1" y="1" width="32" height="32" rx="9.5" fill="url(#g4a)"/><g fill="#0b0c11"><rect x="9.5" y="13" width="3" height="8" rx="1.5"/><rect x="15.5" y="9" width="3" height="16" rx="1.5"/><rect x="21.5" y="11.5" width="3" height="11" rx="1.5"/></g></svg>
+            RnRsoft
+          </div>
+          <div style="display:flex; gap:34px; font-size:15px; color:#a8b0bd;"><span>앱</span><span>소개</span><span>문의</span></div>
+          <div style="padding:11px 20px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); border-radius:999px; color:#f4f6fb; font-size:14px;">앱 둘러보기</div>
+        </div>
+
+        <div style="position:relative; display:flex; flex-direction:column; align-items:center; text-align:center; padding:56px 40px 0;">
+          <div style="display:inline-flex; align-items:center; gap:9px; padding:7px 15px; border-radius:999px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); font-size:13px; color:#c9b8ff; margin-bottom:30px;"><span style="width:6px;height:6px;border-radius:50%;background:#7c5cff;box-shadow:0 0 8px #7c5cff;"></span>productivity & learning apps</div>
+          <h2 style="margin:0; font-size:60px; line-height:1.06; font-weight:700; color:#f8f9fc; letter-spacing:-0.035em;">생산성·학습<br><span style="background:linear-gradient(120deg,#c9b8ff,#7c5cff 55%,#67e8f9); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;">앱을 만듭니다</span></h2>
+          <p style="margin:24px 0 0; font-size:18px; line-height:1.7; color:#9aa4b2; max-width:500px;">RnRsoft가 만든 앱 모음. 하나는 서비스 중, 나머지는 준비 중입니다.</p>
+          <div style="display:flex; gap:13px; margin-top:34px;">
+            <div style="display:inline-flex; align-items:center; gap:8px; padding:14px 26px; border-radius:999px; background:linear-gradient(135deg,#7c5cff,#a855f7); color:#fff; font-weight:600; font-size:15.5px; box-shadow:0 16px 40px -14px rgba(124,92,255,0.6);">앱 둘러보기 →</div>
+            <div style="display:inline-flex; align-items:center; padding:14px 26px; border-radius:999px; border:1px solid rgba(255,255,255,0.14); color:#e8ecf3; font-size:15.5px;">스튜디오 소개</div>
+          </div>
+        </div>
+
+        <!-- app shelf strip -->
+        <div style="position:absolute; bottom:34px; left:48px; right:48px; display:grid; grid-template-columns:repeat(3,1fr); gap:14px;">
+          <div style="display:flex; align-items:center; gap:13px; padding:15px; border-radius:16px; background:rgba(124,92,255,0.1); border:1px solid rgba(124,92,255,0.28);">
+            <div style="width:40px; height:40px; border-radius:11px; background:linear-gradient(135deg,#7c5cff,#67e8f9);"></div>
+            <div style="flex:1;"><div style="font-size:14px; font-weight:600; color:#f4f6fb;">App 01</div><div style="font-size:12px; color:#9aa4b2;">생산성 · 학습</div></div>
+            <span style="font-size:11px; padding:4px 9px; border-radius:999px; background:rgba(110,231,183,0.16); color:#6ee7b7;">서비스 중</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:13px; padding:15px; border-radius:16px; background:rgba(255,255,255,0.03); border:1px dashed rgba(255,255,255,0.14);">
+            <div style="width:40px; height:40px; border-radius:11px; background:rgba(255,255,255,0.06);"></div>
+            <div style="flex:1;"><div style="font-size:14px; font-weight:600; color:#c7cfdb;">App 02</div><div style="font-size:12px; color:#8b8f9c;">곧 공개</div></div>
+            <span style="font-size:11px; padding:4px 9px; border-radius:999px; background:rgba(255,255,255,0.06); color:#a8b0bd;">준비 중</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:13px; padding:15px; border-radius:16px; background:rgba(255,255,255,0.03); border:1px dashed rgba(255,255,255,0.14);">
+            <div style="width:40px; height:40px; border-radius:11px; background:rgba(255,255,255,0.06);"></div>
+            <div style="flex:1;"><div style="font-size:14px; font-weight:600; color:#c7cfdb;">App 03</div><div style="font-size:12px; color:#8b8f9c;">곧 공개</div></div>
+            <span style="font-size:11px; padding:4px 9px; border-radius:999px; background:rgba(255,255,255,0.06); color:#a8b0bd;">준비 중</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== 4b — Split showcase, browser window ===================== -->
+    <div id="4b" style="flex:0 0 auto; width:1280px; display:flex; flex-direction:column; gap:16px;">
+      <div style="display:flex; align-items:baseline; gap:14px;">
+        <span style="display:inline-flex; align-items:center; justify-content:center; min-width:44px; height:28px; padding:0 10px; border-radius:7px; background:#06201a; border:1px solid #10553f; color:#34d399; font-family:'JetBrains Mono',monospace; font-size:14px; font-weight:700;">4b</span>
+        <div style="font-size:20px; font-weight:600; color:#e8ecf3;">윈도우 쇼케이스</div>
+        <div style="font-size:14px; color:#8b95a3;">좌 카피 · 우 브라우저 목업(앱 진열대)</div>
+      </div>
+      <div style="position:relative; width:100%; height:720px; border-radius:16px; overflow:hidden; background:#080d0b; border:1px solid #14201b;">
+        <div style="position:absolute; top:-12%; right:-6%; width:620px; height:620px; background:radial-gradient(circle at 60% 40%, rgba(52,211,153,0.12), transparent 62%);"></div>
+
+        <div style="position:relative; display:flex; align-items:center; justify-content:space-between; padding:26px 48px;">
+          <div style="display:flex; align-items:center; gap:11px; font-size:20px; font-weight:600; color:#f4f6fb;">
+            <svg viewBox="0 0 34 34" width="30" height="30"><defs><linearGradient id="g4b" x1="0" y1="0" x2="34" y2="34"><stop offset="0" stop-color="#34d399"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs><rect x="1" y="1" width="32" height="32" rx="9.5" fill="url(#g4b)"/><g fill="#080d0b"><rect x="9.5" y="13" width="3" height="8" rx="1.5"/><rect x="15.5" y="9" width="3" height="16" rx="1.5"/><rect x="21.5" y="11.5" width="3" height="11" rx="1.5"/></g></svg>
+            RnRsoft
+          </div>
+          <div style="display:flex; gap:34px; font-size:15px; color:#a8b0bd;"><span>앱</span><span>소개</span><span>문의</span></div>
+          <div style="padding:11px 20px; background:rgba(52,211,153,0.12); border:1px solid rgba(52,211,153,0.3); border-radius:999px; color:#6ee7b7; font-size:14px;">앱 둘러보기</div>
+        </div>
+
+        <div style="position:relative; display:grid; grid-template-columns:0.9fr 1.1fr; gap:44px; align-items:center; padding:36px 48px 0; height:calc(100% - 88px);">
+          <div style="display:flex; flex-direction:column; gap:24px;">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:12.5px; letter-spacing:0.16em; text-transform:uppercase; color:#34d399;">rnrsoft.vip</div>
+            <h2 style="margin:0; font-size:54px; line-height:1.08; font-weight:700; color:#f8f9fc; letter-spacing:-0.035em;">생산성·학습<br>앱을 만듭니다</h2>
+            <p style="margin:0; font-size:18px; line-height:1.7; color:#9aa4b2; max-width:400px;">RnRsoft가 만든 앱 모음. 1개 서비스 중, 2개 준비 중.</p>
+            <div style="display:flex; gap:13px; margin-top:6px;">
+              <div style="display:inline-flex; align-items:center; gap:8px; padding:14px 26px; border-radius:12px; background:#34d399; color:#052e22; font-weight:700; font-size:15.5px;">앱 둘러보기 →</div>
+              <div style="display:inline-flex; align-items:center; padding:14px 26px; border-radius:12px; border:1px solid rgba(255,255,255,0.14); color:#e8ecf3; font-size:15.5px;">소개</div>
+            </div>
+          </div>
+
+          <!-- browser window mock -->
+          <div style="align-self:center; border-radius:14px; overflow:hidden; background:#0c1512; border:1px solid #1c2b24; box-shadow:0 50px 100px -34px rgba(0,0,0,0.7); animation:rnr-float 7s ease-in-out infinite;">
+            <div style="display:flex; align-items:center; gap:10px; padding:12px 16px; background:#0e1a15; border-bottom:1px solid #1c2b24;">
+              <div style="display:flex; gap:7px;"><span style="width:11px;height:11px;border-radius:50%;background:#ff5f57;"></span><span style="width:11px;height:11px;border-radius:50%;background:#febc2e;"></span><span style="width:11px;height:11px;border-radius:50%;background:#28c840;"></span></div>
+              <div style="flex:1; margin-left:8px; padding:6px 12px; border-radius:7px; background:#0a120f; border:1px solid #1c2b24; font-family:'JetBrains Mono',monospace; font-size:12px; color:#6b8078;">rnrsoft.vip</div>
+            </div>
+            <div style="padding:24px;">
+              <div style="font-size:13px; color:#6b8078; margin-bottom:14px;">우리가 만드는 앱</div>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                <div style="padding:16px; border-radius:14px; background:rgba(52,211,153,0.1); border:1px solid rgba(52,211,153,0.28);">
+                  <div style="width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,#34d399,#22d3ee);margin-bottom:12px;"></div>
+                  <div style="font-size:13.5px;font-weight:600;color:#f4f6fb;">App 01</div>
+                  <div style="font-size:11px;color:#6ee7b7;margin-top:3px;">● 서비스 중</div>
+                </div>
+                <div style="padding:16px; border-radius:14px; background:rgba(255,255,255,0.03); border:1px dashed rgba(255,255,255,0.14);">
+                  <div style="width:38px;height:38px;border-radius:11px;background:rgba(255,255,255,0.06);margin-bottom:12px;"></div>
+                  <div style="font-size:13.5px;font-weight:600;color:#c7cfdb;">App 02</div>
+                  <div style="font-size:11px;color:#8b8f9c;margin-top:3px;">준비 중</div>
+                </div>
+                <div style="padding:16px; border-radius:14px; background:rgba(255,255,255,0.03); border:1px dashed rgba(255,255,255,0.14);">
+                  <div style="width:38px;height:38px;border-radius:11px;background:rgba(255,255,255,0.06);margin-bottom:12px;"></div>
+                  <div style="font-size:13.5px;font-weight:600;color:#c7cfdb;">App 03</div>
+                  <div style="font-size:11px;color:#8b8f9c;margin-top:3px;">준비 중</div>
+                </div>
+                <div style="padding:16px; border-radius:14px; background:rgba(255,255,255,0.03); border:1px dashed rgba(255,255,255,0.14); display:flex; align-items:center; justify-content:center; color:#6b8078; font-size:22px;">+</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== 4c — Bento / app OS (NEW) ===================== -->
+    <div id="4c" style="flex:0 0 auto; width:1280px; display:flex; flex-direction:column; gap:16px;">
+      <div style="display:flex; align-items:baseline; gap:14px;">
+        <span style="display:inline-flex; align-items:center; justify-content:center; min-width:44px; height:28px; padding:0 10px; border-radius:7px; background:#0d1030; border:1px solid #2b3170; color:#818cf8; font-family:'JetBrains Mono',monospace; font-size:14px; font-weight:700;">4c</span>
+        <div style="font-size:20px; font-weight:600; color:#e8ecf3;">벤토 · 앱 OS (새 컨셉)</div>
+        <div style="font-size:14px; color:#8b95a3;">모듈형 그리드, 앱이 늘어나면 타일 추가</div>
+      </div>
+      <div style="position:relative; width:100%; height:720px; border-radius:16px; overflow:hidden; background:#080a12; border:1px solid #171a2b; padding:26px;">
+        <div style="position:absolute; top:-10%; left:20%; width:520px; height:420px; background:radial-gradient(circle, rgba(99,102,241,0.16), transparent 65%);"></div>
+        <div style="position:relative; display:flex; align-items:center; justify-content:space-between; margin-bottom:22px; padding:0 8px;">
+          <div style="display:flex; align-items:center; gap:11px; font-size:20px; font-weight:600; color:#f4f6fb;">
+            <svg viewBox="0 0 34 34" width="30" height="30"><defs><linearGradient id="g4c" x1="0" y1="0" x2="34" y2="34"><stop offset="0" stop-color="#6366f1"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs><rect x="1" y="1" width="32" height="32" rx="9.5" fill="url(#g4c)"/><g fill="#080a12"><rect x="9.5" y="13" width="3" height="8" rx="1.5"/><rect x="15.5" y="9" width="3" height="16" rx="1.5"/><rect x="21.5" y="11.5" width="3" height="11" rx="1.5"/></g></svg>
+            RnRsoft
+          </div>
+          <div style="display:flex; gap:30px; font-size:15px; color:#a8b0bd;"><span>앱</span><span>소개</span><span>문의</span></div>
+        </div>
+
+        <div style="position:relative; display:grid; grid-template-columns:1.5fr 1fr 1fr; grid-template-rows:1fr 1fr; gap:14px; height:calc(100% - 74px);">
+          <!-- big statement tile -->
+          <div style="grid-row:span 2; display:flex; flex-direction:column; justify-content:space-between; padding:34px; border-radius:20px; background:linear-gradient(150deg,rgba(99,102,241,0.16),rgba(34,211,238,0.06)); border:1px solid rgba(99,102,241,0.3);">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:12.5px; letter-spacing:0.16em; text-transform:uppercase; color:#818cf8;">productivity & learning apps</div>
+            <div>
+              <h2 style="margin:0; font-size:52px; line-height:1.05; font-weight:700; color:#f8f9fc; letter-spacing:-0.035em;">생산성·학습<br>앱을 만드는<br>스튜디오</h2>
+              <p style="margin:20px 0 0; font-size:16px; line-height:1.65; color:#9aa4b2; max-width:320px;">RnRsoft. 웹·모바일 앱을 만듭니다.</p>
+            </div>
+            <div style="display:inline-flex; align-items:center; gap:8px; padding:13px 24px; border-radius:12px; background:linear-gradient(135deg,#6366f1,#818cf8); color:#fff; font-weight:600; font-size:15px; width:fit-content;">앱 둘러보기 →</div>
+          </div>
+          <!-- app 01 live -->
+          <div style="padding:22px; border-radius:20px; background:rgba(255,255,255,0.035); border:1px solid rgba(255,255,255,0.08); display:flex; flex-direction:column; justify-content:space-between;">
+            <div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#6366f1,#22d3ee);"></div>
+            <div><div style="font-size:15px;font-weight:600;color:#f4f6fb;">App 01</div><div style="font-size:12px;color:#6ee7b7;margin-top:4px;">● 서비스 중</div></div>
+          </div>
+          <!-- stat tile -->
+          <div style="padding:22px; border-radius:20px; background:rgba(255,255,255,0.035); border:1px solid rgba(255,255,255,0.08); display:flex; flex-direction:column; justify-content:center; gap:6px;">
+            <div style="font-size:13px; color:#8b8f9c;">플랫폼</div>
+            <div style="font-size:17px; font-weight:600; color:#e8ecf3; line-height:1.4;">웹 · PWA<br>Google Play</div>
+          </div>
+          <!-- app 02 준비 -->
+          <div style="padding:22px; border-radius:20px; background:rgba(255,255,255,0.02); border:1px dashed rgba(255,255,255,0.14); display:flex; flex-direction:column; justify-content:space-between;">
+            <div style="width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,0.06);"></div>
+            <div><div style="font-size:15px;font-weight:600;color:#c7cfdb;">App 02</div><div style="font-size:12px;color:#8b8f9c;margin-top:4px;">준비 중</div></div>
+          </div>
+          <!-- add tile -->
+          <div style="padding:22px; border-radius:20px; background:rgba(255,255,255,0.02); border:1px dashed rgba(255,255,255,0.14); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; color:#5b6478;">
+            <div style="font-size:26px; line-height:1;">+</div>
+            <div style="font-size:12.5px;">새 앱 준비 중</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== 4d — Monochrome minimal (NEW) ===================== -->
+    <div id="4d" style="flex:0 0 auto; width:1280px; display:flex; flex-direction:column; gap:16px;">
+      <div style="display:flex; align-items:baseline; gap:14px;">
+        <span style="display:inline-flex; align-items:center; justify-content:center; min-width:44px; height:28px; padding:0 10px; border-radius:7px; background:#161803; border:1px solid #3f4708; color:#cdff50; font-family:'JetBrains Mono',monospace; font-size:14px; font-weight:700;">4d</span>
+        <div style="font-size:20px; font-weight:600; color:#e8ecf3;">모노크롬 미니멀 (새 컨셉)</div>
+        <div style="font-size:14px; color:#8b95a3;">니어블랙 + 단일 악센트, 큰 여백</div>
+      </div>
+      <div style="position:relative; width:100%; height:720px; border-radius:16px; overflow:hidden; background:#08090a; border:1px solid #17181a; font-family:'Space Grotesk','Pretendard',sans-serif;">
+        <div style="position:relative; display:flex; align-items:center; justify-content:space-between; padding:30px 52px;">
+          <div style="display:flex; align-items:center; gap:11px; font-size:20px; font-weight:600; color:#f4f6fb;">
+            <svg viewBox="0 0 34 34" width="28" height="28"><rect x="1" y="1" width="32" height="32" rx="9.5" fill="#cdff50"/><g fill="#08090a"><rect x="9.5" y="13" width="3" height="8" rx="1.5"/><rect x="15.5" y="9" width="3" height="16" rx="1.5"/><rect x="21.5" y="11.5" width="3" height="11" rx="1.5"/></g></svg>
+            RnRsoft
+          </div>
+          <div style="display:flex; gap:32px; font-size:15px; color:#8b8f96; font-family:'Pretendard',sans-serif;"><span>앱</span><span>소개</span><span>문의</span></div>
+        </div>
+
+        <div style="position:relative; padding:64px 52px 0;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:0.2em; text-transform:uppercase; color:#8b8f96; margin-bottom:28px;">productivity & learning apps</div>
+          <h2 style="margin:0; font-family:'Pretendard',sans-serif; font-size:82px; line-height:1.02; font-weight:800; color:#f7f8f9; letter-spacing:-0.045em;">생산성·학습<br><span style="color:#cdff50;">앱</span>을 만듭니다.</h2>
+          <p style="margin:34px 0 0; font-family:'Pretendard',sans-serif; font-size:19px; line-height:1.65; color:#8b8f96; max-width:520px;">RnRsoft가 만드는 웹·모바일 앱 모음입니다.</p>
+
+          <div style="display:flex; align-items:center; gap:16px; margin-top:44px;">
+            <div style="display:inline-flex; align-items:center; gap:8px; padding:15px 28px; border-radius:8px; background:#cdff50; color:#08090a; font-weight:700; font-size:16px;">앱 둘러보기 →</div>
+            <div style="display:inline-flex; align-items:center; padding:15px 28px; border-radius:8px; border:1px solid #26282b; color:#e8ecf3; font-size:16px; font-family:'Pretendard',sans-serif;">스튜디오 소개</div>
+          </div>
+        </div>
+
+        <!-- footer status row -->
+        <div style="position:absolute; bottom:0; left:0; right:0; display:flex; align-items:center; gap:28px; padding:22px 52px; border-top:1px solid #17181a; font-family:'JetBrains Mono',monospace; font-size:13px; color:#8b8f96;">
+          <span style="color:#f4f6fb;">App 01 <span style="color:#cdff50;">●</span> 서비스 중</span>
+          <span>App 02 ○ 준비 중</span>
+          <span>App 03 ○ 준비 중</span>
+          <span style="margin-left:auto;">웹 · PWA · Google Play</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section style="display:flex; flex-direction:column; gap:36px; padding:64px; background:#12151c; min-height:100vh; font-family:'Pretendard',sans-serif;">
+  <div style="display:flex; flex-direction:column; gap:10px; max-width:980px;">
+    <div style="font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:0.18em; text-transform:uppercase; color:#7dd3fc;">Turn 3 · App Studio Positioning</div>
+    <div style="display:flex; align-items:center; gap:16px;">
+      <svg viewBox="0 0 34 34" width="40" height="40"><rect x="1" y="1" width="32" height="32" rx="9.5" fill="#7dd3fc"/><g fill="#0b0e12"><rect x="9.5" y="13" width="3" height="8" rx="1.5"/><rect x="15.5" y="9" width="3" height="16" rx="1.5"/><rect x="21.5" y="11.5" width="3" height="11" rx="1.5"/></g></svg>
+      <h1 style="margin:0; font-size:32px; font-weight:700; color:#f4f6fb; letter-spacing:-0.02em;">RnRsoft — 앱 만드는 스튜디오</h1>
+    </div>
+    <p style="margin:0; font-size:16px; line-height:1.6; color:#9aa4b2;">
+      특정 앱 소개는 빼고 <b style="color:#c7cfdb;">"쓸모 있는 앱을 만드는 회사"</b>로 포지셔닝. 앱은 상태 배지(서비스 중 / 준비 중)로만 진열해 개수가 늘어도 그대로 유지됩니다. 방향을 <a href="#3a" style="color:#7dd3fc;">3a</a> · <a href="#3b" style="color:#7dd3fc;">3b</a> · <a href="#3c" style="color:#7dd3fc;">3c</a> 로 골라주세요.
+    </p>
+  </div>
+
+  <div style="display:flex; flex-wrap:wrap; gap:44px; align-items:flex-start;">
+
+    <!-- ===================== 3a — Terminal / IDE ===================== -->
+    <div id="3a" style="flex:0 0 auto; width:1280px; display:flex; flex-direction:column; gap:16px;">
+      <div style="display:flex; align-items:baseline; gap:14px;">
+        <span style="display:inline-flex; align-items:center; justify-content:center; min-width:44px; height:28px; padding:0 10px; border-radius:7px; background:#0f1a14; border:1px solid #1f4d38; color:#4ade80; font-family:'JetBrains Mono',monospace; font-size:14px; font-weight:700;">3a</span>
+        <div style="font-size:20px; font-weight:600; color:#e8ecf3;">터미널 / IDE 감성</div>
+        <div style="font-size:14px; color:#8b95a3;">개발자가 만든 티, 앱 디렉터리 진열</div>
+      </div>
+
+      <div style="position:relative; width:100%; height:720px; border-radius:16px; overflow:hidden; background:#0a0d11; border:1px solid #1a212b; box-shadow:0 50px 90px -40px rgba(0,0,0,0.7); font-family:'JetBrains Mono',monospace;">
+        <div style="display:flex; align-items:center; gap:16px; padding:14px 20px; background:#0d1117; border-bottom:1px solid #1a212b;">
+          <div style="display:flex; gap:8px;"><span style="width:12px;height:12px;border-radius:50%;background:#ff5f57;"></span><span style="width:12px;height:12px;border-radius:50%;background:#febc2e;"></span><span style="width:12px;height:12px;border-radius:50%;background:#28c840;"></span></div>
+          <div style="display:flex; align-items:center; gap:9px; margin-left:8px;">
+            <svg viewBox="0 0 34 34" width="20" height="20"><rect x="1" y="1" width="32" height="32" rx="9.5" fill="#4ade80"/><g fill="#0a0d11"><rect x="9.5" y="13" width="3" height="8" rx="1.5"/><rect x="15.5" y="9" width="3" height="16" rx="1.5"/><rect x="21.5" y="11.5" width="3" height="11" rx="1.5"/></g></svg>
+            <span style="font-size:14px; font-weight:700; color:#e8ecf3;">RnR<span style="color:#4ade80;">soft</span></span>
+          </div>
+          <div style="margin-left:auto; display:flex; gap:22px; font-size:13px; color:#9aa4b2;"><span>apps</span><span>about</span><span>contact</span></div>
+        </div>
+
+        <div style="position:relative; display:grid; grid-template-columns:1.05fr 0.95fr; height:calc(100% - 51px - 34px);">
+          <div style="display:flex; flex-direction:column; justify-content:center; gap:24px; padding:52px 44px; border-right:1px solid #141b23;">
+            <div style="position:absolute; top:-80px; left:-60px; width:420px; height:420px; border-radius:50%; background:radial-gradient(circle, rgba(74,222,128,0.1), transparent 70%);"></div>
+            <div style="position:relative; display:inline-flex; align-items:center; gap:9px; font-size:12.5px; color:#4ade80; letter-spacing:0.05em;"><span style="width:7px;height:7px;border-radius:50%;background:#4ade80;box-shadow:0 0 10px #4ade80;"></span>productivity & learning apps</div>
+            <h2 style="position:relative; margin:0; font-family:'Pretendard',sans-serif; font-size:46px; line-height:1.12; font-weight:800; color:#f4f6fb; letter-spacing:-0.03em;">쓸모 있는 앱을,<br>짓습니다<span style="color:#4ade80;">.</span></h2>
+            <p style="position:relative; margin:0; font-family:'Pretendard',sans-serif; font-size:17px; line-height:1.7; color:#9aa4b2; max-width:400px;">생산성과 학습을 위한 작지만 유용한 앱을 만듭니다. 지금 하나가 돌아가고 있고, 곧 더 늘어납니다.</p>
+            <div style="position:relative; display:flex; gap:12px; padding-top:4px;">
+              <div style="display:inline-flex; align-items:center; gap:8px; padding:13px 22px; background:#4ade80; color:#0a0d11; border-radius:9px; font-weight:700; font-size:14.5px;">./앱 둘러보기 →</div>
+              <div style="display:inline-flex; align-items:center; padding:13px 22px; border:1px solid #26303d; color:#c7cfdb; border-radius:9px; font-size:14.5px;">--about</div>
+            </div>
+          </div>
+
+          <div style="display:flex; flex-direction:column; background:#070a0d; font-size:14px; line-height:1.9;">
+            <div style="display:flex; flex:1;">
+              <div style="padding:26px 14px; text-align:right; color:#2e3742; user-select:none;">01<br>02<br>03<br>04<br>05<br>06<br>07</div>
+              <div style="padding:26px 20px 26px 6px; color:#c7cfdb;">
+                <div><span style="color:#7dd3fc;">$</span> ls apps/</div>
+                <div>&nbsp;</div>
+                <div><span style="color:#4ade80;">●</span> app-01/<span style="color:#5b6472;">   서비스 중</span></div>
+                <div><span style="color:#3a4552;">○</span> app-02/<span style="color:#5b6472;">   준비 중</span></div>
+                <div><span style="color:#3a4552;">○</span> app-03/<span style="color:#5b6472;">   준비 중</span></div>
+                <div>&nbsp;</div>
+                <div style="color:#5b6472;"># 새 앱 준비 중<span style="color:#4ade80; animation:rnr-blink 1s step-end infinite;">▍</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="position:absolute; bottom:0; left:0; right:0; display:flex; align-items:center; gap:20px; padding:8px 20px; background:#4ade80; color:#06210f; font-size:12.5px; font-weight:600;">
+          <span>● rnrsoft.vip</span><span>apps: 1 live · 2 wip</span><span style="margin-left:auto;">웹 · PWA · Google Play</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== 3b — Minimal Premium ===================== -->
+    <div id="3b" style="flex:0 0 auto; width:1280px; display:flex; flex-direction:column; gap:16px;">
+      <div style="display:flex; align-items:baseline; gap:14px;">
+        <span style="display:inline-flex; align-items:center; justify-content:center; min-width:44px; height:28px; padding:0 10px; border-radius:7px; background:#12101f; border:1px solid #34305a; color:#a78bfa; font-family:'JetBrains Mono',monospace; font-size:14px; font-weight:700;">3b</span>
+        <div style="font-size:20px; font-weight:600; color:#e8ecf3;">미니멀 프리미엄</div>
+        <div style="font-size:14px; color:#8b95a3;">절제된 여백 · 하이라인 · 앱 셸프 카드</div>
+      </div>
+
+      <div style="position:relative; width:100%; height:720px; border-radius:16px; overflow:hidden; background:#0b0c11; border:1px solid #1a1c26;">
+        <div style="position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,rgba(167,139,250,0.6),transparent);"></div>
+        <div style="position:absolute; top:-10%; right:-4%; width:640px; height:640px; background:radial-gradient(circle at 60% 40%, rgba(124,92,255,0.14), transparent 62%);"></div>
+        <div style="position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,0.015) 1px,transparent 1px); background-size:100% 40px;"></div>
+
+        <div style="position:relative; display:flex; align-items:center; justify-content:space-between; padding:26px 48px;">
+          <div style="display:flex; align-items:center; gap:11px; font-size:20px; font-weight:600; color:#f4f6fb; letter-spacing:-0.01em;">
+            <svg viewBox="0 0 34 34" width="30" height="30"><defs><linearGradient id="g3b" x1="0" y1="0" x2="34" y2="34"><stop offset="0" stop-color="#8b6dff"/><stop offset="1" stop-color="#a855f7"/></linearGradient></defs><rect x="1" y="1" width="32" height="32" rx="9.5" fill="url(#g3b)"/><g fill="#0b0c11"><rect x="9.5" y="13" width="3" height="8" rx="1.5"/><rect x="15.5" y="9" width="3" height="16" rx="1.5"/><rect x="21.5" y="11.5" width="3" height="11" rx="1.5"/></g></svg>
+            RnRsoft
+          </div>
+          <div style="display:flex; gap:34px; font-size:15px; color:#a8b0bd;"><span>앱</span><span>소개</span><span>문의</span></div>
+          <div style="padding:11px 20px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); border-radius:999px; color:#f4f6fb; font-size:14px;">앱 둘러보기</div>
+        </div>
+
+        <div style="position:relative; display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center; padding:44px 48px 0;">
+          <div style="display:flex; flex-direction:column; gap:26px;">
+            <div style="display:inline-flex; align-items:center; gap:9px; padding:7px 15px; border-radius:999px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); font-size:13px; color:#c9b8ff; width:fit-content;"><span style="width:6px;height:6px;border-radius:50%;background:#7c5cff;box-shadow:0 0 8px #7c5cff;"></span>productivity & learning apps</div>
+            <h2 style="margin:0; font-size:56px; line-height:1.08; font-weight:700; color:#f8f9fc; letter-spacing:-0.035em;">작지만 유용한 앱을<br><span style="background:linear-gradient(120deg,#c9b8ff,#7c5cff 55%,#67e8f9); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;">만듭니다</span></h2>
+            <p style="margin:0; font-size:18px; line-height:1.7; color:#9aa4b2; max-width:440px;">생산성과 학습을 위한 도구를 만드는 앱 스튜디오. 개인정보를 존중하며, 빠르고 단정한 경험을 지향합니다.</p>
+            <div style="display:flex; gap:13px; margin-top:6px;">
+              <div style="display:inline-flex; align-items:center; gap:8px; padding:14px 26px; border-radius:999px; background:linear-gradient(135deg,#7c5cff,#a855f7); color:#fff; font-weight:600; font-size:15.5px; box-shadow:0 16px 40px -14px rgba(124,92,255,0.6);">앱 둘러보기 →</div>
+              <div style="display:inline-flex; align-items:center; padding:14px 26px; border-radius:999px; border:1px solid rgba(255,255,255,0.14); color:#e8ecf3; font-size:15.5px;">스튜디오 소개</div>
+            </div>
+          </div>
+
+          <!-- app shelf card -->
+          <div style="justify-self:center; width:360px; border-radius:22px; background:linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02)); border:1px solid rgba(255,255,255,0.12); padding:22px; box-shadow:0 50px 100px -30px rgba(90,60,220,0.5); animation:rnr-float 6s ease-in-out infinite; backdrop-filter:blur(10px);">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:18px;">
+              <div style="font-size:13px; font-weight:600; color:#c7cfdb; letter-spacing:0.02em;">우리가 만드는 앱</div>
+              <div style="font-size:11px; color:#8b8f9c;">1 서비스 중 · 2 준비 중</div>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:11px;">
+              <div style="display:flex; align-items:center; gap:13px; padding:14px; border-radius:14px; background:rgba(124,92,255,0.12); border:1px solid rgba(124,92,255,0.3);">
+                <div style="width:44px; height:44px; border-radius:12px; background:linear-gradient(135deg,#7c5cff,#a855f7); box-shadow:0 6px 18px -6px rgba(124,92,255,0.7);"></div>
+                <div style="flex:1;"><div style="font-size:14px; font-weight:600; color:#f4f6fb;">App 01</div><div style="font-size:12px; color:#9aa4b2;">생산성 · 학습</div></div>
+                <div style="font-size:11px; padding:4px 9px; border-radius:999px; background:rgba(110,231,183,0.16); color:#6ee7b7;">서비스 중</div>
+              </div>
+              <div style="display:flex; align-items:center; gap:13px; padding:14px; border-radius:14px; background:rgba(255,255,255,0.03); border:1px dashed rgba(255,255,255,0.14);">
+                <div style="width:44px; height:44px; border-radius:12px; background:rgba(255,255,255,0.06);"></div>
+                <div style="flex:1;"><div style="font-size:14px; font-weight:600; color:#c7cfdb;">App 02</div><div style="font-size:12px; color:#8b8f9c;">곧 공개</div></div>
+                <div style="font-size:11px; padding:4px 9px; border-radius:999px; background:rgba(255,255,255,0.06); color:#a8b0bd;">준비 중</div>
+              </div>
+              <div style="display:flex; align-items:center; gap:13px; padding:14px; border-radius:14px; background:rgba(255,255,255,0.03); border:1px dashed rgba(255,255,255,0.14);">
+                <div style="width:44px; height:44px; border-radius:12px; background:rgba(255,255,255,0.06);"></div>
+                <div style="flex:1;"><div style="font-size:14px; font-weight:600; color:#c7cfdb;">App 03</div><div style="font-size:12px; color:#8b8f9c;">곧 공개</div></div>
+                <div style="font-size:11px; padding:4px 9px; border-radius:999px; background:rgba(255,255,255,0.06); color:#a8b0bd;">준비 중</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== 3c — Creative Bold ===================== -->
+    <div id="3c" style="flex:0 0 auto; width:1280px; display:flex; flex-direction:column; gap:16px;">
+      <div style="display:flex; align-items:baseline; gap:14px;">
+        <span style="display:inline-flex; align-items:center; justify-content:center; min-width:44px; height:28px; padding:0 10px; border-radius:7px; background:#1f1206; border:1px solid #7a3f14; color:#ff8a3d; font-family:'JetBrains Mono',monospace; font-size:14px; font-weight:700;">3c</span>
+        <div style="font-size:20px; font-weight:600; color:#e8ecf3;">크리에이티브 볼드</div>
+        <div style="font-size:14px; color:#8b95a3;">에디토리얼 그리드 · 키네틱 스트립 · 앱 슬롯</div>
+      </div>
+
+      <div style="position:relative; width:100%; height:720px; border-radius:16px; overflow:hidden; background:#0c0a09; border:1px solid #241d18; font-family:'Space Grotesk','Pretendard',sans-serif;">
+        <div style="position:relative; z-index:2; display:flex; align-items:center; justify-content:space-between; padding:28px 44px; border-bottom:1px solid #241d18;">
+          <div style="display:flex; align-items:center; gap:11px;">
+            <svg viewBox="0 0 34 34" width="30" height="30"><rect x="1" y="1" width="32" height="32" rx="9.5" fill="#ff4d3d"/><g fill="#0c0a09"><rect x="9.5" y="13" width="3" height="8" rx="1.5"/><rect x="15.5" y="9" width="3" height="16" rx="1.5"/><rect x="21.5" y="11.5" width="3" height="11" rx="1.5"/></g></svg>
+            <span style="font-size:21px; font-weight:700; color:#f8f9fc; letter-spacing:-0.02em;">RnR<span style="color:#ff4d3d;">soft</span></span>
+          </div>
+          <div style="display:flex; gap:30px; font-size:15px; font-weight:500; color:#c7cfdb;"><span>앱</span><span>소개</span><span>문의</span></div>
+        </div>
+
+        <div style="position:relative; display:grid; grid-template-columns:1.15fr 0.85fr; height:calc(100% - 130px);">
+          <div style="display:flex; flex-direction:column; justify-content:center; gap:30px; padding:48px 44px;">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:0.18em; text-transform:uppercase; color:#f5a524;">productivity & learning apps</div>
+            <h2 style="margin:0; font-size:78px; line-height:0.95; font-weight:700; color:#f8f9fc; letter-spacing:-0.04em;">쓸모 있는<br><span style="color:#ff4d3d;">앱</span>을 짓는다<span style="color:#f5a524;">.</span></h2>
+            <p style="margin:0; font-family:'Pretendard',sans-serif; font-size:18px; line-height:1.65; color:#a8afb8; max-width:420px;">생산성과 학습을 다시 설계하는 도구를 만듭니다. 작지만, 매일 쓰게 되는 앱.</p>
+            <div style="display:flex; gap:0; align-items:stretch; width:fit-content;">
+              <div style="display:inline-flex; align-items:center; padding:17px 30px; background:#f5a524; color:#0c0a09; font-weight:700; font-size:16px;">앱 둘러보기</div>
+              <div style="display:inline-flex; align-items:center; padding:17px 24px; background:#f8f9fc; color:#0c0a09; font-weight:700; font-size:16px;">→</div>
+            </div>
+          </div>
+
+          <div style="position:relative; background:linear-gradient(155deg,#ff4d3d,#c2261a); overflow:hidden; padding:44px 40px; display:flex; flex-direction:column; justify-content:center; gap:20px;">
+            <div style="position:absolute; top:34px; right:34px; width:80px; height:80px; border:3px solid #f5a524; border-radius:50%; animation:rnr-float 6s ease-in-out infinite;"></div>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:12.5px; letter-spacing:0.16em; text-transform:uppercase; color:#fff; opacity:0.85;">now shipping</div>
+            <div style="display:flex; align-items:baseline; gap:10px; color:#fff;">
+              <span style="font-size:96px; font-weight:700; line-height:0.9; letter-spacing:-0.04em;">1</span>
+              <span style="font-family:'Pretendard',sans-serif; font-size:18px; font-weight:600;">개 서비스 중</span>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:9px;">
+              <div style="display:flex; align-items:center; gap:11px; padding:12px; border-radius:12px; background:rgba(0,0,0,0.22);">
+                <div style="width:36px; height:36px; border-radius:10px; background:#0c0a09;"></div>
+                <span style="font-family:'Pretendard',sans-serif; font-size:14px; font-weight:600; color:#fff;">App 01</span>
+                <span style="margin-left:auto; font-size:11px; padding:3px 9px; border-radius:999px; background:#f5a524; color:#0c0a09; font-weight:700;">LIVE</span>
+              </div>
+              <div style="display:flex; align-items:center; gap:11px; padding:12px; border-radius:12px; background:rgba(0,0,0,0.12); border:1px dashed rgba(255,255,255,0.3);">
+                <div style="width:36px; height:36px; border-radius:10px; background:rgba(255,255,255,0.14);"></div>
+                <span style="font-family:'Pretendard',sans-serif; font-size:14px; font-weight:600; color:rgba(255,255,255,0.85);">App 02</span>
+                <span style="margin-left:auto; font-size:11px; color:rgba(255,255,255,0.75);">준비 중</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="position:absolute; bottom:0; left:0; right:0; height:52px; background:#f5a524; overflow:hidden; display:flex; align-items:center;">
+          <div style="display:flex; gap:0; white-space:nowrap; animation:rnr-marquee 22s linear infinite; font-family:'JetBrains Mono',monospace; font-size:14px; font-weight:600; color:#0c0a09; letter-spacing:0.04em;">
+            <span style="padding:0 22px;">앱 ✦ 생산성 ✦ 학습 ✦ AI ✦ 웹 ✦ PWA ✦ 모바일 ✦ Google Play ✦ 앱 ✦ 생산성 ✦ 학습 ✦ AI ✦ 웹 ✦ PWA ✦ 모바일 ✦ Google Play ✦</span>
+            <span style="padding:0 22px;">앱 ✦ 생산성 ✦ 학습 ✦ AI ✦ 웹 ✦ PWA ✦ 모바일 ✦ Google Play ✦ 앱 ✦ 생산성 ✦ 학습 ✦ AI ✦ 웹 ✦ PWA ✦ 모바일 ✦ Google Play ✦</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+</x-dc>
+</body>
+</html>

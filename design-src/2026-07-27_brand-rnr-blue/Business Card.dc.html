@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>명함 — RnR soft</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  doc-page:not(:defined){visibility:hidden}
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:'Pretendard',sans-serif; -webkit-font-smoothing:antialiased; letter-spacing:-0.011em; }
+</style>
+<script src="./doc-page.js"></script>
+</helmet>
+
+<doc-page width="91mm" height="56mm">
+
+  <!-- FRONT -->
+  <section class="page" style="padding:0; background:#ffffff; display:flex; flex-direction:column; justify-content:space-between; position:relative; overflow:hidden;">
+    <div style="position:absolute; top:0; left:0; width:100%; height:2.4mm; background:linear-gradient(90deg,#1b2bb4,#2054dc 45%,#2b86f5 78%,#38c8f0);"></div>
+    <div style="position:absolute; right:-14mm; bottom:-16mm; width:52mm; height:52mm; border-radius:50%; background:radial-gradient(circle,rgba(43,134,245,0.10),rgba(43,134,245,0) 68%);"></div>
+
+    <div style="padding:8mm 8mm 0;">
+      <img src="assets/lockup-horizontal.png" alt="RnR soft" style="height:11mm; width:auto; display:block;">
+    </div>
+
+    <div style="padding:0 8mm 7.5mm; display:flex; align-items:flex-end; justify-content:space-between; gap:5mm; position:relative;">
+      <div style="display:flex; flex-direction:column; gap:0.8mm;">
+        <div style="font-size:4.6mm; font-weight:600; color:#12151b; letter-spacing:-0.02em; line-height:1.1;">홍길동</div>
+        <div style="font-size:2.7mm; font-weight:500; color:#1f5be0; letter-spacing:0.02em;">대표 · Founder</div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:1.1mm; text-align:right;">
+        <div style="font-family:'Poppins',sans-serif; font-size:2.5mm; font-weight:400; color:#3d4757; letter-spacing:0.01em;">contact@rnrsoft.vip</div>
+        <div style="font-family:'Poppins',sans-serif; font-size:2.5mm; font-weight:400; color:#3d4757; letter-spacing:0.01em;">rnrsoft.vip</div>
+        <div style="font-family:'Poppins',sans-serif; font-size:2.5mm; font-weight:400; color:#8b93a1; letter-spacing:0.01em;">+82 10-0000-0000</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BACK -->
+  <section class="page" style="padding:0; background:#0d1524; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4mm; position:relative; overflow:hidden;">
+    <div style="position:absolute; inset:0; background:radial-gradient(120% 110% at 50% 8%, rgba(43,134,245,0.26), rgba(13,21,36,0) 62%);"></div>
+    <div style="position:absolute; bottom:0; left:0; width:100%; height:2.4mm; background:linear-gradient(90deg,#1b2bb4,#2054dc 45%,#2b86f5 78%,#38c8f0);"></div>
+
+    <img src="assets/mark.png" alt="RnR soft" style="position:relative; height:14mm; width:auto; display:block;">
+    <div style="position:relative; display:flex; flex-direction:column; align-items:center; gap:1.4mm;">
+      <div style="font-family:'Poppins',sans-serif; font-size:5mm; font-weight:600; color:#ffffff; letter-spacing:-0.01em; line-height:1;">RnR soft</div>
+      <div style="font-family:'Poppins',sans-serif; font-size:2.4mm; font-weight:300; color:#93a0b4; letter-spacing:0.08em;">Connecting Ideas, Delivering Future</div>
+    </div>
+  </section>
+
+</doc-page>
+</x-dc>
+</body>
+</html>
