@@ -75,11 +75,6 @@ nav a:hover { color: var(--text); }
 .rnr-ticker-track { display: inline-flex; white-space: nowrap; animation: rnr-ticker 34s linear infinite; }
 .rnr-ticker-wrap:hover .rnr-ticker-track { animation-play-state: paused; }
 
-/* 저사양·모션 민감 사용자 배려 */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
-}
-
 /* 모바일 */
 @media (max-width: 560px) {
   .rnr-logo img { height: 26px; }
