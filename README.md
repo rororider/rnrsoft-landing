@@ -6,16 +6,16 @@
 
 ```
 public/            ← 배포 대상 (Cloudflare Pages)
-  index.html       홈 (1화면 + 공지 티커 + 사운드 토이)
+  index.html       홈 (1화면 + 매트릭스 레인 + flow 빔 + 공지 티커)
   apps.html        앱 진열
   about.html       소개
   contact.html     문의
   privacy.html     개인정보처리방침
   terms.html       이용약관
   lang.js          공통 KO/EN 토글 + 헤더 스크롤 블러
-  brand.css        공통 브랜드 토큰(CSS 변수)·애니메이션·모바일
-  assets/          mark-72(헤더 로고) · tile-navy-160(앱 타일)
-                   icon-32/192(파비콘) · fav-180(apple-touch) · og-image
+  brand.css        공통 브랜드 토큰(CSS 변수) + rs-* 애니메이션 + 반응형
+  assets/          mark(헤더 로고) · mark-white(푸터) · app-note(받아쓰기 앱)
+                   fav-16/32/180/192(파비콘) · og-image
 design-src/        디자인 원본·의뢰서
   DESIGN-BRIEF.md              홈페이지 재디자인 의뢰서
   DESIGN-BRIEF-brand-assets.md 브랜드 자산(개발자 아이콘/헤더) 의뢰서
@@ -71,13 +71,14 @@ RnR 판독 불가**였음 — 마크가 타일의 55%로 작고, 파란 마크 x
 
 ### 앱 아이콘 (진열되는 앱마다 자기 아이콘)
 
-⚠️ 시안은 앱 카드 자리에도 **회사 마크()** 를 넣어놨지만, 그건
+⚠️ 시안은 앱 카드 자리에도 **회사 마크(`tile-navy.png`)** 를 넣어놨지만, 그건
 디자인팀이 앱 아이콘을 안 갖고 있어서 임시로 채운 것이다. **진열대이므로 앱마다
 자기 아이콘이 들어가야 한다.**
 
-- 받아쓰기 노트 →  (note.rnrsoft.vip의 이 가리키는
-  를 받아 160px로 리사이즈. 마이크+노트 라인, 차콜+레드)
-- 사용처 3곳: (44px) · (76px) · - 새 앱을 진열할 때도 같은 방식 — 그 앱 manifest에서 아이콘을 받아 로
+- 받아쓰기 노트 → `app-note.png` — note.rnrsoft.vip의 `manifest.json`이 가리키는
+  `icons/icon-512.png`를 받아 160px로 리사이즈 (마이크+노트 라인, 차콜 배경 + 레드 악센트)
+- 사용처 3곳: `index.html`(44px) · `apps.html`(76px) · `contact.html`(48px)
+- 새 앱을 진열할 때도 같은 방식 — 그 앱 manifest에서 아이콘을 받아 `app-<이름>.png`로 저장
 
 > ⚠️ **디자인팀 ZIP은 폴더마다 세대가 다르다.** ZIP 루트 `*.dc.html`이 최종본이고,
 > `design_handoff_rnrsoft_site/design/`은 구버전(앰버 시대)이다. 새 ZIP을 받으면
