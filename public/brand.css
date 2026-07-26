@@ -1,93 +1,83 @@
-/* rnrsoft — RnR soft brand tokens (2026-07-27 blue rebrand)
-   확정 로고: 파란 리본형 RnR 마크 + "Connecting Ideas, Delivering Future" */
+/* RnR soft — 디자인팀 최종 시안(.dc.html) 기준 공통 토큰
+   출처: design-src/2026-07-27_brand-rnr-blue/*.dc.html (루트 파일 = 최종본) */
 
 :root {
-  /* surfaces — 네이비 다크 */
-  --bg:        #0d1524;
-  --surface:   #0f1828;
-  --surface-2: #0a1120;
-  --card:      rgba(255,255,255,0.028);
-  --card-dash: rgba(255,255,255,0.016);
-  --border:    rgba(255,255,255,0.08);
-  --hairline:  rgba(255,255,255,0.07);
+  --bg:        #0b1220;
+  --surface:   #141f33;
+  --border:    rgba(255,255,255,0.10);
 
-  /* accent — 브랜드 블루 (logo-vec 그라디언트 기준) */
-  --accent:     #1f5be0;
-  --accent-lt:  #2b86f5;
-  --accent-hi:  #38c8f0;
-  --accent-deep:#1b2bb4;
-  --link:       #6fb4ff;
-  --link-hover: #9bcdff;
+  --accent:      #2b86f5;
+  --accent-deep: #1f56dc;
+  --accent-hi:   #38c8f0;
+  --link:        #5aa9ff;
+  --link-hover:  #7fc4ff;
 
-  /* 주 버튼 */
-  --btn-bg:   #1f5be0;
-  --btn-fg:   #ffffff;
-  --btn-hover:#2b86f5;
-
-  /* 로고 그라디언트 (logo-vec.svg stop 색과 동일) */
-  --logo-1: #173a86;
-  --logo-2: #1f7ccb;
-  --logo-3: #2fd3e6;
-
-  /* 상태 */
-  --live-fg: #6fe0b4;
-  --live-dot:#4fd39c;
-  --live-bg: rgba(79,211,156,0.14);
-
-  /* 텍스트 */
-  --text-h:    #f2f5fa;
-  --text:      #e8ecf3;
-  --text-body: #93a0b4;
-  --text-2:    #a3aebf;
-  --text-dim:  #7d8899;
-  --text-dimmer:#5b6472;
-  --text-menu: #c3ccd9;
+  --text-h:    #f2f6fc;
+  --text:      #eef2f8;
+  --text-body: #98a4b6;
+  --text-2:    #aab5c6;
+  --text-dim:  #7f8b9d;
+  --text-menu: #c6cfdb;
+  --text-tag:  #7d8ba0;
 }
 
 * { box-sizing: border-box; }
 
+html, body { background: #0b1220; }
+
 body {
   margin: 0;
-  background: var(--bg);
-  color: var(--text);
+  background: #0b1220;
+  color: #eef2f8;
   font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
   -webkit-font-smoothing: antialiased;
-  letter-spacing: -0.011em;
+  letter-spacing: -0.012em;
 }
 
-a { color: var(--link); text-decoration: none; }
-a:hover { color: var(--link-hover); }
+a { color: #5aa9ff; text-decoration: none; }
+a:hover { color: #7fc4ff; }
 ::selection { background: rgba(43,134,245,0.3); }
 
-nav a { color: var(--text-body); }
-nav a:hover { color: var(--text); }
+/* ---- 시안 keyframes (원문 그대로) ---- */
+@keyframes rs-rise  { from{opacity:0; transform:translateY(18px)} to{opacity:1; transform:none} }
+@keyframes rs-drift { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-22px,16px)} }
+@keyframes rs-dash  { to { stroke-dashoffset:-260; } }
+@keyframes rs-tick  { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+@keyframes rs-scan  { from{transform:translateY(-100%)} to{transform:translateY(100%)} }
+@keyframes rs-flick { 0%,100%{opacity:0.5} 50%{opacity:0.85} }
 
-/* 로고 락업 (헤더) — 최소 심볼 높이 24px 규정 준수 */
-.rnr-logo { display: flex; align-items: center; gap: 10px; }
-.rnr-logo img { display: block; height: 30px; width: auto; }
+.rs-track { display:inline-flex; white-space:nowrap; animation:rs-tick 36s linear infinite; }
+.rs-tickwrap:hover .rs-track { animation-play-state:paused; }
 
-/* 애니메이션 — 디자인팀 Turn 8 "8a 은은한 기울기(안전)" 기준.
-   시안은 핑크/퍼플이었으나 확정 블루 브랜드에 맞춰 색만 치환. 모션 값은 시안 그대로. */
-@keyframes rnr-float  { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
-@keyframes rnr-drift  { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-24px,18px)} }
-@keyframes rnr-rise   { 0%{opacity:0;transform:translateY(26px) scale(0.94)} 100%{opacity:1;transform:translateY(0) scale(1)} }
-@keyframes rnr-ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+.rs-grid-bg { position:absolute; inset:0; pointer-events:none;
+  background-image:linear-gradient(rgba(90,169,255,0.07) 1px,transparent 1px),linear-gradient(90deg,rgba(90,169,255,0.07) 1px,transparent 1px);
+  background-size:56px 56px;
+  -webkit-mask-image:radial-gradient(120% 90% at 50% 40%,#000 30%,transparent 78%);
+  mask-image:radial-gradient(120% 90% at 50% 40%,#000 30%,transparent 78%); }
 
-/* 라이브 앱 아이콘 — 광원 맥동 + 퍼지는 링 (시안 8a) */
-@keyframes rnr-glow {
-  0%,100% { box-shadow:0 20px 44px -12px rgba(31,124,203,0.55), inset 0 1px 0 rgba(255,255,255,0.35); }
-  50%     { box-shadow:0 26px 60px -10px rgba(47,211,230,0.9),  inset 0 1px 0 rgba(255,255,255,0.5); }
+.rs-scanline { position:absolute; left:0; right:0; height:180px; pointer-events:none;
+  background:linear-gradient(180deg,rgba(92,196,245,0) 0%,rgba(92,196,245,0.055) 50%,rgba(92,196,245,0) 100%);
+  animation:rs-scan 7.5s linear infinite; }
+
+.rs-mono { font-family:'JetBrains Mono',monospace; }
+
+/* 시안 원문의 reduced-motion 처리 — 스캔라인/티커만 정지 (전역 차단 아님) */
+@media (prefers-reduced-motion:reduce){ .rs-scanline,.rs-track{ animation:none !important } }
+
+/* ---- 공통 반응형 (시안 원문) ---- */
+@media (max-width:640px){
+  .rs-bar { padding-left:18px !important; padding-right:18px !important; }
+  .rs-logo { height:30px !important; }
+  .rs-nav { gap:2px !important; }
+  .rs-nav a { padding:8px 10px !important; font-size:13.5px !important; }
+  .rs-nav button { margin-left:2px !important; padding:7px 10px !important; font-size:11.5px !important; }
+  .rs-wrap { padding-left:18px !important; padding-right:18px !important; }
+  .rs-grid { grid-template-columns:1fr !important; }
+  .rs-appwide { flex-direction:column !important; gap:20px !important; padding:24px !important; }
+  .rs-shot { flex:0 0 auto !important; width:100% !important; min-height:150px !important; }
 }
-@keyframes rnr-ring {
-  0%   { transform: scale(0.6); opacity:0.7; }
-  100% { transform: scale(1.9); opacity:0; }
-}
-
-.rnr-ticker-track { display: inline-flex; white-space: nowrap; animation: rnr-ticker 34s linear infinite; }
-.rnr-ticker-wrap:hover .rnr-ticker-track { animation-play-state: paused; }
-
-/* 모바일 */
-@media (max-width: 560px) {
-  .rnr-logo img { height: 26px; }
-  nav a { padding: 8px 10px !important; font-size: 14px !important; }
+@media (max-width:420px){
+  .rs-logo { height:22px !important; }
+  .rs-nav a { padding:7px 8px !important; font-size:13px !important; }
+  .rs-tag { display:none !important; }
 }
