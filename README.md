@@ -43,7 +43,6 @@ npx wrangler pages deploy public --project-name=rnrsoft-landing --branch=main --
 - Pages 프로젝트명: **rnrsoft-landing** (계정 madrex1090@gmail.com, account id c39e6cf45019de85f5264d41fcbe27cc)
 - 커스텀 도메인 rnrsoft.vip 연결됨 (루트 CNAME → rnrsoft-landing.pages.dev)
 
-
 ### ⚠️ 배포 시 캐시 무효화 (필수)
 
 Cloudflare Pages는 정적 에셋에 `Cache-Control: max-age=14400`(4시간)을 강제한다.
@@ -98,35 +97,40 @@ RnR 판독 불가**였음 — 마크가 타일의 55%로 작고, 파란 마크 x
 > `diff`로 루트 vs 하위폴더를 먼저 비교할 것. `rnrsoft Hero Directions.dc.html`은
 > 탐색 기록(Turn 3~8, "골라주세요"로 끝남)이지 배포 대상이 아니다.
 
-
 ## 가상 사옥(hq.rnrsoft.vip) SSO
 
-홈페이지 관리자 세션 -> 사옥 자동 로그인. 비밀번호 재입력 없음.
+홈페이지 관리자 세션 → 사옥 자동 로그인. 비밀번호 재입력 없음.
 
 | 구성 | 위치 |
 |---|---|
-| 진입 | 대시보드 "가상 사옥 관제" 버튼 ->  |
-| 티켓 | KV  · 1회용 · 60초 TTL · base64url 24바이트 |
-| 검증 | 사옥이  호출 -> 소모 후 사용자 반환 |
-| 사옥 코드 |  (/sso 핸들러) |
-| 실서버 | Flip4  (PM2 ) |
+| 진입 | 대시보드 "가상 사옥 관제" 버튼 → `GET /api/admin/hq-sso` |
+| 티켓 | KV `hqsso:<ticket>` · 1회용 · 60초 TTL · base64url 24바이트 |
+| 검증 | 사옥이 `POST /api/admin/hq-verify` 호출 → 소모 후 사용자 반환 |
+| 사옥 코드 | `Project-080-DEV-Virtual_Company_Ops/server/server.js` (`/sso` 핸들러) |
+| 실서버 | Flip4 `~/aiproject/download/project080-hq/` (PM2 `p080-hq`) · PC는 5080 |
 
 ### 상호 인증 (2026-07-30 활성화)
 
-는 무인증 공개 엔드포인트였으므로 두 겹으로 보호:
+`hq-verify`는 원래 무인증 공개 엔드포인트였으므로 두 겹으로 보호한다:
 
-- **공유 비밀** — 사옥이  헤더로 신원 증명.
-  홈페이지: KV  / 사옥:  (양쪽 동일 값)
-  상수시간 비교. 불일치·누락 시 403
-- **rate limit** — IP당 5분 30회 (무작위 티켓 대입 차단)
+- **공유 비밀** — 사옥이 `X-HQ-Secret` 헤더로 신원을 증명.
+  홈페이지는 KV `meta:hq_shared_secret`, 사옥은 `data/hq-shared-secret.txt` (양쪽 동일 값).
+  상수시간 비교하며, 누락·불일치 시 403.
+- **rate limit** — IP당 5분 30회. 무작위 티켓 대입 차단.
 
-> 비밀을 교체할 때는 **사옥 파일 -> 사옥 재시작 -> KV** 순서로.
-> KV를 먼저 바꾸면 재시작 전까지 사옥이 403으로 막힌다.
-> 사옥 서버는 시작 시 파일을 1회만 읽으므로 재시작이 필수.
+> ⚠️ 비밀을 교체할 때는 **사옥 파일 → 사옥 재시작 → KV** 순서로 한다.
+> 사옥 서버는 시작 시 파일을 1회만 읽으므로, KV를 먼저 바꾸면 재시작 전까지 403으로 막힌다.
 
-검증 명령(값 미출력):
+검증 (값을 출력하지 않는 방법):
 
+```bash
+# 헤더 없이 호출 -> 403 이어야 정상 (상호 인증이 켜져 있다는 뜻)
+curl -s -o /dev/null -w "%{http_code}\n" -X POST https://rnrsoft.vip/api/admin/hq-verify \
+  -H "Content-Type: application/json" -d '{"ticket":"aaaaaaaaaaaaaaaaaaaaaaaa"}'
 
+# 사옥 서버에서 실행 -> 401 이어야 정상 (인증 통과, 가짜 티켓만 거부)
+# 403이 나오면 비밀 불일치 또는 사옥 재시작 누락
+```
 
 ## 진행 상태 / 다음 할 일
 
