@@ -2,7 +2,11 @@
    - 비밀번호는 PBKDF2-SHA256(31만 회) 해시로만 KV에 저장. 평문은 저장/로깅하지 않는다.
    - 세션은 HttpOnly + Secure + SameSite=Strict 쿠키. 값은 KV에 있는 랜덤 토큰. */
 
-const ITER = 310000;
+/* Cloudflare Workers 실측(2026-07-30): PBKDF2 반복은 100,000회가 상한.
+   초과 시 "iteration counts above 100000 are not supported" 예외 -> Worker 1101.
+   따라서 OWASP 권고(310k)를 그대로 쓸 수 없어 플랫폼 상한을 사용한다.
+   상한이 낮은 대신, 로그인 rate limit(15분 10회)으로 온라인 공격을 막는다. */
+const ITER = 100000;
 const SESSION_TTL = 60 * 60 * 12; // 12시간
 
 /* 이메일 형식 검증 — 실무에서 통용되는 범위로 검사

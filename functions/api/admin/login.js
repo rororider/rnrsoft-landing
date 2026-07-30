@@ -20,8 +20,10 @@ export async function onRequestPost({ request, env }) {
   if (!username || !password) return json({ ok: false, error: '이메일과 비밀번호를 입력하세요.' }, 400);
 
   const stored = await env.ANALYTICS.get(`admin:${username}`);
-  // 사용자 없어도 동일한 지연/응답 — 계정 존재 여부를 노출하지 않는다
-  const ok = stored ? await verifyPassword(password, stored) : await verifyPassword(password, 'pbkdf2$310000$AAAA$AAAA');
+  // 사용자 없어도 동일한 지연/응답 — 계정 존재 여부를 노출하지 않는다.
+  // 더미 해시의 반복 횟수는 실제와 같은 100000 (Workers 상한). 초과하면 예외로 500이 난다.
+  const DUMMY = 'pbkdf2$100000$AAAAAAAAAAAAAAAAAAAAAA==$AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=';
+  const ok = stored ? await verifyPassword(password, stored) : await verifyPassword(password, DUMMY);
   if (!stored || !ok) return json({ ok: false, error: '이메일 또는 비밀번호가 올바르지 않습니다.' }, 401);
 
   await resetRateLimit(env, ip);   // 성공했으니 실패 카운터 해제
