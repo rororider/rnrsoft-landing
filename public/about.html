@@ -23,13 +23,24 @@
   html, body { height:100%; }
   body { overflow:hidden; }
   .rs-page { height:100vh; height:100dvh; display:flex; flex-direction:column; overflow:hidden; }
-  .rs-main { flex:1; min-height:0; display:flex; flex-direction:column; justify-content:center; overflow:hidden; }
 
-  /* 화면이 낮아지면 여백·글자를 단계적으로 줄여 1화면을 유지한다 */
-  .rs-intro { padding:clamp(16px,4vh,56px) 34px clamp(10px,2.2vh,32px) !important; }
-  .rs-cards { padding:0 34px clamp(8px,1.8vh,24px) !important; }
+  /* 남는 공간을 위아래로 몰지 않고 콘텐츠 '사이'에 나눠 준다.
+     (justify-content:center 는 덩어리를 가운데 뭉치고 내부는 최소값으로 눌러
+      위 132px / 사이 16px 처럼 리듬이 깨졌다) */
+  .rs-main { flex:1; min-height:0; display:flex; flex-direction:column;
+             justify-content:space-evenly; gap:clamp(14px,2.5vh,34px);
+             padding:clamp(14px,2.5vh,34px) 0; overflow:hidden; }
+
+  /* 섹션 자체 패딩은 최소화 — 간격은 위 gap/space-evenly가 담당 */
+  .rs-intro { padding:0 34px !important; }
+  .rs-cards { padding:0 34px !important; }
   .rs-card  { padding:clamp(15px,2.4vh,26px) clamp(15px,1.8vw,24px) !important; }
-  .rs-cta   { margin-top:clamp(10px,1.8vh,26px) !important; padding:clamp(15px,2.2vh,26px) clamp(18px,2.2vw,30px) !important; }
+  .rs-cta   { margin-top:clamp(12px,2vh,22px) !important; padding:clamp(15px,2.2vh,26px) clamp(18px,2.2vw,30px) !important; }
+
+  /* 인트로 내부 리듬 — eyebrow·제목·본문이 붙지 않게 */
+  .rs-eyebrow { margin-bottom:clamp(10px,1.6vh,18px) !important; }
+  .rs-h1 { margin:0 !important; }
+  .rs-sub { margin:clamp(14px,2.2vh,24px) auto 0 !important; }
 
   @media (max-height:820px){
     .rs-h1 { font-size:clamp(26px,3.6vw,36px) !important; }
@@ -46,8 +57,10 @@
 
   /* 모바일: 카드 2열로 접어 세로 길이 절반 */
   @media (max-width:640px){
-    .rs-intro { padding:clamp(10px,2vh,22px) 18px clamp(8px,1.4vh,16px) !important; }
-    .rs-cards { padding:0 18px clamp(6px,1.2vh,14px) !important; }
+    /* 좌우 여백만 좁히고, 상하 간격은 .rs-main 의 space-evenly가 담당 */
+    .rs-intro { padding:0 18px !important; }
+    .rs-cards { padding:0 18px !important; }
+    .rs-main { gap:clamp(10px,1.8vh,20px); padding:clamp(10px,1.8vh,20px) 0; }
     .rs-h1 { font-size:clamp(21px,6vw,27px) !important; }
     .rs-sub { font-size:13px !important; margin-top:10px !important; line-height:1.6 !important; }
     .rs-grid { grid-template-columns:1fr 1fr !important; gap:8px !important; }
@@ -96,12 +109,12 @@
   <section style="position:relative; flex:0 0 auto;">
     <div style="position:absolute; top:-16%; left:50%; transform:translateX(-50%); width:640px; height:520px; border-radius:50%; background:radial-gradient(circle,rgba(43,134,245,0.14),rgba(43,134,245,0) 66%); pointer-events:none;"></div>
     <div class="rs-wrap rs-intro" style="position:relative; max-width:820px; margin:0 auto; text-align:center;">
-      <div style="font-family:'Poppins',sans-serif; font-size:12px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color:#5cc4f5; animation:rs-rise .6s ease both;">About</div>
-      <h1 class="rs-h1" style="margin:16px 0 0; font-size:clamp(30px,5vw,46px); line-height:1.1; font-weight:600; letter-spacing:-0.042em; color:#f2f6fc; animation:rs-rise .7s ease .08s both;">
+      <div class="rs-eyebrow" style="font-family:'Poppins',sans-serif; font-size:12px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color:#5cc4f5; animation:rs-rise .6s ease both;">About</div>
+      <h1 class="rs-h1" style=" font-size:clamp(30px,5vw,46px); line-height:1.1; font-weight:600; letter-spacing:-0.042em; color:#f2f6fc; animation:rs-rise .7s ease .08s both;">
         <span data-en="No mission statement.">거창한 미션은 없습니다.</span><br>
         <span style="background:linear-gradient(96deg,#1f56dc,#2b86f5 55%,#38c8f0); -webkit-background-clip:text; background-clip:text; color:transparent;" data-en="Just apps, made with care.">앱을, 정성껏 만들 뿐.</span>
       </h1>
-      <p class="rs-sub" style="margin:22px auto 0; font-size:16.5px; line-height:1.75; color:#98a4b6; max-width:520px; animation:rs-rise .7s ease .16s both;" data-en="RnR soft is an app studio. One app is in service and the next is being built — one at a time, kept small and simple.">RnR soft는 앱을 만드는 스튜디오입니다. 한 개를 운영하고, 다음을 만드는 중입니다. 한 번에 하나씩, 작고 단순하게.</p>
+      <p class="rs-sub" style=" font-size:16.5px; line-height:1.75; color:#98a4b6; max-width:520px; animation:rs-rise .7s ease .16s both;" data-en="RnR soft is an app studio. One app is in service and the next is being built — one at a time, kept small and simple.">RnR soft는 앱을 만드는 스튜디오입니다. 한 개를 운영하고, 다음을 만드는 중입니다. 한 번에 하나씩, 작고 단순하게.</p>
     </div>
   </section>
 
