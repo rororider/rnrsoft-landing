@@ -97,6 +97,26 @@ RnR 판독 불가**였음 — 마크가 타일의 55%로 작고, 파란 마크 x
 > `diff`로 루트 vs 하위폴더를 먼저 비교할 것. `rnrsoft Hero Directions.dc.html`은
 > 탐색 기록(Turn 3~8, "골라주세요"로 끝남)이지 배포 대상이 아니다.
 
+## 앱 상세 페이지 · 미디어 갤러리
+
+앱마다 스크린샷·GIF·유튜브 영상을 보여주는 전용 페이지. 현재 `/apps/note` 1개.
+
+**미디어를 추가할 때 HTML은 건드리지 않는다.** `public/media/note-media.js` 한 파일만 고친다:
+
+1. `note.rnrsoft.vip` 로그인 → 화면 캡처
+2. 이미지를 `public/media/img/` 에 넣기
+3. `note-media.js` 의 `shots` 배열에 `{ src, alt, caption }` 추가하고,
+   그 자리의 `{ placeholder: true, ... }` 줄은 삭제
+4. 유튜브는 `youtube: '영상ID'` (URL 전체가 아니라 ID만). `null`이면 영상 섹션이 통째로 숨겨진다
+5. `node _bump.cjs` 후 배포
+
+규격: 스크린샷 세로 폰 비율(9:19.5) 폭 720px 이상 / GIF 폭 480~720px · 8초 이내 · 5MB 이하
+
+> ⚠️ **`public/apps/` 안에 `.js`나 이미지를 두지 말 것.** `apps.html`과 이름이 겹쳐
+> `/apps/xxx.js` 요청이 홈 HTML로 폴백된다(실측). 그래서 미디어는 `public/media/` 에 둔다.
+
+유튜브는 클릭 전까지 썸네일만 로드하고(`youtube-nocookie`), 스크린샷은 클릭 시 라이트박스로 확대된다.
+
 ## 가상 사옥(hq.rnrsoft.vip) SSO
 
 홈페이지 관리자 세션 → 사옥 자동 로그인. 비밀번호 재입력 없음.
