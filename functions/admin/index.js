@@ -40,8 +40,9 @@ const LOGIN_HTML = (mode) => `<!DOCTYPE html>
   <form id="f" autocomplete="off">
     ${mode === 'setup' ? `<label for="tk">설정 토큰</label>
     <input id="tk" type="password" required autocomplete="off" placeholder="배포 시 발급된 토큰">` : ''}
-    <label for="u">아이디</label>
-    <input id="u" type="text" required autocomplete="username" ${mode === 'setup' ? 'placeholder="영문·숫자 3~32자"' : ''}>
+    <label for="u">이메일</label>
+    <input id="u" type="email" required autocomplete="username" inputmode="email"
+           autocapitalize="off" spellcheck="false" placeholder="name@example.com">
     <label for="p">비밀번호</label>
     <input id="p" type="password" required autocomplete="${mode === 'setup' ? 'new-password' : 'current-password'}" ${mode === 'setup' ? 'placeholder="12자 이상, 3종류 이상 조합"' : ''}>
     <button type="submit" id="b">${mode === 'setup' ? '계정 만들기' : '로그인'}</button>

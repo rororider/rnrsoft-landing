@@ -4,7 +4,7 @@
    - env.SETUP_TOKEN 과 일치하는 토큰을 제시해야만 생성 가능
    - 비밀번호는 사용자가 브라우저에서 직접 입력 -> 즉시 PBKDF2 해싱. 평문 저장·로깅 없음 */
 
-import { hashPassword, createSession, sessionCookie, rateLimit } from '../../_auth.js';
+import { hashPassword, createSession, sessionCookie, rateLimit, isEmail } from '../../_auth.js';
 
 export async function onRequestPost({ request, env }) {
   const json = (o, s = 200, extra = {}) => new Response(JSON.stringify(o), {
@@ -31,11 +31,12 @@ export async function onRequestPost({ request, env }) {
     return json({ ok: false, error: '설정 토큰이 올바르지 않습니다.' }, 403);
   }
 
-  const username = String(body.username || '').trim().slice(0, 64);
+  // 아이디는 이메일 형식 — 소문자로 정규화해 저장(대소문자 혼동 방지)
+  const username = String(body.username || '').trim().toLowerCase().slice(0, 254);
   const password = String(body.password || '');
 
-  if (!/^[a-zA-Z0-9._-]{3,32}$/.test(username)) {
-    return json({ ok: false, error: '아이디는 영문·숫자·._- 조합 3~32자여야 합니다.' }, 400);
+  if (!isEmail(username)) {
+    return json({ ok: false, error: '올바른 이메일 형식이 아닙니다. (예: name@example.com)' }, 400);
   }
   if (password.length < 12) {
     return json({ ok: false, error: '비밀번호는 12자 이상이어야 합니다.' }, 400);

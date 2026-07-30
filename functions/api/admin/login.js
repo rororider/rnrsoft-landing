@@ -14,14 +14,15 @@ export async function onRequestPost({ request, env }) {
 
   let body = {};
   try { body = await request.json(); } catch (_) {}
-  const username = String(body.username || '').trim().slice(0, 64);
+  // setup과 동일하게 소문자 정규화 (대소문자 달라도 로그인되도록)
+  const username = String(body.username || '').trim().toLowerCase().slice(0, 254);
   const password = String(body.password || '');
-  if (!username || !password) return json({ ok: false, error: '아이디와 비밀번호를 입력하세요.' }, 400);
+  if (!username || !password) return json({ ok: false, error: '이메일과 비밀번호를 입력하세요.' }, 400);
 
   const stored = await env.ANALYTICS.get(`admin:${username}`);
   // 사용자 없어도 동일한 지연/응답 — 계정 존재 여부를 노출하지 않는다
   const ok = stored ? await verifyPassword(password, stored) : await verifyPassword(password, 'pbkdf2$310000$AAAA$AAAA');
-  if (!stored || !ok) return json({ ok: false, error: '아이디 또는 비밀번호가 올바르지 않습니다.' }, 401);
+  if (!stored || !ok) return json({ ok: false, error: '이메일 또는 비밀번호가 올바르지 않습니다.' }, 401);
 
   const token = await createSession(env, username);
   return json({ ok: true }, 200, { 'Set-Cookie': sessionCookie(token) });
