@@ -18,11 +18,68 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <link rel="stylesheet" href="/brand.css?v=ae86b512">
+<style>
+  /* 홈·문의와 같은 1화면 고정 — 스크롤 없음 */
+  html, body { height:100%; }
+  body { overflow:hidden; }
+  .rs-page { height:100vh; height:100dvh; display:flex; flex-direction:column; overflow:hidden; }
+  .rs-main { flex:1; min-height:0; display:flex; flex-direction:column; justify-content:center; overflow:hidden; }
+
+  /* 화면이 낮아지면 여백·글자를 단계적으로 줄여 1화면을 유지한다 */
+  .rs-intro { padding:clamp(16px,4vh,56px) 34px clamp(10px,2.2vh,32px) !important; }
+  .rs-cards { padding:0 34px clamp(8px,1.8vh,24px) !important; }
+  .rs-card  { padding:clamp(15px,2.4vh,26px) clamp(15px,1.8vw,24px) !important; }
+  .rs-cta   { margin-top:clamp(10px,1.8vh,26px) !important; padding:clamp(15px,2.2vh,26px) clamp(18px,2.2vw,30px) !important; }
+
+  @media (max-height:820px){
+    .rs-h1 { font-size:clamp(26px,3.6vw,36px) !important; }
+    .rs-sub { font-size:15px !important; margin-top:14px !important; }
+    .rs-card p { font-size:13px !important; line-height:1.65 !important; }
+    .rs-card h3 { font-size:15.5px !important; }
+    .rs-cardnum { margin-bottom:9px !important; }
+  }
+  @media (max-height:700px){
+    .rs-sub { display:none; }           /* 본문 한 줄 생략 — 카드가 설명을 대신함 */
+    .rs-h1 { font-size:clamp(23px,3vw,30px) !important; }
+    .rs-card p { font-size:12.5px !important; }
+  }
+
+  /* 모바일: 카드 2열로 접어 세로 길이 절반 */
+  @media (max-width:640px){
+    .rs-intro { padding:clamp(10px,2vh,22px) 18px clamp(8px,1.4vh,16px) !important; }
+    .rs-cards { padding:0 18px clamp(6px,1.2vh,14px) !important; }
+    .rs-h1 { font-size:clamp(21px,6vw,27px) !important; }
+    .rs-sub { font-size:13px !important; margin-top:10px !important; line-height:1.6 !important; }
+    .rs-grid { grid-template-columns:1fr 1fr !important; gap:8px !important; }
+    .rs-card { padding:12px 11px !important; }
+    .rs-card h3 { font-size:13px !important; margin-bottom:4px !important; }
+    .rs-card p { font-size:11px !important; line-height:1.5 !important; }
+    .rs-cardnum { font-size:10px !important; margin-bottom:6px !important; }
+    /* CTA는 한 줄로 — 세로로 접으면 높이가 두 배가 되어 푸터에 잘린다 */
+    .rs-cta { margin-top:10px !important; padding:13px 14px !important; gap:10px !important;
+              flex-wrap:nowrap !important; }
+    .rs-cta > div { font-size:12.5px !important; line-height:1.45 !important; }
+    .rs-cta a { padding:10px 14px !important; font-size:12.5px !important; white-space:nowrap; }
+  }
+  /* 세로가 짧은 폰: 본문·카드 설명을 순차 생략
+     (기준을 900px로 잡아 390x844 같은 일반적인 폰도 포함되게 한다 —
+      780px로 두면 844px 화면이 빠져나가 CTA가 푸터에 잘렸다) */
+  @media (max-width:640px) and (max-height:900px){
+    .rs-sub { display:none; }
+  }
+  @media (max-width:640px) and (max-height:700px){
+    .rs-card p { display:none; }
+  }
+  @media (max-width:380px){
+    .rs-cta > div { font-size:11.5px !important; }
+    .rs-cta a { padding:9px 11px !important; font-size:11.5px !important; }
+  }
+</style>
 </head>
 <body>
-<div style="min-height:100vh; display:flex; flex-direction:column;">
+<div class="rs-page">
 
-  <header style="position:sticky; top:0; z-index:30; background:rgba(11,18,32,0.86); backdrop-filter:blur(14px); border-bottom:1px solid rgba(255,255,255,0.1);">
+  <header style="position:relative; z-index:30; flex:0 0 auto; background:rgba(11,18,32,0.86); backdrop-filter:blur(14px); border-bottom:1px solid rgba(255,255,255,0.1);">
     <div class="rs-bar" style="max-width:1180px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:18px 34px;">
       <a href="/" style="display:flex; align-items:flex-end; gap:12px;"><img class="rs-logo" src="/assets/mark.png" alt="" style="height:44px; width:auto; display:block;"><span style="display:flex; flex-direction:column; gap:3px;"><span class="rs-wm" style="font-family:'Poppins',sans-serif; font-size:25px; font-weight:600; letter-spacing:-0.02em; color:#f2f6fc; line-height:1;">RnR <span style="font-weight:300; color:#38c8f0;">soft</span></span><span class="rs-tag" style="font-family:'Poppins',sans-serif; font-size:9.5px; font-weight:300; letter-spacing:0.11em; color:#7d8ba0; line-height:1;">CONNECTING IDEAS, DELIVERING FUTURE</span></span></a>
       <nav class="rs-nav" style="display:flex; align-items:center; gap:6px;">
@@ -34,47 +91,51 @@
     </div>
   </header>
 
-  <section style="position:relative; overflow:hidden;">
-    <div style="position:absolute; top:-16%; left:50%; transform:translateX(-50%); width:640px; height:520px; border-radius:50%; background:radial-gradient(circle,rgba(43,134,245,0.14),rgba(43,134,245,0) 66%);"></div>
-    <div class="rs-wrap" style="position:relative; max-width:820px; margin:0 auto; padding:80px 34px 48px; text-align:center;">
+  <main class="rs-main">
+
+  <section style="position:relative; flex:0 0 auto;">
+    <div style="position:absolute; top:-16%; left:50%; transform:translateX(-50%); width:640px; height:520px; border-radius:50%; background:radial-gradient(circle,rgba(43,134,245,0.14),rgba(43,134,245,0) 66%); pointer-events:none;"></div>
+    <div class="rs-wrap rs-intro" style="position:relative; max-width:820px; margin:0 auto; text-align:center;">
       <div style="font-family:'Poppins',sans-serif; font-size:12px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color:#5cc4f5; animation:rs-rise .6s ease both;">About</div>
-      <h1 style="margin:16px 0 0; font-size:clamp(30px,5vw,46px); line-height:1.1; font-weight:600; letter-spacing:-0.042em; color:#f2f6fc; animation:rs-rise .7s ease .08s both;">
+      <h1 class="rs-h1" style="margin:16px 0 0; font-size:clamp(30px,5vw,46px); line-height:1.1; font-weight:600; letter-spacing:-0.042em; color:#f2f6fc; animation:rs-rise .7s ease .08s both;">
         <span data-en="No mission statement.">거창한 미션은 없습니다.</span><br>
         <span style="background:linear-gradient(96deg,#1f56dc,#2b86f5 55%,#38c8f0); -webkit-background-clip:text; background-clip:text; color:transparent;" data-en="Just apps, made with care.">앱을, 정성껏 만들 뿐.</span>
       </h1>
-      <p style="margin:22px auto 0; font-size:16.5px; line-height:1.75; color:#98a4b6; max-width:520px; animation:rs-rise .7s ease .16s both;" data-en="RnR soft is an app studio. One app is in service and the next is being built — one at a time, kept small and simple.">RnR soft는 앱을 만드는 스튜디오입니다. 한 개를 운영하고, 다음을 만드는 중입니다. 한 번에 하나씩, 작고 단순하게.</p>
+      <p class="rs-sub" style="margin:22px auto 0; font-size:16.5px; line-height:1.75; color:#98a4b6; max-width:520px; animation:rs-rise .7s ease .16s both;" data-en="RnR soft is an app studio. One app is in service and the next is being built — one at a time, kept small and simple.">RnR soft는 앱을 만드는 스튜디오입니다. 한 개를 운영하고, 다음을 만드는 중입니다. 한 번에 하나씩, 작고 단순하게.</p>
     </div>
   </section>
 
-  <section class="rs-wrap" style="max-width:1180px; margin:0 auto; padding:12px 34px 84px; width:100%;">
+  <section class="rs-wrap rs-cards" style="max-width:1180px; margin:0 auto; width:100%; flex:0 0 auto;">
     <div class="rs-grid" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:18px;">
-      <div style="padding:30px; border-radius:18px; background:#141f33; border:1px solid rgba(255,255,255,0.08); box-shadow:0 10px 30px -22px rgba(0,0,0,0.4); animation:rs-rise .7s ease .1s both;">
-        <div style="font-family:'Poppins',sans-serif; font-size:12px; font-weight:600; color:#5cc4f5; margin-bottom:16px;">01</div>
+      <div class="rs-card" style="border-radius:18px; background:#141f33; border:1px solid rgba(255,255,255,0.08); box-shadow:0 10px 30px -22px rgba(0,0,0,0.4); animation:rs-rise .7s ease .1s both;">
+        <div class="rs-cardnum" style="font-family:'Poppins',sans-serif; font-size:12px; font-weight:600; color:#5cc4f5; margin-bottom:16px;">01</div>
         <h3 style="margin:0 0 10px; font-size:17px; font-weight:600; color:#f2f6fc;" data-en="What we make">무엇을 만드나</h3>
         <p style="margin:0; font-size:14px; line-height:1.75; color:#98a4b6;" data-en="Small, focused apps for productivity and learning — the kind you open every day.">생산성과 학습을 위한 작고 분명한 앱. 매일 열게 되는 종류의 도구입니다.</p>
       </div>
-      <div style="padding:30px; border-radius:18px; background:#141f33; border:1px solid rgba(255,255,255,0.08); box-shadow:0 10px 30px -22px rgba(0,0,0,0.4); animation:rs-rise .7s ease .16s both;">
-        <div style="font-family:'Poppins',sans-serif; font-size:12px; font-weight:600; color:#5cc4f5; margin-bottom:16px;">02</div>
+      <div class="rs-card" style="border-radius:18px; background:#141f33; border:1px solid rgba(255,255,255,0.08); box-shadow:0 10px 30px -22px rgba(0,0,0,0.4); animation:rs-rise .7s ease .16s both;">
+        <div class="rs-cardnum" style="font-family:'Poppins',sans-serif; font-size:12px; font-weight:600; color:#5cc4f5; margin-bottom:16px;">02</div>
         <h3 style="margin:0 0 10px; font-size:17px; font-weight:600; color:#f2f6fc;" data-en="Privacy">개인정보 존중</h3>
         <p style="margin:0; font-size:14px; line-height:1.75; color:#98a4b6;" data-en="Only what a feature actually needs is collected — and it's stated plainly.">기능에 정말 필요한 것만 다룹니다. 무엇을 왜 쓰는지 분명히 밝힙니다.</p>
       </div>
-      <div style="padding:30px; border-radius:18px; background:#141f33; border:1px solid rgba(255,255,255,0.08); box-shadow:0 10px 30px -22px rgba(0,0,0,0.4); animation:rs-rise .7s ease .22s both;">
-        <div style="font-family:'Poppins',sans-serif; font-size:12px; font-weight:600; color:#5cc4f5; margin-bottom:16px;">03</div>
+      <div class="rs-card" style="border-radius:18px; background:#141f33; border:1px solid rgba(255,255,255,0.08); box-shadow:0 10px 30px -22px rgba(0,0,0,0.4); animation:rs-rise .7s ease .22s both;">
+        <div class="rs-cardnum" style="font-family:'Poppins',sans-serif; font-size:12px; font-weight:600; color:#5cc4f5; margin-bottom:16px;">03</div>
         <h3 style="margin:0 0 10px; font-size:17px; font-weight:600; color:#f2f6fc;" data-en="Technology">기술</h3>
         <p style="margin:0; font-size:14px; line-height:1.75; color:#98a4b6;" data-en="Web and PWA at the core, with AI only where it genuinely helps. Fast and light.">웹·PWA를 바탕으로, 정말 도움이 될 때만 AI를 씁니다. 빠르고 가볍게.</p>
       </div>
-      <div style="padding:30px; border-radius:18px; background:#141f33; border:1px solid rgba(255,255,255,0.08); box-shadow:0 10px 30px -22px rgba(0,0,0,0.4); animation:rs-rise .7s ease .28s both;">
-        <div style="font-family:'Poppins',sans-serif; font-size:12px; font-weight:600; color:#5cc4f5; margin-bottom:16px;">04</div>
+      <div class="rs-card" style="border-radius:18px; background:#141f33; border:1px solid rgba(255,255,255,0.08); box-shadow:0 10px 30px -22px rgba(0,0,0,0.4); animation:rs-rise .7s ease .28s both;">
+        <div class="rs-cardnum" style="font-family:'Poppins',sans-serif; font-size:12px; font-weight:600; color:#5cc4f5; margin-bottom:16px;">04</div>
         <h3 style="margin:0 0 10px; font-size:17px; font-weight:600; color:#f2f6fc;" data-en="Platforms">플랫폼</h3>
         <p style="margin:0; font-size:14px; line-height:1.75; color:#98a4b6;" data-en="Web, mobile, and Google Play — wherever it's easiest to reach.">웹, 모바일, Google Play. 쓰기 편한 곳이라면 어디든.</p>
       </div>
     </div>
 
-    <div style="display:flex; align-items:center; justify-content:space-between; gap:22px; margin-top:34px; padding:30px 34px; border-radius:18px; background:linear-gradient(96deg,#1f56dc,#2b86f5 62%,#38c8f0); flex-wrap:wrap; box-shadow:0 18px 44px -22px rgba(31,86,220,0.5);">
+    <div class="rs-cta" style="display:flex; align-items:center; justify-content:space-between; gap:22px; border-radius:18px; background:linear-gradient(96deg,#1f56dc,#2b86f5 62%,#38c8f0); flex-wrap:wrap; box-shadow:0 18px 44px -22px rgba(31,86,220,0.5);">
       <div style="font-size:16.5px; font-weight:500; color:#fff;" data-en="Have something in mind? Let's talk.">함께 만들 아이디어가 있나요? 편하게 연락 주세요.</div>
       <a href="/contact.html" style="display:inline-flex; align-items:center; gap:8px; padding:12px 24px; border-radius:11px; background:#eaf3ff; color:#1f56dc; font-weight:600; font-size:14.5px; white-space:nowrap;" data-en="Contact →">문의하기 →</a>
     </div>
   </section>
+
+  </main>
 
   <footer style="margin-top:auto; background:#070e1a;">
     <div class="rs-bar" style="max-width:1180px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:24px; padding:30px 34px; flex-wrap:wrap;">
