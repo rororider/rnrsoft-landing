@@ -37,21 +37,71 @@
   select, .btn { padding:8px 14px; border-radius:9px; background:rgba(255,255,255,.06);
           border:1px solid rgba(255,255,255,.14); color:#c6cfdb; font-family:inherit; font-size:13px; cursor:pointer; }
   .muted { color:#7f8b9d; font-size:12.5px; }
-  @media (max-width:640px){ .wrap{padding:20px 18px 60px} .kpi-val{font-size:25px} }
+
+  /* ---------- 모바일 (≤640px) ---------- */
+  @media (max-width:640px){
+    .wrap { padding:16px 14px 72px; }
+
+    /* 헤더: 로고 줄 / 컨트롤 줄로 분리 */
+    .hd { flex-direction:column; align-items:stretch !important; gap:14px !important; margin-bottom:18px !important; }
+    .hd-logo img { height:30px !important; }
+    .hd-logo span.nm { font-size:17px !important; }
+    .hd-logo span.sb { font-size:8.5px !important; }
+    /* 컨트롤을 가로 한 줄에 균등 배치 — 손가락으로 누를 수 있는 크기 확보 */
+    /* 사옥 버튼은 전폭, 아래 3개(기간·비밀번호·로그아웃)는 한 줄에 균등 */
+    .hd-ctl { display:grid !important; grid-template-columns:repeat(3, 1fr); gap:7px; }
+    .hd-ctl a.btn { grid-column:1 / -1; justify-content:center; }
+    .hd-ctl select, .hd-ctl .btn { min-height:42px; font-size:12.5px; padding:9px 8px;
+                                   text-align:center; justify-content:center; }
+    .hd-ctl select { text-align-last:center; }
+
+    /* KPI: 2열 (4개가 1열로 길게 늘어지는 것 방지) */
+    .kpi { grid-template-columns:1fr 1fr !important; gap:10px !important; margin-bottom:16px !important; }
+    .kpi .card { padding:14px 13px; }
+    .kpi-label { font-size:10px; letter-spacing:.1em; }
+    .kpi-val { font-size:21px !important; margin-top:7px; }
+    .kpi-sub { font-size:11px; margin-top:3px; }
+
+    .card { padding:16px 14px; border-radius:14px; }
+    h2 { font-size:14px; }
+
+    /* 차트: 막대가 너무 가늘어지지 않게 높이 축소 + 간격 최소화 */
+    .chart { height:110px; gap:2px; }
+
+    /* 표: 막대 열을 줄이고 숫자 우선 */
+    table { font-size:13px; }
+    td { padding:9px 0; }
+    td.bar-cell { width:26% !important; }
+
+    /* 비밀번호 변경 폼 */
+    #pwBox { max-width:none !important; }
+    #pwBox input { font-size:16px !important; }  /* iOS 자동 확대 방지 */
+
+    .grid2 { grid-template-columns:1fr !important; gap:12px !important; }
+  }
+
+  /* 아주 좁은 화면 (≤380px) */
+  @media (max-width:380px){
+    .kpi-val { font-size:19px !important; }
+    /* 3열은 글자가 잘리므로 2열 + 로그아웃 전폭 */
+    .hd-ctl { grid-template-columns:1fr 1fr; }
+    .hd-ctl #logout { grid-column:1 / -1; }
+    td.bar-cell { display:none; }   /* 막대 숨기고 이름+숫자만 */
+  }
 </style>
 </head>
 <body>
 <div class="wrap">
 
-  <div style="display:flex; align-items:center; justify-content:space-between; gap:18px; flex-wrap:wrap; margin-bottom:26px;">
-    <a href="/" style="display:flex; align-items:flex-end; gap:11px;">
+  <div class="hd" style="display:flex; align-items:center; justify-content:space-between; gap:18px; flex-wrap:wrap; margin-bottom:26px;">
+    <a href="/" class="hd-logo" style="display:flex; align-items:flex-end; gap:11px;">
       <img src="/assets/mark.png" alt="" style="height:36px; width:auto; display:block;">
       <span style="display:flex; flex-direction:column; gap:3px;">
-        <span style="font-family:'Poppins',sans-serif; font-size:20px; font-weight:600; color:#f2f6fc; line-height:1;">RnR <span style="font-weight:300; color:#38c8f0;">soft</span></span>
-        <span style="font-family:'Poppins',sans-serif; font-size:9px; font-weight:300; letter-spacing:.11em; color:#7d8ba0; line-height:1;">ADMIN · 방문자 통계</span>
+        <span class="nm" style="font-family:'Poppins',sans-serif; font-size:20px; font-weight:600; color:#f2f6fc; line-height:1;">RnR <span style="font-weight:300; color:#38c8f0;">soft</span></span>
+        <span class="sb" style="font-family:'Poppins',sans-serif; font-size:9px; font-weight:300; letter-spacing:.11em; color:#7d8ba0; line-height:1;">ADMIN · 방문자 통계</span>
       </span>
     </a>
-    <div style="display:flex; align-items:center; gap:9px;">
+    <div class="hd-ctl" style="display:flex; align-items:center; gap:9px;">
       <a class="btn" href="/api/admin/hq-sso"
          style="text-decoration:none; display:inline-flex; align-items:center; gap:7px; background:linear-gradient(96deg,#1f56dc,#2b86f5); color:#fff; border:none;">
         <span style="font-size:14px;">🏢</span> 가상 사옥 관제
@@ -113,7 +163,7 @@ function rows(el, items, labelFn){
   tb.innerHTML = items.map(function(i){
     var v = i.count || i.pv;
     return '<tr><td>' + labelFn(i) + '</td>'
-      + '<td style="width:38%"><div class="bar" style="width:' + Math.max(3, v/max*100) + '%"></div></td>'
+      + '<td class="bar-cell" style="width:38%"><div class="bar" style="width:' + Math.max(3, v/max*100) + '%"></div></td>'
       + '<td class="n">' + n(v) + '</td></tr>';
   }).join('');
 }
