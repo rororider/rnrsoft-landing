@@ -66,13 +66,34 @@ a:hover { color: #7fc4ff; }
 .rs-adm { text-decoration:none; transition:color .2s; }
 .rs-adm:hover { color:#5aa9ff !important; }
 
+/* ---- 헤더 로고 락업 (전 페이지 공통) ----
+   문제였던 것: 마크 이미지(22px)가 워드마크(25px)보다 작고 baseline이 어긋나
+   마크가 위로 뜬 것처럼 보였다. 마크 높이를 워드마크 대문자 높이에 맞추고,
+   태그라인은 워드마크 아래에 붙여 '마크 = 워드마크+태그라인' 블록으로 정렬한다. */
+.rs-logo { height:38px !important; width:auto; display:block; flex:0 0 auto; }
+.rs-wm   { font-size:22px !important; line-height:1 !important; }
+.rs-tag  { font-size:9px !important; line-height:1 !important; letter-spacing:.1em !important; }
+
+@media (max-width:640px){
+  /* 마크와 워드마크를 같은 시각 높이로. 태그라인은 유지하되 축소 */
+  .rs-logo { height:30px !important; }
+  .rs-wm   { font-size:18px !important; }
+  .rs-tag  { font-size:7.5px !important; letter-spacing:.08em !important; }
+}
+@media (max-width:420px){
+  .rs-logo { height:26px !important; }
+  .rs-wm   { font-size:16px !important; }
+  .rs-tag  { display:none; }   /* 폭이 부족하면 태그라인만 생략 */
+}
+
 /* 시안 원문의 reduced-motion 처리 — 스캔라인/티커만 정지 (전역 차단 아님) */
 @media (prefers-reduced-motion:reduce){ .rs-scanline,.rs-track{ animation:none !important } }
 
-/* ---- 공통 반응형 (시안 원문) ---- */
+/* ---- 공통 반응형 (시안 원문) ----
+   로고(.rs-logo/.rs-wm/.rs-tag) 규칙은 위 '헤더 로고 락업' 절이 단독 관리한다.
+   여기서 중복 정의하면 어느 쪽이 이기는지 불분명해져 크기가 튄다. */
 @media (max-width:640px){
   .rs-bar { padding-left:18px !important; padding-right:18px !important; }
-  .rs-logo { height:30px !important; }
   .rs-nav { gap:2px !important; }
   .rs-nav a { padding:8px 10px !important; font-size:13.5px !important; }
   .rs-nav button { margin-left:2px !important; padding:7px 10px !important; font-size:11.5px !important; }
@@ -82,7 +103,5 @@ a:hover { color: #7fc4ff; }
   .rs-shot { flex:0 0 auto !important; width:100% !important; min-height:150px !important; }
 }
 @media (max-width:420px){
-  .rs-logo { height:22px !important; }
   .rs-nav a { padding:7px 8px !important; font-size:13px !important; }
-  .rs-tag { display:none !important; }
 }

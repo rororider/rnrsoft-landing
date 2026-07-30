@@ -17,14 +17,77 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
-<link rel="stylesheet" href="/brand.css?v=ae86b512">
+<link rel="stylesheet" href="/brand.css?v=3cd5654f">
+<style>
+  /* 홈·소개와 같은 1화면 고정 — 스크롤 없음 */
+  html, body { height:100%; }
+  body { overflow:hidden; }
+  .rs-page { height:100vh; height:100dvh; display:flex; flex-direction:column; overflow:hidden; }
+
+  /* 남는 공간을 위아래로 몰지 않고 콘텐츠 사이에 균등 분배 (소개와 동일 방식).
+     gap을 고정하면 좁은 화면에서 space-evenly 간격과 합쳐져 내용이 넘친다
+     -> gap은 0으로 두고 간격은 space-evenly에만 맡긴다. */
+  .rs-main { flex:1; min-height:0; display:flex; flex-direction:column;
+             justify-content:space-evenly; gap:0;
+             padding:0; overflow:hidden; }
+
+  .rs-intro { padding:0 34px !important; }
+  .rs-body  { padding:0 34px !important; }
+
+  .rs-eyebrow { margin-bottom:clamp(10px,1.6vh,18px) !important; }
+  .rs-h1  { margin:0 !important; }
+  .rs-sub { margin:clamp(14px,2.2vh,24px) auto 0 !important; }
+  .rs-cardrow { margin-top:0 !important; }
+  .rs-meta { margin-top:clamp(12px,2vh,26px) !important; }
+
+  .rs-mailcard { padding:clamp(18px,2.8vh,30px) clamp(20px,2.4vw,32px) !important; }
+  .rs-appcard2 { padding:clamp(16px,2.4vh,26px) clamp(18px,2.2vw,30px) !important; }
+
+  @media (max-height:820px){
+    .rs-h1 { font-size:clamp(26px,3.6vw,36px) !important; }
+    .rs-sub { font-size:15px !important; }
+  }
+  @media (max-height:700px){
+    .rs-sub { display:none; }
+    .rs-h1 { font-size:clamp(23px,3vw,30px) !important; }
+  }
+
+  /* 모바일 */
+  @media (max-width:640px){
+    .rs-intro, .rs-body { padding:0 18px !important; }
+    .rs-h1 { font-size:clamp(21px,6vw,27px) !important; }
+    .rs-sub { font-size:13px !important; line-height:1.6 !important; }
+    .rs-cardrow { gap:10px !important; }
+    .rs-mailcard { padding:16px 18px !important; }
+    .rs-mailcard .addr { font-size:16px !important; }
+    .rs-appcard2 { padding:14px 16px !important; gap:13px !important; }
+    .rs-appcard2 img { width:44px !important; height:44px !important; }
+    .rs-meta { font-size:12px !important; gap:14px !important; margin-top:12px !important; }
+  }
+  @media (max-width:640px) and (max-height:900px){
+    .rs-sub { display:none; }        /* 카드가 설명을 대신함 */
+  }
+  /* 세로가 짧은 폰(667·640 등): 카드가 206px 고정이라 안 줄어 main이 넘쳤다.
+     카드 내부를 단계적으로 조여 1화면을 유지한다. */
+  @media (max-width:640px) and (max-height:700px){
+    .rs-mailcard { padding:13px 16px !important; }
+    .rs-mailcard .addr { font-size:15px !important; }
+    .rs-appcard2 { padding:11px 14px !important; gap:11px !important; }
+    .rs-appcard2 img { width:38px !important; height:38px !important; }
+    .rs-cardrow { gap:8px !important; }
+    .rs-meta { display:none; }       /* 하단 메타 생략 */
+  }
+  @media (max-width:420px){
+    .rs-mailcard .addr { font-size:14.5px !important; }
+  }
+</style>
 </head>
 <body>
-<div style="min-height:100vh; display:flex; flex-direction:column;">
+<div class="rs-page">
 
-  <header style="position:sticky; top:0; z-index:30; background:rgba(11,18,32,0.86); backdrop-filter:blur(14px); border-bottom:1px solid rgba(255,255,255,0.1);">
+  <header style="position:relative; z-index:30; flex:0 0 auto; background:rgba(11,18,32,0.86); backdrop-filter:blur(14px); border-bottom:1px solid rgba(255,255,255,0.1);">
     <div class="rs-bar" style="max-width:1180px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:18px 34px;">
-      <a href="/" style="display:flex; align-items:flex-end; gap:12px;"><img class="rs-logo" src="/assets/mark.png" alt="" style="height:44px; width:auto; display:block;"><span style="display:flex; flex-direction:column; gap:3px;"><span class="rs-wm" style="font-family:'Poppins',sans-serif; font-size:25px; font-weight:600; letter-spacing:-0.02em; color:#f2f6fc; line-height:1;">RnR <span style="font-weight:300; color:#38c8f0;">soft</span></span><span class="rs-tag" style="font-family:'Poppins',sans-serif; font-size:9.5px; font-weight:300; letter-spacing:0.11em; color:#7d8ba0; line-height:1;">CONNECTING IDEAS, DELIVERING FUTURE</span></span></a>
+      <a href="/" style="display:flex; align-items:flex-end; gap:12px;"><img class="rs-logo" src="/assets/mark.png" alt="" style="width:auto; display:block;"><span style="display:flex; flex-direction:column; gap:3px;"><span class="rs-wm" style="font-family:'Poppins',sans-serif; font-weight:600; letter-spacing:-0.02em; color:#f2f6fc; line-height:1;">RnR <span style="font-weight:300; color:#38c8f0;">soft</span></span><span class="rs-tag" style="font-family:'Poppins',sans-serif; font-weight:300; letter-spacing:0.11em; color:#7d8ba0; line-height:1;">CONNECTING IDEAS, DELIVERING FUTURE</span></span></a>
       <nav class="rs-nav" style="display:flex; align-items:center; gap:6px;">
         <a href="/apps.html" style="padding:9px 15px; border-radius:9px; color:#aab5c6; font-size:14.5px; white-space:nowrap; font-weight:500;" data-en="Apps">앱</a>
         <a href="/about.html" style="padding:9px 15px; border-radius:9px; color:#aab5c6; font-size:14.5px; white-space:nowrap; font-weight:500;" data-en="About">소개</a>
@@ -34,24 +97,26 @@
     </div>
   </header>
 
-  <section style="position:relative; overflow:hidden; flex:1;">
+  <main class="rs-main">
+  <section style="position:relative; flex:0 0 auto;">
     <div style="position:absolute; top:-14%; left:50%; transform:translateX(-50%); width:660px; height:520px; border-radius:50%; background:radial-gradient(circle,rgba(43,134,245,0.14),rgba(43,134,245,0) 66%);"></div>
-    <div class="rs-wrap" style="position:relative; max-width:860px; margin:0 auto; padding:80px 34px 90px;">
-      <div style="text-align:center;">
-        <div style="font-family:'Poppins',sans-serif; font-size:12px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color:#5cc4f5; animation:rs-rise .6s ease both;">Contact</div>
-        <h1 style="margin:16px 0 0; font-size:clamp(30px,5vw,46px); line-height:1.1; font-weight:600; letter-spacing:-0.042em; color:#f2f6fc; animation:rs-rise .7s ease .08s both;" data-en="Say hello.">편하게 연락 주세요.</h1>
-        <p style="margin:20px auto 0; font-size:16.5px; line-height:1.75; color:#98a4b6; max-width:500px; animation:rs-rise .7s ease .16s both;" data-en="Feedback, a bug report, or a collaboration — email is the fastest way, and every message is read.">피드백, 버그 제보, 협업 제안 모두 메일이 가장 빠릅니다. 모든 메일을 직접 읽습니다.</p>
-      </div>
+    <div class="rs-wrap rs-intro" style="position:relative; max-width:860px; margin:0 auto; text-align:center;">
+        <div class="rs-eyebrow" style="font-family:'Poppins',sans-serif; font-size:12px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color:#5cc4f5; animation:rs-rise .6s ease both;">Contact</div>
+        <h1 class="rs-h1" style=" font-size:clamp(30px,5vw,46px); line-height:1.1; font-weight:600; letter-spacing:-0.042em; color:#f2f6fc; animation:rs-rise .7s ease .08s both;" data-en="Say hello.">편하게 연락 주세요.</h1>
+        <p class="rs-sub" style=" font-size:16.5px; line-height:1.75; color:#98a4b6; max-width:500px; animation:rs-rise .7s ease .16s both;" data-en="Feedback, a bug report, or a collaboration — email is the fastest way, and every message is read.">피드백, 버그 제보, 협업 제안 모두 메일이 가장 빠릅니다. 모든 메일을 직접 읽습니다.</p>
+    </div>
+  </section>
 
-      <div style="display:flex; gap:18px; flex-wrap:wrap; margin-top:44px; animation:rs-rise .7s ease .24s both;">
-        <a href="mailto:contact@rnrsoft.vip" style="flex:1; min-width:280px; display:flex; align-items:center; justify-content:space-between; gap:20px; padding:30px 32px; border-radius:20px; background:linear-gradient(96deg,#1f56dc,#2b86f5 62%,#38c8f0); color:#fff; box-shadow:0 18px 44px -22px rgba(31,86,220,0.55); transition:transform .25s;">
+  <section class="rs-wrap rs-body" style="max-width:860px; margin:0 auto; width:100%; flex:0 0 auto;">
+      <div class="rs-cardrow" style="display:flex; gap:18px; flex-wrap:wrap; animation:rs-rise .7s ease .24s both;">
+        <a class="rs-mailcard" href="mailto:contact@rnrsoft.vip" style="flex:1; min-width:280px; display:flex; align-items:center; justify-content:space-between; gap:20px; border-radius:20px; background:linear-gradient(96deg,#1f56dc,#2b86f5 62%,#38c8f0); color:#fff; box-shadow:0 18px 44px -22px rgba(31,86,220,0.55); transition:transform .25s;">
           <div>
             <div style="font-family:'Poppins',sans-serif; font-size:12px; font-weight:500; letter-spacing:0.06em; opacity:0.85; margin-bottom:8px;" data-en="Email">이메일</div>
-            <div style="font-family:'Poppins',sans-serif; font-size:20px; font-weight:600; letter-spacing:-0.015em;">contact@rnrsoft.vip</div>
+            <div class="addr" style="font-family:'Poppins',sans-serif; font-size:20px; font-weight:600; letter-spacing:-0.015em;">contact@rnrsoft.vip</div>
           </div>
           <span style="font-size:22px;">↗</span>
         </a>
-        <a href="https://note.rnrsoft.vip" target="_blank" rel="noopener" style="flex:1; min-width:280px; display:flex; align-items:center; gap:18px; padding:26px 30px; border-radius:20px; background:#141f33; border:1px solid rgba(255,255,255,0.1); box-shadow:0 12px 34px -22px rgba(0,0,0,0.45); color:inherit; transition:transform .25s, border-color .25s;">
+        <a class="rs-appcard2" href="https://note.rnrsoft.vip" target="_blank" rel="noopener" style="flex:1; min-width:280px; display:flex; align-items:center; gap:18px; border-radius:20px; background:#141f33; border:1px solid rgba(255,255,255,0.1); box-shadow:0 12px 34px -22px rgba(0,0,0,0.45); color:inherit; transition:transform .25s, border-color .25s;">
           <img src="/assets/app-note.png" alt="받아쓰기 노트" style="width:56px; height:56px; border-radius:14px; flex:0 0 auto; display:block;">
           <div style="display:flex; flex-direction:column; gap:4px;">
             <div style="font-size:12px; color:#7f8b9d;" data-en="Live app">서비스 중인 앱</div>
@@ -61,13 +126,13 @@
         </a>
       </div>
 
-      <div style="display:flex; align-items:center; justify-content:center; gap:26px; margin-top:34px; flex-wrap:wrap; font-size:13.5px; color:#7f8b9d;">
+      <div class="rs-meta" style="display:flex; align-items:center; justify-content:center; gap:26px; flex-wrap:wrap; font-size:13.5px; color:#7f8b9d;">
         <span data-en="Studio">스튜디오</span><span style="color:#33405a;">·</span>
         <span>rnrsoft.vip</span><span style="color:#33405a;">·</span>
         <span data-en="Web · Mobile · Google Play">웹 · 모바일 · Google Play</span>
       </div>
-    </div>
   </section>
+  </main>
 
   <footer style="margin-top:auto; background:#070e1a;">
     <div class="rs-bar" style="max-width:1180px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:24px; padding:30px 34px; flex-wrap:wrap;">
