@@ -7,7 +7,9 @@ const path = require('path');
 const crypto = require('crypto');
 
 const PUB = path.join(__dirname, 'public');
-const TARGETS = ['pointer.js', 'analytics.js', 'lang.js', 'brand.css'];
+// 루트 파일 + 하위 폴더 파일 모두. 새 JS/CSS를 추가하면 여기에도 등록해야
+// Cloudflare Pages의 4시간 캐시를 뚫는다 (미등록 시 옛 파일이 계속 서빙됨)
+const TARGETS = ['pointer.js', 'analytics.js', 'lang.js', 'brand.css', 'media/note-media.js'];
 
 const hashOf = (f) => crypto.createHash('sha256')
   .update(fs.readFileSync(path.join(PUB, f)))
@@ -22,7 +24,8 @@ const pages = [];
 for (const f of fs.readdirSync(PUB)) {
   if (f.endsWith('.html')) pages.push(f);
 }
-for (const sub of ['admin/index.html', 'admin/check.html']) {
+// 하위 폴더 페이지도 대상에 포함 (새 페이지를 만들면 여기에 등록)
+for (const sub of ['admin/index.html', 'admin/check.html', 'apps/note.html']) {
   if (fs.existsSync(path.join(PUB, sub))) pages.push(sub);
 }
 

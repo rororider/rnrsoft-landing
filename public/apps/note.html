@@ -17,20 +17,22 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
-<link rel="stylesheet" href="/brand.css">
+<link rel="stylesheet" href="/brand.css?v=ae86b512">
 <style>
   /* 미디어 갤러리 — 가로 스크롤(모바일) / 그리드(데스크톱) */
-  .shots { display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:14px; }
+  .shots { display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:16px; }
+  /* 캡션을 이미지 밖에 두어 앱 UI를 가리지 않게 한다 */
+  .shot-wrap { display:flex; flex-direction:column; gap:9px; }
   .shot { position:relative; aspect-ratio:9/19.5; border-radius:16px; overflow:hidden;
           background:linear-gradient(160deg,#17233b,#111a2c); border:1px solid rgba(255,255,255,.08);
           display:flex; align-items:center; justify-content:center; text-align:center; }
-  .shot img { width:100%; height:100%; object-fit:cover; display:block; cursor:zoom-in;
+  /* contain — 폰 화면 전체가 잘리지 않고 보이도록 (cover는 하단이 잘렸다) */
+  .shot img { width:100%; height:100%; object-fit:contain; display:block; cursor:zoom-in;
               transition:transform .35s cubic-bezier(.16,1,.3,1); }
-  .shot:hover img { transform:scale(1.04); }
+  .shot:hover img { transform:scale(1.03); }
   .shot .ph { padding:18px 14px; color:#6b7a91; font-size:12.5px; line-height:1.7; }
   .shot .ph b { display:block; color:#93a0b4; font-size:13px; font-weight:600; margin-bottom:6px; }
-  .shot .cap { position:absolute; left:0; right:0; bottom:0; padding:22px 12px 10px; font-size:12px;
-               color:#dbe4f0; background:linear-gradient(transparent,rgba(7,14,26,.92)); pointer-events:none; }
+  .cap { font-size:12.5px; line-height:1.5; color:#98a4b6; text-align:center; padding:0 4px; }
   .dash { border-style:dashed !important; border-color:rgba(31,86,220,.28) !important; }
 
   /* 유튜브 — 클릭 전엔 썸네일만 (지연 로딩) */
@@ -64,7 +66,7 @@
              gap:12px; padding-bottom:10px; -webkit-overflow-scrolling:touch; }
     .shots::-webkit-scrollbar { height:4px; }
     .shots::-webkit-scrollbar-thumb { background:rgba(255,255,255,.16); border-radius:2px; }
-    .shot { flex:0 0 62%; scroll-snap-align:center; }
+    .shot-wrap { flex:0 0 64%; scroll-snap-align:center; }
   }
 </style>
 </head>
@@ -168,8 +170,8 @@
 <!-- 라이트박스 -->
 <div id="lb"><button class="x" id="lbx" aria-label="닫기">✕</button><img id="lbi" alt=""></div>
 
-<script src="/lang.js"></script>
-<script src="/media/note-media.js"></script>
+<script src="/lang.js?v=7b3f1758"></script>
+<script src="/media/note-media.js?v=1c29b66b"></script>
 <script>
 (function(){
   var M = window.NOTE_MEDIA || { shots: [], youtube: null };
@@ -179,12 +181,14 @@
   var real = 0;
   box.innerHTML = (M.shots || []).map(function(s){
     if (s.placeholder) {
-      return '<div class="shot dash"><div class="ph"><b>' + (s.caption || '') + '</b>'
-           + (s.hint || '준비 중') + '</div></div>';
+      return '<div class="shot-wrap"><div class="shot dash"><div class="ph"><b>' + (s.caption || '') + '</b>'
+           + (s.hint || '준비 중') + '</div></div></div>';
     }
     real++;
-    return '<div class="shot"><img src="' + s.src + '" alt="' + (s.alt || '') + '" loading="lazy">'
-         + (s.caption ? '<div class="cap">' + s.caption + '</div>' : '') + '</div>';
+    return '<div class="shot-wrap">'
+         + '<div class="shot"><img src="' + s.src + '" alt="' + (s.alt || '') + '" loading="lazy"></div>'
+         + (s.caption ? '<div class="cap">' + s.caption + '</div>' : '')
+         + '</div>';
   }).join('');
 
   var hint = document.querySelector('.rs-hint');
@@ -220,6 +224,6 @@
   }
 })();
 </script>
-<script src="/analytics.js" defer></script>
+<script src="/analytics.js?v=3d124fa7" defer></script>
 </body>
 </html>
