@@ -4,7 +4,7 @@
    - env.SETUP_TOKEN 과 일치하는 토큰을 제시해야만 생성 가능
    - 비밀번호는 사용자가 브라우저에서 직접 입력 -> 즉시 PBKDF2 해싱. 평문 저장·로깅 없음 */
 
-import { hashPassword, createSession, sessionCookie, rateLimit, isEmail } from '../../_auth.js';
+import { hashPassword, createSession, sessionCookie, rateLimit, resetRateLimit, isEmail } from '../../_auth.js';
 
 export async function onRequestPost({ request, env }) {
   const json = (o, s = 200, extra = {}) => new Response(JSON.stringify(o), {
@@ -50,6 +50,7 @@ export async function onRequestPost({ request, env }) {
   await env.ANALYTICS.put(`admin:${username}`, hash);
   await env.ANALYTICS.put('meta:admin_created', new Date().toISOString());
 
+  await resetRateLimit(env, ip);
   const token = await createSession(env, username);
   return json({ ok: true }, 200, { 'Set-Cookie': sessionCookie(token) });
 }

@@ -1,4 +1,4 @@
-import { verifyPassword, createSession, sessionCookie, rateLimit } from '../../_auth.js';
+import { verifyPassword, createSession, sessionCookie, rateLimit, resetRateLimit } from '../../_auth.js';
 
 export async function onRequestPost({ request, env }) {
   const json = (o, s = 200, extra = {}) => new Response(JSON.stringify(o), {
@@ -24,6 +24,7 @@ export async function onRequestPost({ request, env }) {
   const ok = stored ? await verifyPassword(password, stored) : await verifyPassword(password, 'pbkdf2$310000$AAAA$AAAA');
   if (!stored || !ok) return json({ ok: false, error: '이메일 또는 비밀번호가 올바르지 않습니다.' }, 401);
 
+  await resetRateLimit(env, ip);   // 성공했으니 실패 카운터 해제
   const token = await createSession(env, username);
   return json({ ok: true }, 200, { 'Set-Cookie': sessionCookie(token) });
 }

@@ -82,11 +82,16 @@ export function sessionCookie(token, maxAge = SESSION_TTL) {
 
 export const clearCookie = () => 'rnr_admin=; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=0';
 
-/* 로그인 시도 제한 — IP 기준 15분 10회 */
+/* 로그인 시도 제한 — IP 기준 15분 10회.
+   성공 시 reset()으로 즉시 해제하므로, 정상 사용자는 실패를 누적하지 않는다. */
 export async function rateLimit(env, ip) {
   const key = `rl:${ip}`;
   const n = parseInt(await env.ANALYTICS.get(key) || '0', 10);
   if (n >= 10) return false;
   await env.ANALYTICS.put(key, String(n + 1), { expirationTtl: 900 });
   return true;
+}
+
+export async function resetRateLimit(env, ip) {
+  try { await env.ANALYTICS.delete(`rl:${ip}`); } catch (_) {}
 }
