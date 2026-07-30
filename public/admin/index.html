@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
-<link rel="stylesheet" href="/brand.css">
+<link rel="stylesheet" href="/brand.css?v=ae86b512">
 <style>
   .wrap { max-width:1180px; margin:0 auto; padding:26px 34px 80px; }
   .kpi { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:16px; margin-bottom:26px; }
@@ -52,6 +52,10 @@
       </span>
     </a>
     <div style="display:flex; align-items:center; gap:9px;">
+      <a class="btn" href="/api/admin/hq-sso"
+         style="text-decoration:none; display:inline-flex; align-items:center; gap:7px; background:linear-gradient(96deg,#1f56dc,#2b86f5); color:#fff; border:none;">
+        <span style="font-size:14px;">🏢</span> 가상 사옥 관제
+      </a>
       <select id="range">
         <option value="7">최근 7일</option>
         <option value="30" selected>최근 30일</option>

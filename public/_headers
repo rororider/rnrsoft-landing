@@ -6,3 +6,39 @@
 /api/*
   X-Robots-Tag: noindex, nofollow
   Cache-Control: no-store
+
+# 이미지 — 파일명이 바뀌지 않으면 오래 캐시해도 무해
+/assets/*
+  Cache-Control: public, max-age=86400
+
+# 코드·문서는 매번 변경 여부를 확인 (배포 즉시 반영, 강력 새로고침 불필요)
+# Pages 기본값(max-age=14400)을 덮으려면 개별 경로를 명시해야 한다.
+/pointer.js
+  Cache-Control: no-cache
+
+/analytics.js
+  Cache-Control: no-cache
+
+/lang.js
+  Cache-Control: no-cache
+
+/brand.css
+  Cache-Control: no-cache
+
+/index.html
+  Cache-Control: no-cache
+
+/apps.html
+  Cache-Control: no-cache
+
+/about.html
+  Cache-Control: no-cache
+
+/contact.html
+  Cache-Control: no-cache
+
+/privacy.html
+  Cache-Control: no-cache
+
+/terms.html
+  Cache-Control: no-cache

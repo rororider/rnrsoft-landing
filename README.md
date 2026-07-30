@@ -43,6 +43,19 @@ npx wrangler pages deploy public --project-name=rnrsoft-landing --branch=main --
 - Pages 프로젝트명: **rnrsoft-landing** (계정 madrex1090@gmail.com, account id c39e6cf45019de85f5264d41fcbe27cc)
 - 커스텀 도메인 rnrsoft.vip 연결됨 (루트 CNAME → rnrsoft-landing.pages.dev)
 
+
+### ⚠️ 배포 시 캐시 무효화 (필수)
+
+Cloudflare Pages는 정적 에셋에 `Cache-Control: max-age=14400`(4시간)을 강제한다.
+`_headers`로 덮으려 해도 무시되므로, **JS/CSS를 수정했으면 배포 전에 반드시** 실행:
+
+```bash
+node _bump.cjs   # JS/CSS 참조에 내용 해시(?v=xxxxxxxx) 부착
+npx wrangler pages deploy public --project-name=rnrsoft-landing --branch=main --commit-dirty=true
+```
+
+안 하면 방문자가 강력 새로고침(Ctrl+Shift+R)을 해야 변경이 보인다.
+
 ## 디자인 토큰 (2026-07-27 현행 — 디자인팀 최종 시안 기준)
 
 브랜드명 **RnR soft** · 태그라인 "Connecting Ideas, Delivering Future"
