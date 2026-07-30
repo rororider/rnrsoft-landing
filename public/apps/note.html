@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>받아쓰기 노트 — RnR soft</title>
+<meta name="description" content="말하면 자동으로 받아적히는 음성 메모·학습 노트. AI가 정리하고 질문을 만들며 학습카드로 바꿔줍니다. 4개 언어 지원.">
+<meta property="og:title" content="받아쓰기 노트 — RnR soft">
+<meta property="og:description" content="말하면 자동으로 받아적히는 음성 메모·학습 노트.">
+<meta property="og:url" content="https://rnrsoft.vip/apps/note">
+<meta property="og:image" content="https://rnrsoft.vip/assets/og-image.png">
+<meta name="theme-color" content="#0b1220">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/fav-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/fav-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/fav-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="/brand.css">
+<style>
+  /* 미디어 갤러리 — 가로 스크롤(모바일) / 그리드(데스크톱) */
+  .shots { display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:14px; }
+  .shot { position:relative; aspect-ratio:9/19.5; border-radius:16px; overflow:hidden;
+          background:linear-gradient(160deg,#17233b,#111a2c); border:1px solid rgba(255,255,255,.08);
+          display:flex; align-items:center; justify-content:center; text-align:center; }
+  .shot img { width:100%; height:100%; object-fit:cover; display:block; cursor:zoom-in;
+              transition:transform .35s cubic-bezier(.16,1,.3,1); }
+  .shot:hover img { transform:scale(1.04); }
+  .shot .ph { padding:18px 14px; color:#6b7a91; font-size:12.5px; line-height:1.7; }
+  .shot .ph b { display:block; color:#93a0b4; font-size:13px; font-weight:600; margin-bottom:6px; }
+  .shot .cap { position:absolute; left:0; right:0; bottom:0; padding:22px 12px 10px; font-size:12px;
+               color:#dbe4f0; background:linear-gradient(transparent,rgba(7,14,26,.92)); pointer-events:none; }
+  .dash { border-style:dashed !important; border-color:rgba(31,86,220,.28) !important; }
+
+  /* 유튜브 — 클릭 전엔 썸네일만 (지연 로딩) */
+  .yt { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; cursor:pointer;
+        background:#0e1729; border:1px solid rgba(255,255,255,.1); }
+  .yt img { width:100%; height:100%; object-fit:cover; display:block; }
+  .yt .play { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; }
+  .yt .play span { width:66px; height:66px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+                   background:linear-gradient(96deg,#1f56dc,#2b86f5); box-shadow:0 14px 34px -12px rgba(31,86,220,.8);
+                   color:#fff; font-size:22px; padding-left:5px; transition:transform .25s; }
+  .yt:hover .play span { transform:scale(1.08); }
+  .yt iframe { width:100%; height:100%; border:0; display:block; }
+
+  /* 라이트박스 */
+  #lb { position:fixed; inset:0; z-index:90; background:rgba(6,11,20,.93); backdrop-filter:blur(8px);
+        display:none; align-items:center; justify-content:center; padding:28px; }
+  #lb.on { display:flex; }
+  #lb img { max-width:min(92vw,520px); max-height:88vh; border-radius:18px; display:block;
+            box-shadow:0 30px 80px -30px rgba(0,0,0,.9); }
+  #lb .x { position:absolute; top:18px; right:20px; width:42px; height:42px; border-radius:50%;
+           background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.16); color:#eef2f8;
+           font-size:20px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+
+  .feat { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; }
+  .feat > div { padding:22px; border-radius:16px; background:#141f33; border:1px solid rgba(255,255,255,.08); }
+
+  @media (max-width:640px){
+    .rs-wrap { padding-left:18px !important; padding-right:18px !important; }
+    /* 스크린샷은 가로 스크롤 — 좁은 화면에서 세로로 길게 쌓이는 것 방지 */
+    .shots { display:flex; overflow-x:auto; scroll-snap-type:x mandatory;
+             gap:12px; padding-bottom:10px; -webkit-overflow-scrolling:touch; }
+    .shots::-webkit-scrollbar { height:4px; }
+    .shots::-webkit-scrollbar-thumb { background:rgba(255,255,255,.16); border-radius:2px; }
+    .shot { flex:0 0 62%; scroll-snap-align:center; }
+  }
+</style>
+</head>
+<body>
+<div style="min-height:100vh; display:flex; flex-direction:column;">
+
+  <header style="position:sticky; top:0; z-index:30; background:rgba(11,18,32,0.86); backdrop-filter:blur(14px); border-bottom:1px solid rgba(255,255,255,0.1);">
+    <div class="rs-bar" style="max-width:1180px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:18px 34px;">
+      <a href="/" style="display:flex; align-items:flex-end; gap:12px;"><img class="rs-logo" src="/assets/mark.png" alt="RnR soft" style="height:44px; width:auto; display:block;"><span style="display:flex; flex-direction:column; gap:3px;"><span class="rs-wm" style="font-family:'Poppins',sans-serif; font-size:25px; font-weight:600; letter-spacing:-0.02em; color:#f2f6fc; line-height:1;">RnR <span style="font-weight:300; color:#38c8f0;">soft</span></span><span class="rs-tag" style="font-family:'Poppins',sans-serif; font-size:9.5px; font-weight:300; letter-spacing:0.11em; color:#7d8ba0; line-height:1;">CONNECTING IDEAS, DELIVERING FUTURE</span></span></a>
+      <nav class="rs-nav" style="display:flex; align-items:center; gap:6px;">
+        <a href="/apps.html" style="padding:9px 15px; border-radius:9px; background:rgba(43,134,245,0.16); color:#7fc4ff; font-size:14.5px; white-space:nowrap; font-weight:600;" data-en="Apps">앱</a>
+        <a href="/about.html" style="padding:9px 15px; border-radius:9px; color:#aab5c6; font-size:14.5px; white-space:nowrap; font-weight:500;" data-en="About">소개</a>
+        <a href="/contact.html" style="padding:9px 15px; border-radius:9px; color:#aab5c6; font-size:14.5px; white-space:nowrap; font-weight:500;" data-en="Contact">문의</a>
+        <button onclick="rnrToggleLang()" data-langlabel style="margin-left:8px; padding:8px 14px; border-radius:9px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.14); color:#c6cfdb; font-family:'Poppins',sans-serif; font-size:12px; font-weight:500; cursor:pointer;">EN</button>
+      </nav>
+    </div>
+  </header>
+
+  <section style="position:relative; flex:1; overflow:hidden;">
+    <div style="position:absolute; top:-14%; right:-6%; width:520px; height:520px; border-radius:50%; background:radial-gradient(circle,rgba(43,134,245,0.13),rgba(43,134,245,0) 68%);"></div>
+    <div class="rs-wrap" style="position:relative; max-width:1180px; margin:0 auto; padding:64px 34px 100px;">
+
+      <a href="/apps.html" style="display:inline-flex; align-items:center; gap:6px; font-size:13.5px; color:#7f8b9d; margin-bottom:22px;" data-en="← Apps">← 앱 목록</a>
+
+      <!-- 앱 헤더 -->
+      <div style="display:flex; gap:26px; align-items:flex-start; flex-wrap:wrap; animation:rs-rise .6s ease both;">
+        <img src="/assets/app-note.png" alt="받아쓰기 노트" style="width:88px; height:88px; border-radius:22px; flex:0 0 auto; display:block; box-shadow:0 12px 30px -14px rgba(31,86,220,.55);">
+        <div style="flex:1; min-width:260px;">
+          <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+            <h1 style="margin:0; font-size:clamp(26px,4vw,34px); font-weight:600; color:#f2f6fc; letter-spacing:-.035em;">받아쓰기 노트</h1>
+            <span style="display:inline-flex; align-items:center; gap:6px; font-size:11.5px; font-weight:600; padding:4px 10px; border-radius:7px; background:rgba(43,134,245,0.16); color:#5aa9ff;"><span style="width:5px;height:5px;border-radius:50%;background:#2b86f5;"></span><span data-en="In service">서비스 중</span></span>
+          </div>
+          <p style="margin:12px 0 0; font-size:15.5px; line-height:1.72; color:#98a4b6; max-width:620px;" data-en="Speak, and it writes for you — a voice memo and study note that transcribes automatically. AI tidies it up, asks questions, and turns it into study cards. Four languages.">말하면 자동으로 받아적히는 음성 메모·학습 노트. AI가 내용을 정리하고 질문을 만들며 학습카드로 바꿔줍니다. 4개 언어 지원.</p>
+          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:20px;">
+            <a href="https://note.rnrsoft.vip" target="_blank" rel="noopener"
+               style="display:inline-flex; align-items:center; gap:8px; padding:13px 24px; border-radius:11px; background:linear-gradient(96deg,#1f56dc,#2b86f5); color:#fff; font-weight:600; font-size:14.5px; box-shadow:0 12px 28px -14px rgba(31,86,220,.6);" data-en="Open app">앱 열기 ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 유튜브 소개 영상 -->
+      <div id="ytBox" style="display:none; margin-top:50px; animation:rs-rise .7s ease .08s both;">
+        <h2 style="margin:0 0 14px; font-size:16px; font-weight:600; color:#f2f6fc;" data-en="Intro video">소개 영상</h2>
+        <div style="max-width:760px;"><div class="yt" id="yt"></div></div>
+      </div>
+
+      <!-- 스크린샷 갤러리 -->
+      <div style="margin-top:50px; animation:rs-rise .7s ease .12s both;">
+        <h2 style="margin:0 0 4px; font-size:16px; font-weight:600; color:#f2f6fc;" data-en="Screenshots">화면</h2>
+        <p class="rs-hint" style="margin:0 0 16px; font-size:12.5px; color:#7f8b9d;"></p>
+        <div class="shots" id="shots"></div>
+      </div>
+
+      <!-- 기능 -->
+      <div style="margin-top:50px; animation:rs-rise .7s ease .16s both;">
+        <h2 style="margin:0 0 16px; font-size:16px; font-weight:600; color:#f2f6fc;" data-en="Features">주요 기능</h2>
+        <div class="feat">
+          <div>
+            <div style="font-family:'Poppins',sans-serif; font-size:12px; font-weight:600; color:#5cc4f5; margin-bottom:12px;">01</div>
+            <h3 style="margin:0 0 8px; font-size:15.5px; font-weight:600; color:#f2f6fc;" data-en="Voice to text">음성 받아쓰기</h3>
+            <p style="margin:0; font-size:13.5px; line-height:1.72; color:#98a4b6;" data-en="Speak and it transcribes in real time — no typing.">말하면 실시간으로 받아적힙니다. 타이핑할 필요가 없습니다.</p>
+          </div>
+          <div>
+            <div style="font-family:'Poppins',sans-serif; font-size:12px; font-weight:600; color:#5cc4f5; margin-bottom:12px;">02</div>
+            <h3 style="margin:0 0 8px; font-size:15.5px; font-weight:600; color:#f2f6fc;" data-en="AI summary">AI 정리</h3>
+            <p style="margin:0; font-size:13.5px; line-height:1.72; color:#98a4b6;" data-en="AI organizes what you said and pulls out the key points.">AI가 말한 내용을 정리하고 핵심을 뽑아냅니다.</p>
+          </div>
+          <div>
+            <div style="font-family:'Poppins',sans-serif; font-size:12px; font-weight:600; color:#5cc4f5; margin-bottom:12px;">03</div>
+            <h3 style="margin:0 0 8px; font-size:15.5px; font-weight:600; color:#f2f6fc;" data-en="Study cards">학습카드</h3>
+            <p style="margin:0; font-size:13.5px; line-height:1.72; color:#98a4b6;" data-en="Turns your notes into question cards you can review.">노트를 복습할 수 있는 질문 카드로 바꿔줍니다.</p>
+          </div>
+          <div>
+            <div style="font-family:'Poppins',sans-serif; font-size:12px; font-weight:600; color:#5cc4f5; margin-bottom:12px;">04</div>
+            <h3 style="margin:0 0 8px; font-size:15.5px; font-weight:600; color:#f2f6fc;" data-en="4 languages">4개 언어</h3>
+            <p style="margin:0; font-size:13.5px; line-height:1.72; color:#98a4b6;" data-en="Korean, English, Japanese, Chinese.">한국어, 영어, 일본어, 중국어를 지원합니다.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer style="margin-top:auto; background:#070e1a;">
+    <div class="rs-bar" style="max-width:1180px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:24px; padding:30px 34px; flex-wrap:wrap;">
+      <img src="/assets/mark-white.png" alt="RnR soft" style="height:26px; width:auto; display:block;">
+      <div style="display:flex; gap:24px; font-size:13.5px; color:#8b98ac; flex-wrap:wrap;">
+        <a href="/" style="color:#8b98ac;" data-en="Home">홈</a>
+        <a href="/apps.html" style="color:#8b98ac;" data-en="Apps">앱</a>
+        <a href="/about.html" style="color:#8b98ac;" data-en="About">소개</a>
+        <a href="/contact.html" style="color:#8b98ac;" data-en="Contact">문의</a>
+        <a href="/privacy.html" style="color:#8b98ac;" data-en="Privacy">개인정보처리방침</a>
+        <a href="/terms.html" style="color:#8b98ac;" data-en="Terms">이용약관</a>
+      </div>
+      <a href="/admin/" class="rs-adm" title="관리자" style="font-family:'Poppins',sans-serif; font-size:12.5px; color:#54637a;">© 2026 RnR soft</a>
+    </div>
+  </footer>
+
+</div>
+
+<!-- 라이트박스 -->
+<div id="lb"><button class="x" id="lbx" aria-label="닫기">✕</button><img id="lbi" alt=""></div>
+
+<script src="/lang.js"></script>
+<script src="/media/note-media.js"></script>
+<script>
+(function(){
+  var M = window.NOTE_MEDIA || { shots: [], youtube: null };
+
+  /* 스크린샷 */
+  var box = document.getElementById('shots');
+  var real = 0;
+  box.innerHTML = (M.shots || []).map(function(s){
+    if (s.placeholder) {
+      return '<div class="shot dash"><div class="ph"><b>' + (s.caption || '') + '</b>'
+           + (s.hint || '준비 중') + '</div></div>';
+    }
+    real++;
+    return '<div class="shot"><img src="' + s.src + '" alt="' + (s.alt || '') + '" loading="lazy">'
+         + (s.caption ? '<div class="cap">' + s.caption + '</div>' : '') + '</div>';
+  }).join('');
+
+  var hint = document.querySelector('.rs-hint');
+  if (hint) {
+    hint.textContent = real ? '' : '실제 앱 화면은 준비 중입니다.';
+    if (real) hint.style.display = 'none';
+  }
+
+  /* 라이트박스 — 실제 이미지에만 */
+  var lb = document.getElementById('lb'), lbi = document.getElementById('lbi');
+  box.addEventListener('click', function(ev){
+    var img = ev.target.closest('.shot img');
+    if (!img) return;
+    lbi.src = img.src; lbi.alt = img.alt; lb.classList.add('on');
+  });
+  function close(){ lb.classList.remove('on'); lbi.src = ''; }
+  document.getElementById('lbx').addEventListener('click', close);
+  lb.addEventListener('click', function(e){ if (e.target === lb) close(); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') close(); });
+
+  /* 유튜브 — 클릭 전엔 썸네일만 로드 (성능·개인정보) */
+  if (M.youtube) {
+    document.getElementById('ytBox').style.display = 'block';
+    var yt = document.getElementById('yt');
+    yt.innerHTML = '<img src="https://i.ytimg.com/vi/' + M.youtube + '/hqdefault.jpg" alt="'
+      + (M.youtubeTitle || '소개 영상') + '"><div class="play"><span>▶</span></div>';
+    yt.addEventListener('click', function(){
+      yt.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + M.youtube
+        + '?autoplay=1&rel=0" title="' + (M.youtubeTitle || '소개 영상')
+        + '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture"'
+        + ' allowfullscreen></iframe>';
+    }, { once: true });
+  }
+})();
+</script>
+<script src="/analytics.js" defer></script>
+</body>
+</html>
