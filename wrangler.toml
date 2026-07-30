@@ -1,0 +1,7 @@
+name = "rnrsoft-landing"
+pages_build_output_dir = "public"
+compatibility_date = "2026-07-01"
+
+[[kv_namespaces]]
+binding = "ANALYTICS"
+id = "4f2d3e9554fa4e488eb53b73662e7ee2"

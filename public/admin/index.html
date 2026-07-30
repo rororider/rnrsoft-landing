@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>방문자 통계 — RnR soft</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/fav-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="/brand.css">
+<style>
+  .wrap { max-width:1180px; margin:0 auto; padding:26px 34px 80px; }
+  .kpi { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:16px; margin-bottom:26px; }
+  .card { background:#141f33; border:1px solid rgba(255,255,255,0.1); border-radius:16px; padding:22px;
+          box-shadow:0 10px 30px -22px rgba(0,0,0,.5); }
+  .kpi .card { animation:rs-rise .5s ease both; }
+  .kpi-label { font-family:'Poppins',sans-serif; font-size:11.5px; font-weight:500; letter-spacing:.14em;
+               text-transform:uppercase; color:#5cc4f5; }
+  .kpi-val { font-size:30px; font-weight:600; color:#f2f6fc; margin-top:10px; letter-spacing:-.03em;
+             font-variant-numeric:tabular-nums; }
+  .kpi-sub { font-size:12px; color:#7f8b9d; margin-top:5px; }
+  h2 { margin:0 0 14px; font-size:15.5px; font-weight:600; color:#f2f6fc; letter-spacing:-.02em; }
+  table { width:100%; border-collapse:collapse; font-size:13.5px; }
+  th { text-align:left; font-weight:500; color:#7f8b9d; font-size:11.5px; letter-spacing:.06em;
+       text-transform:uppercase; padding:0 0 10px; border-bottom:1px solid rgba(255,255,255,.09); }
+  td { padding:10px 0; border-bottom:1px solid rgba(255,255,255,.05); color:#c6cfdb; }
+  td.n { text-align:right; font-variant-numeric:tabular-nums; color:#eef2f8; font-weight:500; }
+  .bar { height:6px; border-radius:3px; background:linear-gradient(96deg,#1f56dc,#38c8f0); min-width:3px; }
+  .grid2 { display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:16px; }
+  .chart { display:flex; align-items:flex-end; gap:3px; height:150px; margin-top:6px; }
+  .chart div { flex:1; background:linear-gradient(180deg,#38c8f0,#1f56dc); border-radius:3px 3px 0 0;
+               min-height:2px; transition:opacity .15s; }
+  .chart div:hover { opacity:.75; }
+  select, .btn { padding:8px 14px; border-radius:9px; background:rgba(255,255,255,.06);
+          border:1px solid rgba(255,255,255,.14); color:#c6cfdb; font-family:inherit; font-size:13px; cursor:pointer; }
+  .muted { color:#7f8b9d; font-size:12.5px; }
+  @media (max-width:640px){ .wrap{padding:20px 18px 60px} .kpi-val{font-size:25px} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div style="display:flex; align-items:center; justify-content:space-between; gap:18px; flex-wrap:wrap; margin-bottom:26px;">
+    <a href="/" style="display:flex; align-items:flex-end; gap:11px;">
+      <img src="/assets/mark.png" alt="" style="height:36px; width:auto; display:block;">
+      <span style="display:flex; flex-direction:column; gap:3px;">
+        <span style="font-family:'Poppins',sans-serif; font-size:20px; font-weight:600; color:#f2f6fc; line-height:1;">RnR <span style="font-weight:300; color:#38c8f0;">soft</span></span>
+        <span style="font-family:'Poppins',sans-serif; font-size:9px; font-weight:300; letter-spacing:.11em; color:#7d8ba0; line-height:1;">ADMIN · 방문자 통계</span>
+      </span>
+    </a>
+    <div style="display:flex; align-items:center; gap:9px;">
+      <select id="range">
+        <option value="7">최근 7일</option>
+        <option value="30" selected>최근 30일</option>
+        <option value="90">최근 90일</option>
+      </select>
+      <button class="btn" id="logout">로그아웃</button>
+    </div>
+  </div>
+
+  <div class="kpi" id="kpi"></div>
+
+  <div class="card" style="margin-bottom:16px;">
+    <h2>일별 방문 <span class="muted" id="chartLabel"></span></h2>
+    <div class="chart" id="chart"></div>
+    <div style="display:flex; justify-content:space-between; margin-top:8px;" class="muted">
+      <span id="chartFrom"></span><span id="chartTo"></span>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="card"><h2>페이지별</h2><table id="tPages"><tbody></tbody></table></div>
+    <div class="card"><h2>유입 경로 <span class="muted">(최근 14일)</span></h2><table id="tRef"><tbody></tbody></table></div>
+    <div class="card"><h2>국가 <span class="muted">(최근 14일)</span></h2><table id="tGeo"><tbody></tbody></table></div>
+  </div>
+
+  <p class="muted" style="margin-top:22px;" id="foot"></p>
+</div>
+
+<script>
+var PAGE_LABEL = { '/':'홈', '/apps':'앱', '/about':'소개', '/contact':'문의',
+                   '/privacy':'개인정보처리방침', '/terms':'이용약관', 'other':'기타' };
+var n = function(v){ return (v||0).toLocaleString('ko-KR'); };
+
+function rows(el, items, labelFn){
+  var tb = el.querySelector('tbody');
+  if(!items.length){ tb.innerHTML = '<tr><td class="muted" style="padding:14px 0">아직 데이터가 없습니다.</td></tr>'; return; }
+  var max = Math.max.apply(null, items.map(function(i){return i.count||i.pv;}));
+  tb.innerHTML = items.map(function(i){
+    var v = i.count || i.pv;
+    return '<tr><td>' + labelFn(i) + '</td>'
+      + '<td style="width:38%"><div class="bar" style="width:' + Math.max(3, v/max*100) + '%"></div></td>'
+      + '<td class="n">' + n(v) + '</td></tr>';
+  }).join('');
+}
+
+async function load(){
+  var days = document.getElementById('range').value;
+  var r = await fetch('/api/admin/stats?days=' + days, { credentials:'same-origin' });
+  if(r.status === 401){ location.href='/admin'; return; }
+  var d = await r.json();
+  if(!d.ok){ document.getElementById('foot').textContent = '오류: ' + (d.error||''); return; }
+
+  var sumPv = d.daily.reduce(function(a,b){return a+b.pv;},0);
+  var sumUv = d.daily.reduce(function(a,b){return a+b.uv;},0);
+  var todayRow = d.daily[d.daily.length-1] || {pv:0,uv:0};
+
+  document.getElementById('kpi').innerHTML = [
+    ['오늘 방문', n(todayRow.pv), n(todayRow.uv) + '명 (순방문)'],
+    ['기간 합계', n(sumPv), n(sumUv) + '명 · 최근 ' + days + '일'],
+    ['누적 조회', n(d.totals.pv), '전체 기간'],
+    ['누적 방문자', n(d.totals.uv), '일일 순방문 합산'],
+  ].map(function(k,idx){
+    return '<div class="card" style="animation-delay:' + (idx*0.06) + 's">'
+      + '<div class="kpi-label">' + k[0] + '</div><div class="kpi-val">' + k[1] + '</div>'
+      + '<div class="kpi-sub">' + k[2] + '</div></div>';
+  }).join('');
+
+  var max = Math.max.apply(null, d.daily.map(function(x){return x.pv;}).concat([1]));
+  document.getElementById('chart').innerHTML = d.daily.map(function(x){
+    return '<div style="height:' + Math.max(2, x.pv/max*100) + '%" title="' + x.date + ' · ' + x.pv + '회 / ' + x.uv + '명"></div>';
+  }).join('');
+  document.getElementById('chartLabel').textContent = '최대 ' + n(max) + '회';
+  document.getElementById('chartFrom').textContent = d.daily[0] ? d.daily[0].date : '';
+  document.getElementById('chartTo').textContent = d.daily.length ? d.daily[d.daily.length-1].date : '';
+
+  rows(document.getElementById('tPages'), d.pages, function(i){ return PAGE_LABEL[i.path] || i.path; });
+  rows(document.getElementById('tRef'), d.referrers, function(i){ return i.name === 'direct' ? '직접 방문' : i.name; });
+  rows(document.getElementById('tGeo'), d.countries, function(i){ return i.name === 'KR' ? '🇰🇷 한국' : i.name; });
+
+  document.getElementById('foot').textContent = d.user + ' · ' + d.generatedAt + ' 기준 · 봇 트래픽 제외';
+}
+
+document.getElementById('range').addEventListener('change', load);
+document.getElementById('logout').addEventListener('click', async function(){
+  await fetch('/api/admin/logout', { method:'POST', credentials:'same-origin' });
+  location.href = '/';
+});
+load();
+</script>
+</body>
+</html>
