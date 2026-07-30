@@ -5,3 +5,4 @@ node_modules/
 
 .setup-token.txt
 .hash-salt.txt
+.recovery-token.txt

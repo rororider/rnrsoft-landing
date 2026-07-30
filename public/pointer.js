@@ -6,9 +6,8 @@
    효과:
    1) 커서 위치 글리치 코드 컬럼 — 지나간 자리에 카타카나가 순간 점등 후 소멸
    2) 커서 주변 그리드 국소 발광 (즉시)
-   3) 커서를 향해 수렴하는 스캔 십자선 (얇은 시안 라인)
-   4) 빠르게 움직이면 속도에 비례해 잔상 트레일 + 밝기 증가
-   5) 클릭 시 링 펄스 확산
+   3) 빠르게 움직이면 속도에 비례해 잔상 트레일 + 밝기 증가
+   4) 클릭 시 링 펄스 확산
 */
 (function () {
   var hero = document.querySelector('.rs-hero');
@@ -39,17 +38,6 @@
     'background-image:linear-gradient(rgba(120,255,214,0.34) 1px,transparent 1px),' +
     'linear-gradient(90deg,rgba(120,255,214,0.34) 1px,transparent 1px);background-size:56px 56px';
   layer.appendChild(grid);
-
-  // 스캔 십자선
-  var vLine = document.createElement('div');
-  vLine.style.cssText = 'position:absolute;top:0;bottom:0;width:1px;pointer-events:none;opacity:0;' +
-    'transition:opacity .3s ease;will-change:transform;' +
-    'background:linear-gradient(180deg,transparent,rgba(120,255,214,0.5) 45%,rgba(120,255,214,0.5) 55%,transparent)';
-  var hLine = document.createElement('div');
-  hLine.style.cssText = 'position:absolute;left:0;right:0;height:1px;pointer-events:none;opacity:0;' +
-    'transition:opacity .3s ease;will-change:transform;' +
-    'background:linear-gradient(90deg,transparent,rgba(120,255,214,0.42) 45%,rgba(120,255,214,0.42) 55%,transparent)';
-  layer.appendChild(vLine); layer.appendChild(hLine);
 
   var svg = main.querySelector('svg[viewBox="0 0 1440 420"]');
 
@@ -88,8 +76,6 @@
     raf = null;
     // 커서 요소는 지연 없이 즉시 현재 좌표로
     glow.style.transform = 'translate3d(' + x + 'px,' + y + 'px,0)';
-    vLine.style.transform = 'translate3d(' + x + 'px,0,0)';
-    hLine.style.transform = 'translate3d(0,' + y + 'px,0)';
 
     var m = 'radial-gradient(200px circle at ' + x + 'px ' + y + 'px,#000 0%,rgba(0,0,0,.5) 40%,transparent 72%)';
     grid.style.webkitMaskImage = m;
@@ -112,7 +98,6 @@
     if (!active) {
       active = true;
       glow.style.opacity = '1'; grid.style.opacity = '1';
-      vLine.style.opacity = '1'; hLine.style.opacity = '1';
     }
     // 속도에 비례한 글리치 — 빠를수록 더 자주, 더 밝게
     var now = performance.now();
@@ -131,7 +116,6 @@
   function onLeave() {
     active = false;
     glow.style.opacity = '0'; grid.style.opacity = '0';
-    vLine.style.opacity = '0'; hLine.style.opacity = '0';
     if (svg) svg.style.transform = '';
   }
 

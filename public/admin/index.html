@@ -57,8 +57,25 @@
         <option value="30" selected>최근 30일</option>
         <option value="90">최근 90일</option>
       </select>
+      <button class="btn" id="pwBtn">비밀번호 변경</button>
       <button class="btn" id="logout">로그아웃</button>
     </div>
+  </div>
+
+  <!-- 비밀번호 변경 -->
+  <div class="card" id="pwBox" style="display:none; margin-bottom:16px; max-width:420px;">
+    <h2>비밀번호 변경</h2>
+    <form id="pwForm" autocomplete="off">
+      <label style="display:block;font-size:12.5px;color:#98a4b6;margin:12px 0 7px">현재 비밀번호</label>
+      <input id="pwCur" type="password" required autocomplete="current-password"
+             style="width:100%;padding:11px 13px;border-radius:10px;background:#0b1220;color:#eef2f8;border:1px solid rgba(255,255,255,.14);font-size:14.5px;font-family:inherit">
+      <label style="display:block;font-size:12.5px;color:#98a4b6;margin:14px 0 7px">새 비밀번호</label>
+      <input id="pwNew" type="password" required autocomplete="new-password" placeholder="12자 이상, 3종류 이상 조합"
+             style="width:100%;padding:11px 13px;border-radius:10px;background:#0b1220;color:#eef2f8;border:1px solid rgba(255,255,255,.14);font-size:14.5px;font-family:inherit">
+      <button type="submit" id="pwSubmit"
+              style="width:100%;margin-top:18px;padding:12px;border:none;border-radius:11px;cursor:pointer;background:linear-gradient(96deg,#1f56dc,#2b86f5);color:#fff;font-size:14.5px;font-weight:600;font-family:inherit">변경하기</button>
+      <div id="pwMsg" style="margin-top:12px;font-size:13px;display:none;line-height:1.6"></div>
+    </form>
   </div>
 
   <div class="kpi" id="kpi"></div>
@@ -135,6 +152,39 @@ async function load(){
 }
 
 document.getElementById('range').addEventListener('change', load);
+
+/* 비밀번호 변경 */
+document.getElementById('pwBtn').addEventListener('click', function(){
+  var box = document.getElementById('pwBox');
+  var open = box.style.display !== 'none';
+  box.style.display = open ? 'none' : 'block';
+  if(!open) document.getElementById('pwCur').focus();
+});
+document.getElementById('pwForm').addEventListener('submit', async function(ev){
+  ev.preventDefault();
+  var btn=document.getElementById('pwSubmit'), msg=document.getElementById('pwMsg');
+  btn.disabled=true; msg.style.display='none';
+  try{
+    var r=await fetch('/api/admin/password',{ method:'POST',
+      headers:{'Content-Type':'application/json'}, credentials:'same-origin', cache:'no-store',
+      body:JSON.stringify({ current:document.getElementById('pwCur').value,
+                            next:document.getElementById('pwNew').value })});
+    var txt=await r.text(), j=null; try{ j=JSON.parse(txt); }catch(_){}
+    if(j && j.ok){
+      msg.style.color='#78ffd6';
+      msg.textContent='✓ ' + (j.message || '비밀번호를 변경했습니다.');
+      document.getElementById('pwForm').reset();
+    } else {
+      msg.style.color='#ff9b9b';
+      msg.textContent=(j && j.error) ? j.error : ('서버 응답 오류 (HTTP '+r.status+')');
+    }
+  }catch(err){
+    msg.style.color='#ff9b9b';
+    msg.textContent='요청 실패: '+(err && err.message ? err.message : String(err));
+  }
+  msg.style.display='block';
+  btn.disabled=false;
+});
 document.getElementById('logout').addEventListener('click', async function(){
   await fetch('/api/admin/logout', { method:'POST', credentials:'same-origin' });
   location.href = '/';

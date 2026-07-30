@@ -61,6 +61,11 @@ a:hover { color: #7fc4ff; }
 
 .rs-mono { font-family:'JetBrains Mono',monospace; }
 
+/* 관리자 진입점 — 푸터 저작권 표기. 일반 방문자에게는 평범한 텍스트로 보이고,
+   마우스를 올렸을 때만 링크임이 드러난다. (경로를 노출하지 않는 조용한 입구) */
+.rs-adm { text-decoration:none; transition:color .2s; }
+.rs-adm:hover { color:#5aa9ff !important; }
+
 /* 시안 원문의 reduced-motion 처리 — 스캔라인/티커만 정지 (전역 차단 아님) */
 @media (prefers-reduced-motion:reduce){ .rs-scanline,.rs-track{ animation:none !important } }
 
