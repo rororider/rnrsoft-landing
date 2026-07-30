@@ -14,7 +14,7 @@ export async function onRequestPost({ request, env }) {
   if (!env.ANALYTICS) return json({ ok: false, error: 'kv_unbound' }, 500);
 
   const ip = request.headers.get('CF-Connecting-IP') || '0.0.0.0';
-  if (!await rateLimit(env, ip)) return json({ ok: false, error: '시도 횟수 초과. 15분 후 재시도.' }, 429);
+  if (!await rateLimit(env, ip)) return json({ ok: false, error: '시도가 많아 잠시 제한되었습니다. 15분 후 다시 시도해 주세요.' }, 429);
 
   // 이미 관리자가 있으면 종료
   const exists = await env.ANALYTICS.get('meta:admin_created');

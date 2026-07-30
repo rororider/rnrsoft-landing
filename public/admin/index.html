@@ -100,7 +100,7 @@ function rows(el, items, labelFn){
 async function load(){
   var days = document.getElementById('range').value;
   var r = await fetch('/api/admin/stats?days=' + days, { credentials:'same-origin' });
-  if(r.status === 401){ location.href='/admin'; return; }
+  if(r.status === 401){ location.href='/admin/'; return; }
   var d = await r.json();
   if(!d.ok){ document.getElementById('foot').textContent = '오류: ' + (d.error||''); return; }
 

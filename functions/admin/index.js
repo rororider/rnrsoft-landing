@@ -60,11 +60,19 @@ document.getElementById('f').addEventListener('submit', async function(ev){
   try{
     var r=await fetch('/api/admin/${mode === 'setup' ? 'setup' : 'login'}',{
       method:'POST', headers:{'Content-Type':'application/json'},
-      body:JSON.stringify(payload), credentials:'same-origin'});
-    var j=await r.json();
-    if(j.ok){ location.href='/admin'; return; }
-    e.textContent=j.error||'실패했습니다.'; e.style.display='block';
-  }catch(err){ e.textContent='네트워크 오류'; e.style.display='block'; }
+      body:JSON.stringify(payload), credentials:'same-origin', cache:'no-store'});
+    var txt=await r.text(), j=null;
+    try{ j=JSON.parse(txt); }catch(_){}
+    if(j && j.ok){ location.href='/admin/'; return; }
+    if(j && j.error){ e.textContent=j.error; }
+    else { e.textContent='서버 응답 오류 (HTTP '+r.status+') '+txt.slice(0,80); }
+    e.style.display='block';
+  }catch(err){
+    // fetch 자체가 실패한 경우 — 원인을 알 수 있게 상세 표기
+    e.textContent='요청 실패: '+(err && err.message ? err.message : String(err))
+      + ' — 인터넷 연결 또는 광고차단/보안 확장을 확인해 주세요.';
+    e.style.display='block';
+  }
   b.disabled=false;
 });
 </script>
@@ -73,6 +81,9 @@ document.getElementById('f').addEventListener('submit', async function(ev){
 export async function onRequestGet({ request, env, next }) {
   const headers = { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store',
                     'X-Robots-Tag': 'noindex, nofollow' };
+
+  // 연결 진단 페이지는 로그인 없이 접근 (민감 정보 없음, 문제 해결용)
+  if (new URL(request.url).pathname.replace(/\/$/, '') === '/admin/check') return next();
 
   if (!env.ANALYTICS) return new Response('KV 미바인딩', { status: 500, headers });
 
