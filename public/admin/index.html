@@ -136,8 +136,8 @@
         <span style="font-size:14px;">🏢</span> 가상 사옥 관제
       </a>
       <!-- P-001 프로젝트 매니저. Note9 폰서버(PM2 pm-v2 + cloudflared-p001)가 상시 서빙.
-           매직링크 기반의 별도 인증이라 SSO가 아닌 새 탭 링크. -->
-      <a class="btn" href="https://pm.rnrsoft.vip/home.html" target="_blank" rel="noopener"
+           pm-sso가 관리자 세션을 확인해 1회용 티켓(60초)을 발급하고 302 — 매직링크 재입력 없음. -->
+      <a class="btn" href="/api/admin/pm-sso"
          style="text-decoration:none; display:inline-flex; align-items:center; gap:7px;">
         <span style="font-size:14px;">📋</span> 프로젝트 관리
       </a>
