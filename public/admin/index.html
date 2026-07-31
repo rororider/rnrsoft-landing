@@ -41,12 +41,13 @@
           border:1px solid rgba(255,255,255,.14); color:#c6cfdb; font-family:inherit; font-size:13px; cursor:pointer; }
   .muted { color:#7f8b9d; font-size:12.5px; }
 
-  /* 세계지도 */
-  .mapbox { border-radius:14px; overflow:hidden; background:#0e1729; }
-  .mapbox svg { display:block; }
-  .wm-dot { cursor:default; }
-  .wm-dot circle { transition:opacity .2s; }
-  .wm-dot:hover circle { opacity:1 !important; }
+  /* 회전 지구본 — 캔버스가 부모 높이를 채우므로 컨테이너에 높이를 준다 */
+  .mapbox { position:relative; border-radius:14px; overflow:hidden; height:430px;
+            background:radial-gradient(circle at 50% 42%, #101d36 0%, #0a1122 70%); }
+  .globe-tip { position:absolute; transform:translate(-50%,-100%); pointer-events:none;
+               white-space:nowrap; padding:5px 10px; border-radius:8px; font-size:12.5px;
+               background:rgba(10,17,34,.92); border:1px solid rgba(120,180,255,.35);
+               color:#e6f0fb; box-shadow:0 6px 18px -8px rgba(0,0,0,.8); }
   .lg { display:inline-flex; align-items:center; gap:6px; font-size:12px; }
   .lg i { width:9px; height:9px; border-radius:50%;
           background:radial-gradient(circle,#7fc4ff,#1f56dc); display:inline-block; }
@@ -101,6 +102,9 @@
     #pwBox input { font-size:16px !important; }  /* iOS 자동 확대 방지 */
 
     .grid2 { grid-template-columns:1fr !important; gap:12px !important; }
+
+    /* 지구본: 폭이 좁으므로 높이도 줄여 정사각에 가깝게 (구가 작아 보이지 않게) */
+    .mapbox { height:300px; }
   }
 
   /* 아주 좁은 화면 (≤380px) */
@@ -201,9 +205,11 @@
   <p class="muted" style="margin-top:22px;" id="foot"></p>
 </div>
 
-<!-- 세계지도 렌더러. 아래 인라인 스크립트가 renderWorldMap을 쓰므로 반드시 먼저 로드한다.
-     (defer/async를 붙이면 실행 순서가 뒤집혀 지도가 조용히 비어버린다) -->
-<script src="/admin/worldmap.js?v=85b4a204"></script>
+<!-- 회전 지구본. 아래 인라인 스크립트가 mountGlobe를 쓰므로 반드시 먼저 로드한다.
+     (defer/async를 붙이면 실행 순서가 뒤집혀 지도가 조용히 비어버린다)
+     globe-data.js(육지 폴리곤)가 globe.js보다 먼저 와야 한다. -->
+<script src="/admin/globe-data.js?v=ec8010a0"></script>
+<script src="/admin/globe.js?v=104001ad"></script>
 <script>
 var PAGE_LABEL = { '/':'홈', '/apps':'앱', '/about':'소개', '/contact':'문의',
                    '/privacy':'개인정보처리방침', '/terms':'이용약관', 'other':'기타' };
@@ -274,10 +280,13 @@ async function load(){
     return p.length > 1 ? p[1] : i.name;
   });
 
-  /* 세계지도 */
+  /* 회전 지구본 */
   var mapEl = document.getElementById('map');
-  if (typeof window.renderWorldMap === 'function') {
-    mapEl.innerHTML = window.renderWorldMap(d.countries || []);
+  if (typeof window.mountGlobe === 'function') {
+    // 기간을 바꾸면 load()가 다시 돌므로 이전 인스턴스를 반드시 정리한다.
+    // 안 하면 requestAnimationFrame 루프가 겹겹이 쌓여 회전이 빨라지고 CPU를 먹는다.
+    if (window.__globe && window.__globe.destroy) window.__globe.destroy();
+    window.__globe = window.mountGlobe(mapEl, d.countries || []);
     var top = (d.countries || []).slice(0, 6);
     document.getElementById('mapLegend').innerHTML = top.length
       ? top.map(function(c){
