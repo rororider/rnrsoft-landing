@@ -203,7 +203,7 @@
 
 <!-- 세계지도 렌더러. 아래 인라인 스크립트가 renderWorldMap을 쓰므로 반드시 먼저 로드한다.
      (defer/async를 붙이면 실행 순서가 뒤집혀 지도가 조용히 비어버린다) -->
-<script src="/admin/worldmap.js?v=732ab6e2"></script>
+<script src="/admin/worldmap.js?v=85b4a204"></script>
 <script>
 var PAGE_LABEL = { '/':'홈', '/apps':'앱', '/about':'소개', '/contact':'문의',
                    '/privacy':'개인정보처리방침', '/terms':'이용약관', 'other':'기타' };
@@ -268,9 +268,10 @@ async function load(){
   rows(document.getElementById('tRef'), d.referrers, function(i){ return i.name === 'direct' ? '직접 방문' : i.name; });
   rows(document.getElementById('tGeo'), d.countries, function(i){ return countryName(i.name); });
   rows(document.getElementById('tCity'), d.cities || [], function(i){
-    // "KR|Seoul" -> "Seoul · 대한민국"
+    // "KR|Seoul" -> "Seoul" (국가명까지 붙이면 좁은 카드에서 두 줄로 접힌다.
+    //  국가는 바로 옆 '국가' 카드에 있으므로 여기선 도시만 보여준다)
     var p = String(i.name).split('|');
-    return p.length > 1 ? p[1] + ' · ' + countryName(p[0]) : i.name;
+    return p.length > 1 ? p[1] : i.name;
   });
 
   /* 세계지도 */
