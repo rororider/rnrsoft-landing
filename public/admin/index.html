@@ -29,7 +29,10 @@
   td { padding:10px 0; border-bottom:1px solid rgba(255,255,255,.05); color:#c6cfdb; }
   td.n { text-align:right; font-variant-numeric:tabular-nums; color:#eef2f8; font-weight:500; }
   .bar { height:6px; border-radius:3px; background:linear-gradient(96deg,#1f56dc,#38c8f0); min-width:3px; }
-  .grid2 { display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:16px; }
+  /* 카드 4개(페이지별·유입·국가·도시).
+     minmax를 320px로 두면 1180px 컨테이너에서 3열까지만 들어가 도시 카드 하나가
+     아랫줄에 홀로 떨어진다. 260px로 낮춰 4열이 한 줄에 들어가게 한다. */
+  .grid2 { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
   .chart { display:flex; align-items:flex-end; gap:3px; height:150px; margin-top:6px; }
   .chart div { flex:1; background:linear-gradient(180deg,#38c8f0,#1f56dc); border-radius:3px 3px 0 0;
                min-height:2px; transition:opacity .15s; }
@@ -67,8 +70,10 @@
     .hd-logo span.sb { font-size:8.5px !important; }
     /* 컨트롤을 가로 한 줄에 균등 배치 — 손가락으로 누를 수 있는 크기 확보 */
     /* 사옥 버튼은 전폭, 아래 3개(기간·비밀번호·로그아웃)는 한 줄에 균등 */
-    .hd-ctl { display:grid !important; grid-template-columns:repeat(3, 1fr); gap:7px; }
-    .hd-ctl a.btn { grid-column:1 / -1; justify-content:center; }
+    /* 6열 기준 — 링크 2개(사옥·프로젝트)가 위에서 반반, 아래 3개는 균등 */
+    .hd-ctl { display:grid !important; grid-template-columns:repeat(6, 1fr); gap:7px; }
+    .hd-ctl a.btn { grid-column:span 3; justify-content:center; }
+    .hd-ctl select, .hd-ctl button.btn { grid-column:span 2; }
     .hd-ctl select, .hd-ctl .btn { min-height:42px; font-size:12.5px; padding:9px 8px;
                                    text-align:center; justify-content:center; }
     .hd-ctl select { text-align-last:center; }
@@ -103,6 +108,8 @@
     .kpi-val { font-size:19px !important; }
     /* 3열은 글자가 잘리므로 2열 + 로그아웃 전폭 */
     .hd-ctl { grid-template-columns:1fr 1fr; }
+    .hd-ctl a.btn { grid-column:1 / -1; }
+    .hd-ctl select, .hd-ctl button.btn { grid-column:auto; }
     .hd-ctl #logout { grid-column:1 / -1; }
     td.bar-cell { display:none; }   /* 막대 숨기고 이름+숫자만 */
   }
@@ -123,6 +130,12 @@
       <a class="btn" href="/api/admin/hq-sso"
          style="text-decoration:none; display:inline-flex; align-items:center; gap:7px; background:linear-gradient(96deg,#1f56dc,#2b86f5); color:#fff; border:none;">
         <span style="font-size:14px;">🏢</span> 가상 사옥 관제
+      </a>
+      <!-- P-001 프로젝트 매니저. Note9 폰서버(PM2 pm-v2 + cloudflared-p001)가 상시 서빙.
+           매직링크 기반의 별도 인증이라 SSO가 아닌 새 탭 링크. -->
+      <a class="btn" href="https://pm.rnrsoft.vip/home.html" target="_blank" rel="noopener"
+         style="text-decoration:none; display:inline-flex; align-items:center; gap:7px;">
+        <span style="font-size:14px;">📋</span> 프로젝트 관리
       </a>
       <select id="range">
         <option value="7">최근 7일</option>
@@ -190,7 +203,7 @@
 
 <!-- 세계지도 렌더러. 아래 인라인 스크립트가 renderWorldMap을 쓰므로 반드시 먼저 로드한다.
      (defer/async를 붙이면 실행 순서가 뒤집혀 지도가 조용히 비어버린다) -->
-<script src="/admin/worldmap.js?v=5ef8e1f8"></script>
+<script src="/admin/worldmap.js?v=732ab6e2"></script>
 <script>
 var PAGE_LABEL = { '/':'홈', '/apps':'앱', '/about':'소개', '/contact':'문의',
                    '/privacy':'개인정보처리방침', '/terms':'이용약관', 'other':'기타' };
