@@ -54,7 +54,17 @@ export async function onRequestGet({ request, env }) {
       .sort((a, b) => b.count - a.count).slice(0, 12);
   };
 
-  const [referrers, countries] = await Promise.all([agg('ref'), agg('geo')]);
+  const [referrers, countries, cities] = await Promise.all([agg('ref'), agg('geo'), agg('city')]);
+
+  // 최근 방문 목록 (마스킹 IP) — 기본 30건, 최대 100건
+  // 주의: 위 43행에 집계 대상 날짜용 `recent`가 이미 있으므로 이름을 달리한다
+  const rq = parseInt(url.searchParams.get('recent') || '30', 10);
+  const limit = Number.isFinite(rq) ? Math.min(Math.max(rq, 1), 100) : 30;
+  let recentVisits = [];
+  try {
+    const raw = await kv.get('rec:list');
+    if (raw) recentVisits = JSON.parse(raw).slice(0, limit);
+  } catch (_) {}
 
   return json({
     ok: true,
@@ -64,6 +74,8 @@ export async function onRequestGet({ request, env }) {
     pages: pages.filter(p => p.pv > 0).sort((a, b) => b.pv - a.pv),
     referrers,
     countries,
+    cities,     // "KR|Seoul" 형태
+    recent: recentVisits,   // { t, ip(마스킹), p, c, city, ref, new }
     generatedAt: new Date(Date.now() + KST_OFFSET).toISOString().replace('T', ' ').slice(0, 19) + ' KST',
   });
 }
